@@ -66,27 +66,37 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO addProduct(Long categoryId, Product product) {
-        // Retrieve the category, throwing exception if not found
+        // Lấy danh mục, nếu không tìm thấy thì ném lỗi
         Category category = categoryRepo.findById(categoryId)
-                .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId",
-                        categoryId));
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
 
-        // Check for product duplication in the category
+        // Kiểm tra xem sản phẩm đã tồn tại trong danh mục chưa
         if (isProductExistsInCategory(category, product)) {
             throw new APIException("Product already exists in this category!");
         }
+        // Kiểm tra ID lớn nhất hiện tại
+        Long maxId = productRepo.findMaxProductId();
+        if (maxId == null) {
+            maxId = 0L;
+        }
 
-        // Set default image and category to the product
+        // Reset AUTO_INCREMENT
+        productRepo.resetAutoIncrement(maxId + 1);
+        // Thiết lập ảnh mặc định và gán danh mục
         product.setImage("default.png");
         product.setCategory(category);
 
-        // Calculate special price
-        double priceSale = product.getPrice() - ((product.getDiscount() * 0.01) *
-                product.getPrice());
+        // Tính giá khuyến mãi
+        double priceSale = product.getPrice() - ((product.getDiscount() * 0.01) * product.getPrice());
         product.setPriceSale(priceSale);
 
-        // Save the product and map it to a DTO
+        // Lưu sản phẩm vào database
         Product savedProduct = productRepo.save(product);
+
+        // Cập nhật số lượng sản phẩm trong danh mục (+1)
+        category.setCategoryQty(category.getCategoryQty() + 1);
+        categoryRepo.save(category); // Lưu lại danh mục đã cập nhật
+
         return modelMapper.map(savedProduct, ProductDTO.class);
     }
 
@@ -234,10 +244,18 @@ public class ProductServiceImpl implements ProductService {
     public String deleteProduct(Long productId) {
         Product product = productRepo.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
-        // List<Cart> carts = cartRepo.findCartsByProductID(productId);
-        // carts.forEach(cart -> cartService.deleteProductFromCart(cart.getCartId(),
-        // productId));
+
+        Category category = product.getCategory();
+
+        // Xóa sản phẩm khỏi database
         productRepo.delete(product);
+
+        // Giảm số lượng sản phẩm trong danh mục (-1) nếu số lượng lớn hơn 0
+        if (category.getCategoryQty() > 0) {
+            category.setCategoryQty(category.getCategoryQty() - 1);
+            categoryRepo.save(category); // Lưu lại danh mục đã cập nhật
+        }
+
         return "Product with productId: " + productId + " deleted successfully !!!";
     }
 

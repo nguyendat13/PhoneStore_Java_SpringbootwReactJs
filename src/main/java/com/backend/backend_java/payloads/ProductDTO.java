@@ -18,7 +18,5 @@ public class ProductDTO {
     private double discount;
     private String color;
     private Long categoryId;
-    private String categoryName;
     private Long brandId;
-    private String brandName;
 }

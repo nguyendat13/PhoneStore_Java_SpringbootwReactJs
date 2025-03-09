@@ -19,6 +19,6 @@ public interface CategoryRepo extends JpaRepository<Category, Long> {
     // Reset AUTO_INCREMENT theo ID lớn nhất hiện có
     @Modifying
     @Transactional
-    @Query(value = "ALTER TABLE categories AUTO_INCREMENT = ?1", nativeQuery = true)
+    @Query(value = "ALTER TABLE categories AUTO_INCREMENT =1", nativeQuery = true)
     void resetAutoIncrement(Long nextId);
 }

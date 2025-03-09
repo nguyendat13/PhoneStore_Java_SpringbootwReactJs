@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.backend.backend_java.config.AppConstants;
-import com.backend.backend_java.entity.Category;
 import com.backend.backend_java.payloads.CategoryDTO;
 import com.backend.backend_java.payloads.CategoryResponse;
 import com.backend.backend_java.service.CategoryService;
@@ -24,8 +23,8 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping("/admin/categories")
-    public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody Category category) {
-        CategoryDTO savedCategoryDTO = categoryService.createCategory(category);
+    public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
+        CategoryDTO savedCategoryDTO = categoryService.createCategory(categoryDTO);
         return new ResponseEntity<>(savedCategoryDTO, HttpStatus.CREATED);
     }
 
@@ -55,9 +54,10 @@ public class CategoryController {
     }
 
     @PutMapping("/admin/categories/{categoryId}")
-    public ResponseEntity<CategoryDTO> updateCategory(@RequestBody Category category, @PathVariable Long categoryId) {
-        CategoryDTO categoryDTO = categoryService.updateCategory(categoryId, category);
-        return new ResponseEntity<>(categoryDTO, HttpStatus.OK);
+    public ResponseEntity<CategoryDTO> updateCategory(@RequestBody CategoryDTO categoryDTO,
+            @PathVariable Long categoryId) {
+        CategoryDTO updatedCategoryDTO = categoryService.updateCategory(categoryId, categoryDTO);
+        return new ResponseEntity<>(updatedCategoryDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/admin/categories/{categoryId}")

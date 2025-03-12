@@ -28,6 +28,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PostMapping("/public/users/register")
+    public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDTO) {
+        UserDTO newUser = userService.registerUser(userDTO);
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    }
+
     @GetMapping("/public/users/email/{email}")
     public ResponseEntity<UserDTO> getUserEmail(@PathVariable String email) {
         UserDTO user = userService.getUserByEmail(email);
@@ -40,22 +46,20 @@ public class UserController {
             @RequestParam(name = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
             @RequestParam(name = "sortBy", defaultValue = AppConstants.SORT_USERS_BY, required = false) String sortBy,
             @RequestParam(name = "sortOrder", defaultValue = AppConstants.SORT_DIR, required = false) String sortOrder) {
-
-        // Đảm bảo pageNumber không nhỏ hơn 0
-        pageNumber = pageNumber > 0 ? pageNumber - 1 : 0;
-
-        // Kiểm tra các tham số sắp xếp
+    
+        // Validate and adjust parameters
+        pageNumber = Math.max(0, pageNumber - 1); // Ensure pageNumber starts from 0
+        pageSize = Math.max(1, pageSize); // Ensure minimum page size is 1
+        
+        // Normalize sort parameters
         String sortField = "id".equals(sortBy) ? "userId" : sortBy;
-        String order = "asc".equalsIgnoreCase(sortOrder) ? "asc" : "desc"; // mặc định sắp xếp theo descending nếu không
-                                                                           // xác định
-
-        // Lấy dữ liệu từ service
+        String order = "asc".equalsIgnoreCase(sortOrder) ? "asc" : "desc";
+    
+        // Get data from service
         UserReponse userResponse = userService.getAllUsers(pageNumber, pageSize, sortField, order);
-
-        // Trả về dữ liệu với mã trạng thái OK
-        return new ResponseEntity<>(userResponse, HttpStatus.OK);
+    
+        return ResponseEntity.ok(userResponse);
     }
-
     @GetMapping("/public/users/{userId}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long userId) {
         UserDTO user = userService.getUserById(userId);

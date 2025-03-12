@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class RoleDTO {
     private Long roleId;
     private String roleName;
-    private Boolean roleStatus;
+    private Integer roleStatus; // 0 = Super Admin, 1 = Admin, 2 = User
 }

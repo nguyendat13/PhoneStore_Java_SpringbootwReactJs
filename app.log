@@ -1,900 +1,125 @@
-2025-03-10T00:00:43.136+07:00  INFO 13392 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-03-10T00:00:43.145+07:00  INFO 13392 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-03-10T00:00:43.147+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
-2025-03-10T00:00:43.148+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
-2025-03-10T00:00:43.149+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
-2025-03-10T00:00:43.151+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@680fea19
-2025-03-10T00:00:43.153+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@32d01416
-2025-03-10T00:00:43.153+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-03-10T00:00:43.153+07:00  INFO 13392 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
-2025-03-10T00:00:43.154+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing PUT /api/admin/categories/1
-2025-03-10T00:00:43.155+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:00:43.156+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured PUT /api/admin/categories/1
-2025-03-10T00:00:43.156+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : PUT "/api/admin/categories/1", parameters={}
-2025-03-10T00:00:43.157+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.CategoryController#updateCategory(CategoryDTO, Long)
-2025-03-10T00:00:43.170+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [CategoryDTO(categoryId=null, categoryName=Iphone, categoryQty=0)]
-2025-03-10T00:00:43.191+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:00:43.197+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [CategoryDTO(categoryId=1, categoryName=Iphone, categoryQty=0)]
-2025-03-10T00:00:43.199+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:00:53.030+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing PUT /api/admin/categories/1
-2025-03-10T00:00:53.031+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:00:53.031+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured PUT /api/admin/categories/1
-2025-03-10T00:00:53.032+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : PUT "/api/admin/categories/1", parameters={}
-2025-03-10T00:00:53.033+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.CategoryController#updateCategory(CategoryDTO, Long)
-2025-03-10T00:00:53.039+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [CategoryDTO(categoryId=null, categoryName=Iphone, categoryQty=100)]
-2025-03-10T00:00:53.066+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:00:53.077+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [CategoryDTO(categoryId=1, categoryName=Iphone, categoryQty=100)]
-2025-03-10T00:00:53.078+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:00:59.265+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing PUT /api/admin/categories/1
-2025-03-10T00:00:59.266+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:00:59.267+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured PUT /api/admin/categories/1
-2025-03-10T00:00:59.267+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : PUT "/api/admin/categories/1", parameters={}
-2025-03-10T00:00:59.268+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.CategoryController#updateCategory(CategoryDTO, Long)
-2025-03-10T00:00:59.268+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [CategoryDTO(categoryId=null, categoryName=Iphone, categoryQty=0)]
-2025-03-10T00:00:59.286+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:00:59.286+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [CategoryDTO(categoryId=1, categoryName=Iphone, categoryQty=0)]
-2025-03-10T00:00:59.287+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:01:04.333+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing POST /api/admin/categories/1/product
-2025-03-10T00:01:04.334+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:01:04.334+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured POST /api/admin/categories/1/product
-2025-03-10T00:01:04.334+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/api/admin/categories/1/product", parameters={}
-2025-03-10T00:01:04.335+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.ProductController#addProduct(Product, Long)
-2025-03-10T00:01:04.350+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [Product(productId=null, productName=iPhone 15 Pro Max, image=iphone-15-pro-max.png, description=?i?n (truncated)...]
-2025-03-10T00:01:04.383+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:01:04.384+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [ProductDTO(productId=4, productName=iPhone 15 Pro Max, image=default.png, description=?i?n tho?i iPh (truncated)...]
-2025-03-10T00:01:04.385+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
-2025-03-10T00:01:44.908+07:00  INFO 13392 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2025-03-10T00:01:44.911+07:00  INFO 13392 --- [Thread-31] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-03-10T00:01:44.973+07:00  INFO 13392 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-03-10T00:01:44.976+07:00  INFO 13392 --- [Thread-31] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:01:44.977+07:00  INFO 13392 --- [Thread-31] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown initiated...
-2025-03-10T00:01:44.988+07:00  INFO 13392 --- [Thread-31] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown completed.
-2025-03-10T00:01:45.104+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 13392 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
-2025-03-10T00:01:45.105+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
-2025-03-10T00:01:45.105+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-03-10T00:01:45.282+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-10T00:01:45.305+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 4 JPA repository interfaces.
-2025-03-10T00:01:45.389+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-03-10T00:01:45.389+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-03-10T00:01:45.390+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
-2025-03-10T00:01:45.406+07:00  INFO 13392 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-03-10T00:01:45.406+07:00  INFO 13392 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 300 ms
-2025-03-10T00:01:45.457+07:00  INFO 13392 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-10T00:01:45.460+07:00  INFO 13392 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-10T00:01:45.467+07:00  INFO 13392 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-10T00:01:45.468+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Starting...
-2025-03-10T00:01:45.482+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-9 - Added connection com.mysql.cj.jdbc.ConnectionImpl@248eca00
-2025-03-10T00:01:45.483+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Start completed.
-2025-03-10T00:01:45.487+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-03-10T00:01:45.487+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-03-10T00:01:45.488+07:00  INFO 13392 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-9)']
+2025-03-12T12:41:32.523+07:00  INFO 7052 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 7052 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
+2025-03-12T12:41:32.558+07:00 DEBUG 7052 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-03-12T12:41:32.567+07:00  INFO 7052 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
+2025-03-12T12:41:32.891+07:00  INFO 7052 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-03-12T12:41:32.892+07:00  INFO 7052 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-03-12T12:41:36.241+07:00  INFO 7052 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-12T12:41:36.462+07:00  INFO 7052 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 183 ms. Found 4 JPA repository interfaces.
+2025-03-12T12:41:38.637+07:00  INFO 7052 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-12T12:41:38.673+07:00  INFO 7052 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-12T12:41:38.675+07:00  INFO 7052 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-12T12:41:38.816+07:00  INFO 7052 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-03-12T12:41:38.819+07:00  INFO 7052 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5925 ms
+2025-03-12T12:41:39.584+07:00  INFO 7052 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-12T12:41:39.733+07:00  INFO 7052 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-12T12:41:39.818+07:00  INFO 7052 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-03-12T12:41:40.371+07:00  INFO 7052 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-12T12:41:40.441+07:00  INFO 7052 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-03-12T12:41:41.014+07:00  INFO 7052 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3d05d260
+2025-03-12T12:41:41.018+07:00  INFO 7052 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-03-12T12:41:41.116+07:00  WARN 7052 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-12T12:41:41.120+07:00  WARN 7052 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-03-12T12:41:41.202+07:00  INFO 7052 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 8.0
 	Autocommit mode: undefined/unknown
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-03-10T00:01:45.877+07:00  INFO 13392 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-10T00:01:46.038+07:00  INFO 13392 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:01:46.194+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.security.JWTFilter      : Filter 'JWTFilter' configured for use
-2025-03-10T00:01:46.306+07:00  INFO 13392 --- [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
-2025-03-10T00:01:46.306+07:00  WARN 13392 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-03-10T00:01:46.358+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 25 mappings in 'requestMappingHandlerMapping'
-2025-03-10T00:01:46.423+07:00 DEBUG 13392 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui/swagger-ui*/*swagger-initializer.js, /swagger-ui/swagger-ui*/**] in 'resourceHandlerMapping'
-2025-03-10T00:01:46.468+07:00 DEBUG 13392 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-03-10T00:01:46.511+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-03-10T00:01:46.538+07:00 DEBUG 13392 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-03-10T00:01:46.664+07:00  INFO 13392 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-03-10T00:01:46.678+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-03-10T00:01:46.703+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Started BackendJavaApplication in 1.625 seconds (process running for 923.923)
-2025-03-10T00:01:46.756+07:00  INFO 13392 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-03-10T00:01:48.083+07:00  INFO 13392 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2025-03-10T00:01:48.085+07:00  INFO 13392 --- [Thread-35] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-03-10T00:01:48.135+07:00  INFO 13392 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-03-10T00:01:48.137+07:00  INFO 13392 --- [Thread-35] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:01:48.138+07:00  INFO 13392 --- [Thread-35] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Shutdown initiated...
-2025-03-10T00:01:48.146+07:00  INFO 13392 --- [Thread-35] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Shutdown completed.
-2025-03-10T00:01:48.271+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 13392 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
-2025-03-10T00:01:48.271+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
-2025-03-10T00:01:48.272+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-03-10T00:01:48.551+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-10T00:01:48.578+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 4 JPA repository interfaces.
-2025-03-10T00:01:48.696+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-03-10T00:01:48.697+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-03-10T00:01:48.697+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
-2025-03-10T00:01:48.720+07:00  INFO 13392 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-03-10T00:01:48.721+07:00  INFO 13392 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 448 ms
-2025-03-10T00:01:48.787+07:00  INFO 13392 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-10T00:01:48.792+07:00  INFO 13392 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-10T00:01:48.818+07:00  INFO 13392 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-10T00:01:48.821+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Starting...
-2025-03-10T00:01:48.835+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-10 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6596bc0e
-2025-03-10T00:01:48.836+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Start completed.
-2025-03-10T00:01:48.837+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-03-10T00:01:48.838+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-03-10T00:01:48.838+07:00  INFO 13392 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-10)']
+2025-03-12T12:41:43.655+07:00  INFO 7052 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-12T12:41:43.965+07:00  INFO 7052 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-12T12:41:44.507+07:00  INFO 7052 --- [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-12T12:41:45.399+07:00 DEBUG 7052 --- [restartedMain] o.s.w.f.ServerHttpObservationFilter      : Filter 'webMvcObservationFilter' configured for use
+2025-03-12T12:41:45.400+07:00 DEBUG 7052 --- [restartedMain] c.b.backend_java.security.JWTFilter      : Filter 'JWTFilter' configured for use
+2025-03-12T12:41:46.124+07:00  INFO 7052 --- [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
+2025-03-12T12:41:46.127+07:00  WARN 7052 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-03-12T12:41:46.592+07:00 DEBUG 7052 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 31 mappings in 'requestMappingHandlerMapping'
+2025-03-12T12:41:46.951+07:00 DEBUG 7052 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui/swagger-ui*/*swagger-initializer.js, /swagger-ui/swagger-ui*/**] in 'resourceHandlerMapping'
+2025-03-12T12:41:47.378+07:00  INFO 7052 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-03-12T12:41:47.561+07:00 DEBUG 7052 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-03-12T12:41:47.796+07:00 DEBUG 7052 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-03-12T12:41:47.884+07:00 DEBUG 7052 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-03-12T12:41:48.517+07:00  INFO 7052 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-03-12T12:41:48.642+07:00  INFO 7052 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-03-12T12:41:48.667+07:00  INFO 7052 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Started BackendJavaApplication in 17.563 seconds (process running for 18.726)
+2025-03-12T12:41:50.388+07:00  INFO 7052 --- [RMI TCP Connection(3)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-12T12:41:50.389+07:00  INFO 7052 --- [RMI TCP Connection(3)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-03-12T12:41:50.390+07:00 DEBUG 7052 --- [RMI TCP Connection(3)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-03-12T12:41:50.390+07:00 DEBUG 7052 --- [RMI TCP Connection(3)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-03-12T12:41:50.391+07:00 DEBUG 7052 --- [RMI TCP Connection(3)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-03-12T12:41:50.393+07:00 DEBUG 7052 --- [RMI TCP Connection(3)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@2b7a522b
+2025-03-12T12:41:50.395+07:00 DEBUG 7052 --- [RMI TCP Connection(3)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@14502b7a
+2025-03-12T12:41:50.396+07:00 DEBUG 7052 --- [RMI TCP Connection(3)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-03-12T12:41:50.397+07:00  INFO 7052 --- [RMI TCP Connection(3)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2025-03-12T19:20:40.396+07:00  INFO 10608 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 10608 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
+2025-03-12T19:20:40.401+07:00 DEBUG 10608 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-03-12T19:20:40.405+07:00  INFO 10608 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
+2025-03-12T19:20:40.663+07:00  INFO 10608 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-03-12T19:20:40.665+07:00  INFO 10608 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-03-12T19:20:43.319+07:00  INFO 10608 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-12T19:20:43.542+07:00  INFO 10608 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 181 ms. Found 4 JPA repository interfaces.
+2025-03-12T19:20:45.746+07:00  INFO 10608 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-12T19:20:45.770+07:00  INFO 10608 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-12T19:20:45.771+07:00  INFO 10608 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-12T19:20:45.902+07:00  INFO 10608 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-03-12T19:20:45.904+07:00  INFO 10608 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5238 ms
+2025-03-12T19:20:46.974+07:00  INFO 10608 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-12T19:20:47.179+07:00  INFO 10608 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-12T19:20:47.287+07:00  INFO 10608 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-03-12T19:20:48.104+07:00  INFO 10608 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-12T19:20:48.212+07:00  INFO 10608 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-03-12T19:20:48.785+07:00  INFO 10608 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@447aa0c3
+2025-03-12T19:20:48.822+07:00  INFO 10608 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-03-12T19:20:49.075+07:00  WARN 10608 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-12T19:20:49.118+07:00  WARN 10608 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-03-12T19:20:49.183+07:00  INFO 10608 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 8.0
 	Autocommit mode: undefined/unknown
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-03-10T00:01:49.243+07:00  INFO 13392 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-10T00:01:49.467+07:00  INFO 13392 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:01:49.585+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.security.JWTFilter      : Filter 'JWTFilter' configured for use
-2025-03-10T00:01:49.911+07:00  INFO 13392 --- [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
-2025-03-10T00:01:49.912+07:00  WARN 13392 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-03-10T00:01:49.958+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 25 mappings in 'requestMappingHandlerMapping'
-2025-03-10T00:01:50.013+07:00 DEBUG 13392 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui/swagger-ui*/*swagger-initializer.js, /swagger-ui/swagger-ui*/**] in 'resourceHandlerMapping'
-2025-03-10T00:01:50.058+07:00 DEBUG 13392 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-03-10T00:01:50.137+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-03-10T00:01:50.147+07:00 DEBUG 13392 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-03-10T00:01:50.197+07:00  INFO 13392 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-03-10T00:01:50.204+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-03-10T00:01:50.207+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Started BackendJavaApplication in 1.966 seconds (process running for 927.427)
-2025-03-10T00:01:50.226+07:00  INFO 13392 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-03-10T00:01:52.618+07:00  INFO 13392 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2025-03-10T00:01:52.621+07:00  INFO 13392 --- [Thread-39] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-03-10T00:01:52.667+07:00  INFO 13392 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-03-10T00:01:52.668+07:00  INFO 13392 --- [Thread-39] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:01:52.669+07:00  INFO 13392 --- [Thread-39] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Shutdown initiated...
-2025-03-10T00:01:52.675+07:00  INFO 13392 --- [Thread-39] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Shutdown completed.
-2025-03-10T00:01:52.798+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 13392 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
-2025-03-10T00:01:52.798+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
-2025-03-10T00:01:52.798+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-03-10T00:01:52.988+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-10T00:01:53.032+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 42 ms. Found 4 JPA repository interfaces.
-2025-03-10T00:01:53.212+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-03-10T00:01:53.214+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-03-10T00:01:53.222+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
-2025-03-10T00:01:53.488+07:00  INFO 13392 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-03-10T00:01:53.488+07:00  INFO 13392 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 688 ms
-2025-03-10T00:01:53.564+07:00  INFO 13392 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-10T00:01:53.570+07:00  INFO 13392 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-10T00:01:53.603+07:00  INFO 13392 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-10T00:01:53.613+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Starting...
-2025-03-10T00:01:53.630+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-11 - Added connection com.mysql.cj.jdbc.ConnectionImpl@503cb03
-2025-03-10T00:01:53.630+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Start completed.
-2025-03-10T00:01:53.631+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-03-10T00:01:53.632+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-03-10T00:01:53.632+07:00  INFO 13392 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-11)']
-	Database driver: undefined/unknown
-	Database version: 8.0
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-03-10T00:01:54.257+07:00  INFO 13392 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-10T00:01:54.375+07:00  INFO 13392 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:01:54.468+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.security.JWTFilter      : Filter 'JWTFilter' configured for use
-2025-03-10T00:01:54.588+07:00  INFO 13392 --- [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
-2025-03-10T00:01:54.590+07:00  WARN 13392 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-03-10T00:01:54.620+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 25 mappings in 'requestMappingHandlerMapping'
-2025-03-10T00:01:54.664+07:00 DEBUG 13392 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui/swagger-ui*/*swagger-initializer.js, /swagger-ui/swagger-ui*/**] in 'resourceHandlerMapping'
-2025-03-10T00:01:54.704+07:00 DEBUG 13392 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-03-10T00:01:54.748+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-03-10T00:01:54.760+07:00 DEBUG 13392 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-03-10T00:01:54.823+07:00  INFO 13392 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-03-10T00:01:54.833+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-03-10T00:01:54.836+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Started BackendJavaApplication in 2.062 seconds (process running for 932.056)
-2025-03-10T00:01:54.856+07:00  INFO 13392 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-03-10T00:01:57.252+07:00  INFO 13392 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2025-03-10T00:01:57.254+07:00  INFO 13392 --- [Thread-43] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-03-10T00:01:57.307+07:00  INFO 13392 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-03-10T00:01:57.308+07:00  INFO 13392 --- [Thread-43] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:01:57.308+07:00  INFO 13392 --- [Thread-43] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Shutdown initiated...
-2025-03-10T00:01:57.314+07:00  INFO 13392 --- [Thread-43] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Shutdown completed.
-2025-03-10T00:01:57.441+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 13392 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
-2025-03-10T00:01:57.441+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
-2025-03-10T00:01:57.442+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-03-10T00:01:57.755+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-10T00:01:57.783+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 4 JPA repository interfaces.
-2025-03-10T00:01:57.863+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-03-10T00:01:57.865+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-03-10T00:01:57.865+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
-2025-03-10T00:01:57.883+07:00  INFO 13392 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-03-10T00:01:57.884+07:00  INFO 13392 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 441 ms
-2025-03-10T00:01:57.966+07:00  INFO 13392 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-10T00:01:57.976+07:00  INFO 13392 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-10T00:01:57.983+07:00  INFO 13392 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-10T00:01:57.985+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Starting...
-2025-03-10T00:01:58.004+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-12 - Added connection com.mysql.cj.jdbc.ConnectionImpl@a58b506
-2025-03-10T00:01:58.005+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Start completed.
-2025-03-10T00:01:58.016+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-03-10T00:01:58.017+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-03-10T00:01:58.017+07:00  INFO 13392 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-12)']
-	Database driver: undefined/unknown
-	Database version: 8.0
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-03-10T00:01:58.559+07:00  INFO 13392 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-10T00:01:58.737+07:00  INFO 13392 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:01:58.941+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.security.JWTFilter      : Filter 'JWTFilter' configured for use
-2025-03-10T00:01:59.193+07:00  INFO 13392 --- [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
-2025-03-10T00:01:59.202+07:00  WARN 13392 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-03-10T00:01:59.267+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 25 mappings in 'requestMappingHandlerMapping'
-2025-03-10T00:01:59.415+07:00 DEBUG 13392 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui/swagger-ui*/*swagger-initializer.js, /swagger-ui/swagger-ui*/**] in 'resourceHandlerMapping'
-2025-03-10T00:01:59.526+07:00 DEBUG 13392 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-03-10T00:01:59.603+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-03-10T00:01:59.624+07:00 DEBUG 13392 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-03-10T00:01:59.725+07:00  INFO 13392 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-03-10T00:01:59.740+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-03-10T00:01:59.745+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Started BackendJavaApplication in 2.327 seconds (process running for 936.964)
-2025-03-10T00:01:59.785+07:00  INFO 13392 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-03-10T00:02:01.555+07:00  INFO 13392 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2025-03-10T00:02:01.557+07:00  INFO 13392 --- [Thread-47] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-03-10T00:02:01.612+07:00  INFO 13392 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-03-10T00:02:01.614+07:00  INFO 13392 --- [Thread-47] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:02:01.615+07:00  INFO 13392 --- [Thread-47] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Shutdown initiated...
-2025-03-10T00:02:01.623+07:00  INFO 13392 --- [Thread-47] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Shutdown completed.
-2025-03-10T00:02:01.751+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 13392 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
-2025-03-10T00:02:01.752+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
-2025-03-10T00:02:01.752+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-03-10T00:02:01.956+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-10T00:02:01.981+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23 ms. Found 4 JPA repository interfaces.
-2025-03-10T00:02:02.054+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-03-10T00:02:02.055+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-03-10T00:02:02.055+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
-2025-03-10T00:02:02.073+07:00  INFO 13392 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-03-10T00:02:02.073+07:00  INFO 13392 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 319 ms
-2025-03-10T00:02:02.108+07:00  INFO 13392 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-10T00:02:02.110+07:00  INFO 13392 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-10T00:02:02.119+07:00  INFO 13392 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-10T00:02:02.120+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Starting...
-2025-03-10T00:02:02.135+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-13 - Added connection com.mysql.cj.jdbc.ConnectionImpl@40337f24
-2025-03-10T00:02:02.135+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Start completed.
-2025-03-10T00:02:02.136+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-03-10T00:02:02.136+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-03-10T00:02:02.137+07:00  INFO 13392 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-13)']
-	Database driver: undefined/unknown
-	Database version: 8.0
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-03-10T00:02:02.367+07:00  INFO 13392 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-10T00:02:02.452+07:00  INFO 13392 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:02:02.568+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.security.JWTFilter      : Filter 'JWTFilter' configured for use
-2025-03-10T00:02:02.701+07:00  INFO 13392 --- [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
-2025-03-10T00:02:02.702+07:00  WARN 13392 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-03-10T00:02:02.728+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 25 mappings in 'requestMappingHandlerMapping'
-2025-03-10T00:02:02.773+07:00 DEBUG 13392 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui/swagger-ui*/*swagger-initializer.js, /swagger-ui/swagger-ui*/**] in 'resourceHandlerMapping'
-2025-03-10T00:02:02.793+07:00 DEBUG 13392 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-03-10T00:02:02.829+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-03-10T00:02:02.840+07:00 DEBUG 13392 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-03-10T00:02:02.891+07:00  INFO 13392 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-03-10T00:02:02.899+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-03-10T00:02:02.904+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Started BackendJavaApplication in 1.189 seconds (process running for 940.124)
-2025-03-10T00:02:02.946+07:00  INFO 13392 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-03-10T00:02:27.778+07:00  INFO 13392 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2025-03-10T00:02:27.797+07:00  INFO 13392 --- [Thread-51] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-03-10T00:02:27.981+07:00  INFO 13392 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-03-10T00:02:28.053+07:00  INFO 13392 --- [Thread-51] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:02:28.075+07:00  INFO 13392 --- [Thread-51] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Shutdown initiated...
-2025-03-10T00:02:28.185+07:00  INFO 13392 --- [Thread-51] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Shutdown completed.
-2025-03-10T00:02:28.631+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 13392 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
-2025-03-10T00:02:28.638+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
-2025-03-10T00:02:28.648+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-03-10T00:02:29.085+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-10T00:02:29.112+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 4 JPA repository interfaces.
-2025-03-10T00:02:29.197+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-03-10T00:02:29.198+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-03-10T00:02:29.198+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
-2025-03-10T00:02:29.215+07:00  INFO 13392 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-03-10T00:02:29.215+07:00  INFO 13392 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 545 ms
-2025-03-10T00:02:29.243+07:00  INFO 13392 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-10T00:02:29.245+07:00  INFO 13392 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-10T00:02:29.250+07:00  INFO 13392 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-10T00:02:29.251+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-14 - Starting...
-2025-03-10T00:02:29.262+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-14 - Added connection com.mysql.cj.jdbc.ConnectionImpl@d7cf183
-2025-03-10T00:02:29.263+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-14 - Start completed.
-2025-03-10T00:02:29.263+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-03-10T00:02:29.264+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-03-10T00:02:29.264+07:00  INFO 13392 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-14)']
-	Database driver: undefined/unknown
-	Database version: 8.0
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-03-10T00:02:29.645+07:00  INFO 13392 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-10T00:02:29.794+07:00  INFO 13392 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:02:29.983+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.security.JWTFilter      : Filter 'JWTFilter' configured for use
-2025-03-10T00:02:30.252+07:00  INFO 13392 --- [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
-2025-03-10T00:02:30.258+07:00  WARN 13392 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-03-10T00:02:30.326+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 25 mappings in 'requestMappingHandlerMapping'
-2025-03-10T00:02:30.403+07:00 DEBUG 13392 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui/swagger-ui*/*swagger-initializer.js, /swagger-ui/swagger-ui*/**] in 'resourceHandlerMapping'
-2025-03-10T00:02:30.429+07:00 DEBUG 13392 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-03-10T00:02:30.458+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-03-10T00:02:30.463+07:00 DEBUG 13392 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-03-10T00:02:30.495+07:00  INFO 13392 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-03-10T00:02:30.508+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-03-10T00:02:30.515+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Started BackendJavaApplication in 1.94 seconds (process running for 967.735)
-2025-03-10T00:02:30.534+07:00  INFO 13392 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-03-10T00:02:31.911+07:00  INFO 13392 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2025-03-10T00:02:31.912+07:00  INFO 13392 --- [Thread-55] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-03-10T00:02:31.950+07:00  INFO 13392 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-03-10T00:02:31.952+07:00  INFO 13392 --- [Thread-55] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:02:31.953+07:00  INFO 13392 --- [Thread-55] com.zaxxer.hikari.HikariDataSource       : HikariPool-14 - Shutdown initiated...
-2025-03-10T00:02:31.959+07:00  INFO 13392 --- [Thread-55] com.zaxxer.hikari.HikariDataSource       : HikariPool-14 - Shutdown completed.
-2025-03-10T00:02:32.061+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 13392 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
-2025-03-10T00:02:32.061+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
-2025-03-10T00:02:32.062+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-03-10T00:02:32.226+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-10T00:02:32.255+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27 ms. Found 4 JPA repository interfaces.
-2025-03-10T00:02:32.391+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-03-10T00:02:32.392+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-03-10T00:02:32.393+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
-2025-03-10T00:02:32.415+07:00  INFO 13392 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-03-10T00:02:32.416+07:00  INFO 13392 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 353 ms
-2025-03-10T00:02:32.456+07:00  INFO 13392 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-10T00:02:32.461+07:00  INFO 13392 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-10T00:02:32.472+07:00  INFO 13392 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-10T00:02:32.475+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-15 - Starting...
-2025-03-10T00:02:32.488+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-15 - Added connection com.mysql.cj.jdbc.ConnectionImpl@593496d2
-2025-03-10T00:02:32.492+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-15 - Start completed.
-2025-03-10T00:02:32.493+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-03-10T00:02:32.494+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-03-10T00:02:32.495+07:00  INFO 13392 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-15)']
-	Database driver: undefined/unknown
-	Database version: 8.0
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-03-10T00:02:32.887+07:00  INFO 13392 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-10T00:02:33.009+07:00  INFO 13392 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:02:33.079+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.security.JWTFilter      : Filter 'JWTFilter' configured for use
-2025-03-10T00:02:33.216+07:00  INFO 13392 --- [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
-2025-03-10T00:02:33.217+07:00  WARN 13392 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-03-10T00:02:33.244+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 25 mappings in 'requestMappingHandlerMapping'
-2025-03-10T00:02:33.290+07:00 DEBUG 13392 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui/swagger-ui*/*swagger-initializer.js, /swagger-ui/swagger-ui*/**] in 'resourceHandlerMapping'
-2025-03-10T00:02:33.313+07:00 DEBUG 13392 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-03-10T00:02:33.345+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-03-10T00:02:33.365+07:00 DEBUG 13392 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-03-10T00:02:33.422+07:00  INFO 13392 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-03-10T00:02:33.431+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-03-10T00:02:33.438+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Started BackendJavaApplication in 1.394 seconds (process running for 970.658)
-2025-03-10T00:02:33.463+07:00  INFO 13392 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-03-10T00:02:39.076+07:00  INFO 13392 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2025-03-10T00:02:39.077+07:00  INFO 13392 --- [Thread-59] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-03-10T00:02:39.128+07:00  INFO 13392 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-03-10T00:02:39.133+07:00  INFO 13392 --- [Thread-59] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:02:39.134+07:00  INFO 13392 --- [Thread-59] com.zaxxer.hikari.HikariDataSource       : HikariPool-15 - Shutdown initiated...
-2025-03-10T00:02:39.137+07:00  INFO 13392 --- [Thread-59] com.zaxxer.hikari.HikariDataSource       : HikariPool-15 - Shutdown completed.
-2025-03-10T00:02:39.270+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 13392 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
-2025-03-10T00:02:39.271+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
-2025-03-10T00:02:39.271+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-03-10T00:02:39.431+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-10T00:02:39.456+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 4 JPA repository interfaces.
-2025-03-10T00:02:39.580+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-03-10T00:02:39.581+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-03-10T00:02:39.582+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
-2025-03-10T00:02:39.608+07:00  INFO 13392 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-03-10T00:02:39.608+07:00  INFO 13392 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 335 ms
-2025-03-10T00:02:39.677+07:00  INFO 13392 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-10T00:02:39.683+07:00  INFO 13392 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-10T00:02:39.704+07:00  INFO 13392 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-10T00:02:39.706+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-16 - Starting...
-2025-03-10T00:02:39.742+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-16 - Added connection com.mysql.cj.jdbc.ConnectionImpl@f2a3aa0
-2025-03-10T00:02:39.743+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-16 - Start completed.
-2025-03-10T00:02:39.752+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-03-10T00:02:39.757+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-03-10T00:02:39.758+07:00  INFO 13392 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-16)']
-	Database driver: undefined/unknown
-	Database version: 8.0
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-03-10T00:02:39.996+07:00  INFO 13392 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-10T00:02:40.221+07:00  INFO 13392 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:02:40.314+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.security.JWTFilter      : Filter 'JWTFilter' configured for use
-2025-03-10T00:02:40.424+07:00  INFO 13392 --- [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
-2025-03-10T00:02:40.425+07:00  WARN 13392 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-03-10T00:02:40.457+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 25 mappings in 'requestMappingHandlerMapping'
-2025-03-10T00:02:40.523+07:00 DEBUG 13392 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui/swagger-ui*/*swagger-initializer.js, /swagger-ui/swagger-ui*/**] in 'resourceHandlerMapping'
-2025-03-10T00:02:40.556+07:00 DEBUG 13392 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-03-10T00:02:40.602+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-03-10T00:02:40.613+07:00 DEBUG 13392 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-03-10T00:02:40.687+07:00  INFO 13392 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-03-10T00:02:40.696+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-03-10T00:02:40.698+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Started BackendJavaApplication in 1.461 seconds (process running for 977.919)
-2025-03-10T00:02:40.717+07:00  INFO 13392 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-03-10T00:02:43.821+07:00  INFO 13392 --- [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-03-10T00:02:43.822+07:00  INFO 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-03-10T00:02:43.822+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
-2025-03-10T00:02:43.822+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
-2025-03-10T00:02:43.822+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
-2025-03-10T00:02:43.823+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@1ce5afd4
-2025-03-10T00:02:43.823+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@2e08622b
-2025-03-10T00:02:43.824+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-03-10T00:02:43.824+07:00  INFO 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2025-03-10T00:02:43.825+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing DELETE /api/admin/products/1
-2025-03-10T00:02:43.826+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:02:43.826+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured DELETE /api/admin/products/1
-2025-03-10T00:02:43.827+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : DELETE "/api/admin/products/1", parameters={}
-2025-03-10T00:02:43.828+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.ProductController#deleteProductByCategory(Long)
-2025-03-10T00:02:43.836+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.backend.backend_java.exceptions.MyGlobalExceptionHandler#myResourceNotFoundException(ResourceNotFoundException)
-2025-03-10T00:02:43.843+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:02:43.847+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [APIReponse(mesage=Product not found with productId: 1, status=false)]
-2025-03-10T00:02:43.850+07:00  WARN 13392 --- [http-nio-8080-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.backend.backend_java.exceptions.ResourceNotFoundException: Product not found with productId: 1]
-2025-03-10T00:02:43.855+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
-2025-03-10T00:02:50.395+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing DELETE /api/admin/products/4
-2025-03-10T00:02:50.396+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:02:50.397+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured DELETE /api/admin/products/4
-2025-03-10T00:02:50.397+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : DELETE "/api/admin/products/4", parameters={}
-2025-03-10T00:02:50.397+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.ProductController#deleteProductByCategory(Long)
-2025-03-10T00:02:50.424+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [text/plain, */*, application/json, application/*+json, application/yaml]
-2025-03-10T00:02:50.425+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing ["Product with productId: 4 deleted successfully !!!"]
-2025-03-10T00:02:50.425+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:02:53.295+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing POST /api/admin/categories/1/product
-2025-03-10T00:02:53.296+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:02:53.296+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured POST /api/admin/categories/1/product
-2025-03-10T00:02:53.297+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/api/admin/categories/1/product", parameters={}
-2025-03-10T00:02:53.297+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.ProductController#addProduct(Product, Long)
-2025-03-10T00:02:53.310+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [Product(productId=null, productName=iPhone 15 Pro Max, image=iphone-15-pro-max.png, description=?i?n (truncated)...]
-2025-03-10T00:02:53.372+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:02:53.373+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [ProductDTO(productId=5, productName=iPhone 15 Pro Max, image=default.png, description=?i?n tho?i iPh (truncated)...]
-2025-03-10T00:02:53.374+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
-2025-03-10T00:03:06.861+07:00 DEBUG 13392 --- [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/public/products
-2025-03-10T00:03:06.861+07:00 DEBUG 13392 --- [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:03:06.862+07:00 DEBUG 13392 --- [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/public/products
-2025-03-10T00:03:06.862+07:00 DEBUG 13392 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/public/products", parameters={}
-2025-03-10T00:03:06.862+07:00 DEBUG 13392 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.ProductController#getAllProducts(Integer, Integer, String, String)
-2025-03-10T00:03:06.880+07:00 DEBUG 13392 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:03:06.881+07:00 DEBUG 13392 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [ProductResponse(content=[ProductDTO(productId=5, productName=iPhone 15 Pro Max, image=default.png, d (truncated)...]
-2025-03-10T00:03:06.882+07:00 DEBUG 13392 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:03:10.584+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/public/categories
-2025-03-10T00:03:10.585+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:03:10.586+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/public/categories
-2025-03-10T00:03:10.586+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/public/categories", parameters={}
-2025-03-10T00:03:10.586+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.CategoryController#getCategories(Integer, Integer, String, String)
-2025-03-10T00:03:10.601+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:03:10.606+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [CategoryResponse(content=[CategoryDTO(categoryId=1, categoryName=Iphone, categoryQty=1), CategoryDTO (truncated)...]
-2025-03-10T00:03:10.608+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:03:23.604+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing DELETE /api/admin/products/5
-2025-03-10T00:03:23.605+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:03:23.605+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured DELETE /api/admin/products/5
-2025-03-10T00:03:23.606+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : DELETE "/api/admin/products/5", parameters={}
-2025-03-10T00:03:23.606+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.ProductController#deleteProductByCategory(Long)
-2025-03-10T00:03:23.638+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [text/plain, */*, application/json, application/*+json, application/yaml]
-2025-03-10T00:03:23.638+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing ["Product with productId: 5 deleted successfully !!!"]
-2025-03-10T00:03:23.641+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:03:26.072+07:00 DEBUG 13392 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/public/categories
-2025-03-10T00:03:26.072+07:00 DEBUG 13392 --- [http-nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:03:26.073+07:00 DEBUG 13392 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/public/categories
-2025-03-10T00:03:26.073+07:00 DEBUG 13392 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/public/categories", parameters={}
-2025-03-10T00:03:26.073+07:00 DEBUG 13392 --- [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.CategoryController#getCategories(Integer, Integer, String, String)
-2025-03-10T00:03:26.088+07:00 DEBUG 13392 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:03:26.088+07:00 DEBUG 13392 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [CategoryResponse(content=[CategoryDTO(categoryId=1, categoryName=Iphone, categoryQty=0), CategoryDTO (truncated)...]
-2025-03-10T00:03:26.091+07:00 DEBUG 13392 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:03:46.095+07:00  INFO 13392 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2025-03-10T00:03:46.104+07:00  INFO 13392 --- [Thread-63] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-03-10T00:03:46.208+07:00  INFO 13392 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-03-10T00:03:46.212+07:00  INFO 13392 --- [Thread-63] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:03:46.216+07:00  INFO 13392 --- [Thread-63] com.zaxxer.hikari.HikariDataSource       : HikariPool-16 - Shutdown initiated...
-2025-03-10T00:03:46.222+07:00  INFO 13392 --- [Thread-63] com.zaxxer.hikari.HikariDataSource       : HikariPool-16 - Shutdown completed.
-2025-03-10T00:03:46.431+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 13392 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
-2025-03-10T00:03:46.445+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
-2025-03-10T00:03:46.458+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-03-10T00:03:46.878+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-10T00:03:46.905+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 4 JPA repository interfaces.
-2025-03-10T00:03:46.994+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-03-10T00:03:46.995+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-03-10T00:03:46.995+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
-2025-03-10T00:03:47.018+07:00  INFO 13392 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-03-10T00:03:47.018+07:00  INFO 13392 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 549 ms
-2025-03-10T00:03:47.058+07:00  INFO 13392 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-10T00:03:47.059+07:00  INFO 13392 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-10T00:03:47.068+07:00  INFO 13392 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-10T00:03:47.070+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-17 - Starting...
-2025-03-10T00:03:47.086+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-17 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3d87b370
-2025-03-10T00:03:47.087+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-17 - Start completed.
-2025-03-10T00:03:47.088+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-03-10T00:03:47.088+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-03-10T00:03:47.089+07:00  INFO 13392 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-17)']
-	Database driver: undefined/unknown
-	Database version: 8.0
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-03-10T00:03:47.814+07:00  INFO 13392 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-10T00:03:48.090+07:00  INFO 13392 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:03:48.178+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.security.JWTFilter      : Filter 'JWTFilter' configured for use
-2025-03-10T00:03:48.675+07:00  INFO 13392 --- [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
-2025-03-10T00:03:48.677+07:00  WARN 13392 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-03-10T00:03:48.717+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 25 mappings in 'requestMappingHandlerMapping'
-2025-03-10T00:03:48.764+07:00 DEBUG 13392 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui/swagger-ui*/*swagger-initializer.js, /swagger-ui/swagger-ui*/**] in 'resourceHandlerMapping'
-2025-03-10T00:03:48.792+07:00 DEBUG 13392 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-03-10T00:03:48.832+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-03-10T00:03:48.841+07:00 DEBUG 13392 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-03-10T00:03:48.894+07:00  INFO 13392 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-03-10T00:03:48.937+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-03-10T00:03:48.952+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Started BackendJavaApplication in 2.576 seconds (process running for 1046.172)
-2025-03-10T00:03:48.978+07:00  INFO 13392 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-03-10T00:03:50.311+07:00  INFO 13392 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2025-03-10T00:03:50.313+07:00  INFO 13392 --- [Thread-67] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-03-10T00:03:50.364+07:00  INFO 13392 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-03-10T00:03:50.366+07:00  INFO 13392 --- [Thread-67] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:03:50.367+07:00  INFO 13392 --- [Thread-67] com.zaxxer.hikari.HikariDataSource       : HikariPool-17 - Shutdown initiated...
-2025-03-10T00:03:50.371+07:00  INFO 13392 --- [Thread-67] com.zaxxer.hikari.HikariDataSource       : HikariPool-17 - Shutdown completed.
-2025-03-10T00:03:50.490+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 13392 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
-2025-03-10T00:03:50.491+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
-2025-03-10T00:03:50.491+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-03-10T00:03:50.644+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-10T00:03:50.663+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17 ms. Found 4 JPA repository interfaces.
-2025-03-10T00:03:50.774+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-03-10T00:03:50.774+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-03-10T00:03:50.775+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
-2025-03-10T00:03:50.798+07:00  INFO 13392 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-03-10T00:03:50.799+07:00  INFO 13392 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 306 ms
-2025-03-10T00:03:50.836+07:00  INFO 13392 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-10T00:03:50.838+07:00  INFO 13392 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-10T00:03:50.848+07:00  INFO 13392 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-10T00:03:50.850+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-18 - Starting...
-2025-03-10T00:03:50.869+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-18 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3f32a6c9
-2025-03-10T00:03:50.870+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-18 - Start completed.
-2025-03-10T00:03:50.871+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-03-10T00:03:50.872+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-03-10T00:03:50.872+07:00  INFO 13392 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-18)']
-	Database driver: undefined/unknown
-	Database version: 8.0
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-03-10T00:03:51.156+07:00  INFO 13392 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-10T00:03:51.262+07:00  INFO 13392 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:03:51.355+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.security.JWTFilter      : Filter 'JWTFilter' configured for use
-2025-03-10T00:03:51.531+07:00  INFO 13392 --- [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
-2025-03-10T00:03:51.532+07:00  WARN 13392 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-03-10T00:03:51.590+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 25 mappings in 'requestMappingHandlerMapping'
-2025-03-10T00:03:51.741+07:00 DEBUG 13392 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui/swagger-ui*/*swagger-initializer.js, /swagger-ui/swagger-ui*/**] in 'resourceHandlerMapping'
-2025-03-10T00:03:51.801+07:00 DEBUG 13392 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-03-10T00:03:51.919+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-03-10T00:03:51.983+07:00 DEBUG 13392 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-03-10T00:03:52.104+07:00  INFO 13392 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-03-10T00:03:52.232+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-03-10T00:03:52.289+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Started BackendJavaApplication in 1.817 seconds (process running for 1049.509)
-2025-03-10T00:03:52.350+07:00  INFO 13392 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-03-10T00:04:10.711+07:00  INFO 13392 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications)
-2025-03-10T00:04:10.717+07:00  INFO 13392 --- [Thread-71] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-03-10T00:04:10.811+07:00  INFO 13392 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-03-10T00:04:10.814+07:00  INFO 13392 --- [Thread-71] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:04:10.815+07:00  INFO 13392 --- [Thread-71] com.zaxxer.hikari.HikariDataSource       : HikariPool-18 - Shutdown initiated...
-2025-03-10T00:04:10.826+07:00  INFO 13392 --- [Thread-71] com.zaxxer.hikari.HikariDataSource       : HikariPool-18 - Shutdown completed.
-2025-03-10T00:04:10.951+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 13392 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
-2025-03-10T00:04:10.952+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
-2025-03-10T00:04:10.952+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-03-10T00:04:11.112+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-10T00:04:11.134+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 4 JPA repository interfaces.
-2025-03-10T00:04:11.230+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-03-10T00:04:11.233+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-03-10T00:04:11.234+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
-2025-03-10T00:04:11.265+07:00  INFO 13392 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-03-10T00:04:11.266+07:00  INFO 13392 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 313 ms
-2025-03-10T00:04:11.308+07:00  INFO 13392 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-10T00:04:11.310+07:00  INFO 13392 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-10T00:04:11.317+07:00  INFO 13392 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-10T00:04:11.318+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-19 - Starting...
-2025-03-10T00:04:11.329+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-19 - Added connection com.mysql.cj.jdbc.ConnectionImpl@771c20ce
-2025-03-10T00:04:11.331+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-19 - Start completed.
-2025-03-10T00:04:11.332+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-03-10T00:04:11.333+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-03-10T00:04:11.333+07:00  INFO 13392 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-19)']
-	Database driver: undefined/unknown
-	Database version: 8.0
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-03-10T00:04:11.604+07:00  INFO 13392 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-10T00:04:11.731+07:00  INFO 13392 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:04:12.034+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.security.JWTFilter      : Filter 'JWTFilter' configured for use
-2025-03-10T00:04:12.375+07:00  INFO 13392 --- [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
-2025-03-10T00:04:12.397+07:00  WARN 13392 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-03-10T00:04:12.547+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 25 mappings in 'requestMappingHandlerMapping'
-2025-03-10T00:04:12.605+07:00 DEBUG 13392 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui/swagger-ui*/*swagger-initializer.js, /swagger-ui/swagger-ui*/**] in 'resourceHandlerMapping'
-2025-03-10T00:04:12.637+07:00 DEBUG 13392 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-03-10T00:04:12.683+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-03-10T00:04:12.705+07:00 DEBUG 13392 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-03-10T00:04:12.765+07:00  INFO 13392 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-03-10T00:04:12.782+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-03-10T00:04:12.786+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Started BackendJavaApplication in 1.854 seconds (process running for 1070.006)
-2025-03-10T00:04:12.971+07:00  INFO 13392 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-03-10T00:04:16.228+07:00  INFO 13392 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2025-03-10T00:04:16.229+07:00  INFO 13392 --- [Thread-75] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-03-10T00:04:16.292+07:00  INFO 13392 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-03-10T00:04:16.294+07:00  INFO 13392 --- [Thread-75] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:04:16.294+07:00  INFO 13392 --- [Thread-75] com.zaxxer.hikari.HikariDataSource       : HikariPool-19 - Shutdown initiated...
-2025-03-10T00:04:16.298+07:00  INFO 13392 --- [Thread-75] com.zaxxer.hikari.HikariDataSource       : HikariPool-19 - Shutdown completed.
-2025-03-10T00:04:16.462+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 13392 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
-2025-03-10T00:04:16.462+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
-2025-03-10T00:04:16.463+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-03-10T00:04:16.813+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-10T00:04:16.838+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 4 JPA repository interfaces.
-2025-03-10T00:04:16.921+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-03-10T00:04:16.922+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-03-10T00:04:16.922+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
-2025-03-10T00:04:16.946+07:00  INFO 13392 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-03-10T00:04:16.947+07:00  INFO 13392 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 482 ms
-2025-03-10T00:04:16.988+07:00  INFO 13392 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-10T00:04:16.991+07:00  INFO 13392 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-10T00:04:16.998+07:00  INFO 13392 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-10T00:04:17.002+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-20 - Starting...
-2025-03-10T00:04:17.013+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-20 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7fe3a3ed
-2025-03-10T00:04:17.014+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-20 - Start completed.
-2025-03-10T00:04:17.015+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-03-10T00:04:17.015+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-03-10T00:04:17.016+07:00  INFO 13392 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-20)']
-	Database driver: undefined/unknown
-	Database version: 8.0
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-03-10T00:04:17.454+07:00  INFO 13392 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-10T00:04:17.636+07:00  INFO 13392 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:04:17.723+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.security.JWTFilter      : Filter 'JWTFilter' configured for use
-2025-03-10T00:04:17.930+07:00  INFO 13392 --- [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
-2025-03-10T00:04:17.933+07:00  WARN 13392 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-03-10T00:04:17.976+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 25 mappings in 'requestMappingHandlerMapping'
-2025-03-10T00:04:18.038+07:00 DEBUG 13392 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui/swagger-ui*/*swagger-initializer.js, /swagger-ui/swagger-ui*/**] in 'resourceHandlerMapping'
-2025-03-10T00:04:18.080+07:00 DEBUG 13392 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-03-10T00:04:18.118+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-03-10T00:04:18.135+07:00 DEBUG 13392 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-03-10T00:04:18.161+07:00  INFO 13392 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-03-10T00:04:18.171+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-03-10T00:04:18.173+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Started BackendJavaApplication in 1.743 seconds (process running for 1075.393)
-2025-03-10T00:04:18.233+07:00  INFO 13392 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-03-10T00:04:21.964+07:00  INFO 13392 --- [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-03-10T00:04:21.965+07:00  INFO 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-03-10T00:04:21.965+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
-2025-03-10T00:04:21.965+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
-2025-03-10T00:04:21.965+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
-2025-03-10T00:04:21.966+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@20b8c298
-2025-03-10T00:04:21.966+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@3ecdf90b
-2025-03-10T00:04:21.967+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-03-10T00:04:21.967+07:00  INFO 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2025-03-10T00:04:21.967+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing POST /api/admin/categories/1/product
-2025-03-10T00:04:21.968+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:04:21.968+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured POST /api/admin/categories/1/product
-2025-03-10T00:04:21.968+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/admin/categories/1/product", parameters={}
-2025-03-10T00:04:21.968+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.ProductController#addProduct(Product, Long)
-2025-03-10T00:04:21.987+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [Product(productId=null, productName=iPhone 15 Pro Max1, image=iphone-15-pro-max.png, description=?i? (truncated)...]
-2025-03-10T00:04:22.055+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:04:22.056+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [ProductDTO(productId=1, productName=iPhone 15 Pro Max1, image=default.png, description=?i?n tho?i iP (truncated)...]
-2025-03-10T00:04:22.057+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
-2025-03-10T00:04:27.367+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing DELETE /api/admin/products/1
-2025-03-10T00:04:27.368+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:04:27.368+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured DELETE /api/admin/products/1
-2025-03-10T00:04:27.368+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : DELETE "/api/admin/products/1", parameters={}
-2025-03-10T00:04:27.368+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.ProductController#deleteProductByCategory(Long)
-2025-03-10T00:04:27.402+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [text/plain, */*, application/json, application/*+json, application/yaml]
-2025-03-10T00:04:27.402+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing ["Product with productId: 1 deleted successfully !!!"]
-2025-03-10T00:04:27.403+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:04:31.108+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/public/products
-2025-03-10T00:04:31.108+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:04:31.108+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/public/products
-2025-03-10T00:04:31.108+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/public/products", parameters={}
-2025-03-10T00:04:31.109+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.ProductController#getAllProducts(Integer, Integer, String, String)
-2025-03-10T00:04:31.123+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:04:31.127+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [ProductResponse(content=[], pageNumber=0, pageSize=10, totalElements=0, totalPages=0, lastPage=true)]
-2025-03-10T00:04:31.128+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:04:35.411+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing POST /api/admin/categories/1/product
-2025-03-10T00:04:35.411+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:04:35.412+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured POST /api/admin/categories/1/product
-2025-03-10T00:04:35.412+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/api/admin/categories/1/product", parameters={}
-2025-03-10T00:04:35.412+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.ProductController#addProduct(Product, Long)
-2025-03-10T00:04:35.413+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [Product(productId=null, productName=iPhone 15 Pro Max, image=iphone-15-pro-max.png, description=?i?n (truncated)...]
-2025-03-10T00:04:35.447+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:04:35.447+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [ProductDTO(productId=1, productName=iPhone 15 Pro Max, image=default.png, description=?i?n tho?i iPh (truncated)...]
-2025-03-10T00:04:35.452+07:00 DEBUG 13392 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
-2025-03-10T00:04:38.835+07:00 DEBUG 13392 --- [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/public/products
-2025-03-10T00:04:38.836+07:00 DEBUG 13392 --- [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:04:38.836+07:00 DEBUG 13392 --- [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/public/products
-2025-03-10T00:04:38.836+07:00 DEBUG 13392 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/public/products", parameters={}
-2025-03-10T00:04:38.837+07:00 DEBUG 13392 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.ProductController#getAllProducts(Integer, Integer, String, String)
-2025-03-10T00:04:38.847+07:00 DEBUG 13392 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:04:38.849+07:00 DEBUG 13392 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [ProductResponse(content=[ProductDTO(productId=1, productName=iPhone 15 Pro Max, image=default.png, d (truncated)...]
-2025-03-10T00:04:38.851+07:00 DEBUG 13392 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:04:41.255+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/public/categories
-2025-03-10T00:04:41.256+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:04:41.256+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/public/categories
-2025-03-10T00:04:41.257+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/public/categories", parameters={}
-2025-03-10T00:04:41.257+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.CategoryController#getCategories(Integer, Integer, String, String)
-2025-03-10T00:04:41.271+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:04:41.272+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [CategoryResponse(content=[CategoryDTO(categoryId=1, categoryName=Iphone, categoryQty=1), CategoryDTO (truncated)...]
-2025-03-10T00:04:41.274+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:07:17.908+07:00 DEBUG 13392 --- [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing PUT /api/admin/products/1
-2025-03-10T00:07:17.931+07:00 DEBUG 13392 --- [http-nio-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:07:17.935+07:00 DEBUG 13392 --- [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured PUT /api/admin/products/1
-2025-03-10T00:07:17.937+07:00 DEBUG 13392 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : PUT "/api/admin/products/1", parameters={}
-2025-03-10T00:07:17.943+07:00 DEBUG 13392 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.ProductController#updateProduct(Product, Long)
-2025-03-10T00:07:17.980+07:00 DEBUG 13392 --- [http-nio-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [Product(productId=null, productName=iPhone 15 Pro Max222211, image=iphone-15-pro-max.png, descriptio (truncated)...]
-2025-03-10T00:07:18.098+07:00 DEBUG 13392 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:07:18.100+07:00 DEBUG 13392 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [ProductDTO(productId=1, productName=iPhone 15 Pro Max222211, image=default.png, description=?i?n tho (truncated)...]
-2025-03-10T00:07:18.104+07:00 DEBUG 13392 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:07:20.996+07:00 DEBUG 13392 --- [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/public/products
-2025-03-10T00:07:20.997+07:00 DEBUG 13392 --- [http-nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:07:20.997+07:00 DEBUG 13392 --- [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/public/products
-2025-03-10T00:07:20.997+07:00 DEBUG 13392 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/public/products", parameters={}
-2025-03-10T00:07:20.998+07:00 DEBUG 13392 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.ProductController#getAllProducts(Integer, Integer, String, String)
-2025-03-10T00:07:21.015+07:00 DEBUG 13392 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:07:21.016+07:00 DEBUG 13392 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [ProductResponse(content=[ProductDTO(productId=1, productName=iPhone 15 Pro Max222211, image=default. (truncated)...]
-2025-03-10T00:07:21.018+07:00 DEBUG 13392 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:07:24.584+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/public/categories
-2025-03-10T00:07:24.585+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:07:24.586+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/public/categories
-2025-03-10T00:07:24.586+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/public/categories", parameters={}
-2025-03-10T00:07:24.586+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.CategoryController#getCategories(Integer, Integer, String, String)
-2025-03-10T00:07:24.597+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:07:24.598+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [CategoryResponse(content=[CategoryDTO(categoryId=1, categoryName=Iphone, categoryQty=1), CategoryDTO (truncated)...]
-2025-03-10T00:07:24.601+07:00 DEBUG 13392 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:07:36.529+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing PUT /api/admin/products/1
-2025-03-10T00:07:36.530+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:07:36.531+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured PUT /api/admin/products/1
-2025-03-10T00:07:36.531+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : PUT "/api/admin/products/1", parameters={}
-2025-03-10T00:07:36.532+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.ProductController#updateProduct(Product, Long)
-2025-03-10T00:07:36.533+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [Product(productId=null, productName=iPhone 15 Pro Max, image=iphone-15-pro-max.png, description=?i?n (truncated)...]
-2025-03-10T00:07:36.552+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:07:36.552+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [ProductDTO(productId=1, productName=iPhone 15 Pro Max, image=default.png, description=?i?n tho?i iPh (truncated)...]
-2025-03-10T00:07:36.554+07:00 DEBUG 13392 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:07:39.241+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/public/products
-2025-03-10T00:07:39.286+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:07:39.341+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/public/products
-2025-03-10T00:07:39.366+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/public/products", parameters={}
-2025-03-10T00:07:39.374+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.ProductController#getAllProducts(Integer, Integer, String, String)
-2025-03-10T00:07:39.458+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:07:39.492+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [ProductResponse(content=[ProductDTO(productId=1, productName=iPhone 15 Pro Max, image=default.png, d (truncated)...]
-2025-03-10T00:07:39.499+07:00 DEBUG 13392 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-03-10T00:11:53.966+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/public/users
-2025-03-10T00:11:53.967+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-03-10T00:11:53.967+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/public/users
-2025-03-10T00:11:53.967+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/public/users", parameters={}
-2025-03-10T00:11:53.968+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.UserController#getUsers(Integer, Integer, String, String)
-2025-03-10T00:11:54.061+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.backend.backend_java.exceptions.MyGlobalExceptionHandler#myAPIException(APIException)
-2025-03-10T00:11:54.108+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
-2025-03-10T00:11:54.128+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [APIReponse(mesage=No User exists !!!, status=false)]
-2025-03-10T00:11:54.139+07:00  WARN 13392 --- [http-nio-8080-exec-7] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.backend.backend_java.exceptions.APIException: No User exists !!!]
-2025-03-10T00:11:54.143+07:00 DEBUG 13392 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 400 BAD_REQUEST
-2025-03-10T00:13:15.081+07:00  INFO 13392 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2025-03-10T00:13:15.138+07:00  INFO 13392 --- [Thread-79] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-03-10T00:13:15.232+07:00  INFO 13392 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-03-10T00:13:15.257+07:00  INFO 13392 --- [Thread-79] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:13:15.272+07:00  INFO 13392 --- [Thread-79] com.zaxxer.hikari.HikariDataSource       : HikariPool-20 - Shutdown initiated...
-2025-03-10T00:13:15.316+07:00  INFO 13392 --- [Thread-79] com.zaxxer.hikari.HikariDataSource       : HikariPool-20 - Shutdown completed.
-2025-03-10T00:13:15.905+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 13392 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
-2025-03-10T00:13:15.906+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
-2025-03-10T00:13:15.918+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-03-10T00:13:16.349+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-10T00:13:16.461+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 107 ms. Found 4 JPA repository interfaces.
-2025-03-10T00:13:16.588+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-03-10T00:13:16.589+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-03-10T00:13:16.590+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
-2025-03-10T00:13:16.618+07:00  INFO 13392 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-03-10T00:13:16.619+07:00  INFO 13392 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 674 ms
-2025-03-10T00:13:16.665+07:00  INFO 13392 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-10T00:13:16.668+07:00  INFO 13392 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-10T00:13:16.685+07:00  INFO 13392 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-10T00:13:16.694+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-21 - Starting...
-2025-03-10T00:13:16.716+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-21 - Added connection com.mysql.cj.jdbc.ConnectionImpl@28401697
-2025-03-10T00:13:16.717+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-21 - Start completed.
-2025-03-10T00:13:16.718+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-03-10T00:13:16.718+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-03-10T00:13:16.719+07:00  INFO 13392 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-21)']
-	Database driver: undefined/unknown
-	Database version: 8.0
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-03-10T00:13:17.508+07:00  INFO 13392 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-10T00:13:17.665+07:00  INFO 13392 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:13:17.751+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.security.JWTFilter      : Filter 'JWTFilter' configured for use
-2025-03-10T00:13:18.603+07:00  INFO 13392 --- [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
-2025-03-10T00:13:18.610+07:00  WARN 13392 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-03-10T00:13:18.649+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 25 mappings in 'requestMappingHandlerMapping'
-2025-03-10T00:13:18.695+07:00 DEBUG 13392 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui/swagger-ui*/*swagger-initializer.js, /swagger-ui/swagger-ui*/**] in 'resourceHandlerMapping'
-2025-03-10T00:13:18.731+07:00 DEBUG 13392 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-03-10T00:13:18.815+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-03-10T00:13:18.834+07:00 DEBUG 13392 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-03-10T00:13:18.881+07:00  INFO 13392 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-03-10T00:13:18.896+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-03-10T00:13:18.905+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Started BackendJavaApplication in 3.045 seconds (process running for 1616.125)
-2025-03-10T00:13:18.933+07:00  INFO 13392 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-03-10T00:17:46.108+07:00  INFO 13392 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2025-03-10T00:17:46.112+07:00  INFO 13392 --- [Thread-83] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-03-10T00:17:46.166+07:00  INFO 13392 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-03-10T00:17:46.169+07:00  INFO 13392 --- [Thread-83] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:17:46.171+07:00  INFO 13392 --- [Thread-83] com.zaxxer.hikari.HikariDataSource       : HikariPool-21 - Shutdown initiated...
-2025-03-10T00:17:46.183+07:00  INFO 13392 --- [Thread-83] com.zaxxer.hikari.HikariDataSource       : HikariPool-21 - Shutdown completed.
-2025-03-10T00:17:46.383+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 13392 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
-2025-03-10T00:17:46.385+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
-2025-03-10T00:17:46.387+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-03-10T00:17:46.617+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-10T00:17:46.636+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17 ms. Found 4 JPA repository interfaces.
-2025-03-10T00:17:46.738+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-03-10T00:17:46.739+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-03-10T00:17:46.740+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
-2025-03-10T00:17:46.769+07:00  INFO 13392 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-03-10T00:17:46.769+07:00  INFO 13392 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 376 ms
-2025-03-10T00:17:46.818+07:00  INFO 13392 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-10T00:17:46.822+07:00  INFO 13392 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-10T00:17:46.836+07:00  INFO 13392 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-10T00:17:46.841+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-22 - Starting...
-2025-03-10T00:17:46.867+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-22 - Added connection com.mysql.cj.jdbc.ConnectionImpl@18e881f6
-2025-03-10T00:17:46.869+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-22 - Start completed.
-2025-03-10T00:17:46.870+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-03-10T00:17:46.871+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-03-10T00:17:46.871+07:00  INFO 13392 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-22)']
-	Database driver: undefined/unknown
-	Database version: 8.0
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-03-10T00:17:47.464+07:00  INFO 13392 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-03-10T00:17:47.611+07:00  INFO 13392 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:17:47.752+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.security.JWTFilter      : Filter 'JWTFilter' configured for use
-2025-03-10T00:17:47.861+07:00  INFO 13392 --- [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
-2025-03-10T00:17:47.862+07:00  WARN 13392 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-03-10T00:17:47.885+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 25 mappings in 'requestMappingHandlerMapping'
-2025-03-10T00:17:47.927+07:00 DEBUG 13392 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui/swagger-ui*/*swagger-initializer.js, /swagger-ui/swagger-ui*/**] in 'resourceHandlerMapping'
-2025-03-10T00:17:47.959+07:00 DEBUG 13392 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-03-10T00:17:47.998+07:00 DEBUG 13392 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-03-10T00:17:48.010+07:00 DEBUG 13392 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-03-10T00:17:48.118+07:00  INFO 13392 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-03-10T00:17:48.163+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-03-10T00:17:48.169+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Started BackendJavaApplication in 1.834 seconds (process running for 1885.389)
-2025-03-10T00:17:48.222+07:00  INFO 13392 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-03-10T00:17:58.651+07:00  INFO 13392 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2025-03-10T00:17:58.692+07:00  INFO 13392 --- [Thread-87] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-03-10T00:17:58.882+07:00  INFO 13392 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
-2025-03-10T00:17:58.886+07:00  INFO 13392 --- [Thread-87] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-03-10T00:17:58.886+07:00  INFO 13392 --- [Thread-87] com.zaxxer.hikari.HikariDataSource       : HikariPool-22 - Shutdown initiated...
-2025-03-10T00:17:58.894+07:00  INFO 13392 --- [Thread-87] com.zaxxer.hikari.HikariDataSource       : HikariPool-22 - Shutdown completed.
-2025-03-10T00:17:59.058+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Starting BackendJavaApplication using Java 17.0.12 with PID 13392 (D:\projects\web2-java\backend-java\target\classes started by nguyen phat dat in D:\projects\web2-java\backend-java)
-2025-03-10T00:17:59.059+07:00 DEBUG 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Running with Spring Boot v3.4.3, Spring v6.2.3
-2025-03-10T00:17:59.059+07:00  INFO 13392 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-03-10T00:17:59.222+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-03-10T00:17:59.243+07:00  INFO 13392 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 20 ms. Found 4 JPA repository interfaces.
-2025-03-10T00:17:59.332+07:00  INFO 13392 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-03-10T00:17:59.333+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-03-10T00:17:59.333+07:00  INFO 13392 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
-2025-03-10T00:17:59.360+07:00  INFO 13392 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-03-10T00:17:59.375+07:00  INFO 13392 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 314 ms
-2025-03-10T00:17:59.454+07:00  INFO 13392 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-03-10T00:17:59.456+07:00  INFO 13392 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-03-10T00:17:59.467+07:00  INFO 13392 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-03-10T00:17:59.469+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-23 - Starting...
-2025-03-10T00:17:59.490+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-23 - Added connection com.mysql.cj.jdbc.ConnectionImpl@e399a8a
-2025-03-10T00:17:59.493+07:00  INFO 13392 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-23 - Start completed.
-2025-03-10T00:17:59.498+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-03-10T00:17:59.500+07:00  WARN 13392 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-03-10T00:17:59.501+07:00  INFO 13392 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-23)']
-	Database driver: undefined/unknown
-	Database version: 8.0
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
+2025-03-12T19:20:52.736+07:00  INFO 10608 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-12T19:20:53.193+07:00  INFO 10608 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-12T19:20:53.873+07:00  INFO 10608 --- [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-12T19:20:55.242+07:00 DEBUG 10608 --- [restartedMain] o.s.w.f.ServerHttpObservationFilter      : Filter 'webMvcObservationFilter' configured for use
+2025-03-12T19:20:55.245+07:00 DEBUG 10608 --- [restartedMain] c.b.backend_java.security.JWTFilter      : Filter 'JWTFilter' configured for use
+2025-03-12T19:20:56.348+07:00  INFO 10608 --- [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
+2025-03-12T19:20:56.350+07:00  WARN 10608 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-03-12T19:20:56.848+07:00 DEBUG 10608 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 31 mappings in 'requestMappingHandlerMapping'
+2025-03-12T19:20:57.622+07:00 DEBUG 10608 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui/swagger-ui*/*swagger-initializer.js, /swagger-ui/swagger-ui*/**] in 'resourceHandlerMapping'
+2025-03-12T19:20:58.052+07:00  INFO 10608 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-03-12T19:20:58.316+07:00 DEBUG 10608 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-03-12T19:20:58.632+07:00 DEBUG 10608 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-03-12T19:20:58.756+07:00 DEBUG 10608 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-03-12T19:21:00.114+07:00  INFO 10608 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-03-12T19:21:00.310+07:00  INFO 10608 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-03-12T19:21:00.345+07:00  INFO 10608 --- [restartedMain] c.b.backend_java.BackendJavaApplication  : Started BackendJavaApplication in 20.624 seconds (process running for 21.649)
+2025-03-12T19:24:52.039+07:00  INFO 10608 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-12T19:24:52.046+07:00  INFO 10608 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-03-12T19:24:52.048+07:00 DEBUG 10608 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-03-12T19:24:52.049+07:00 DEBUG 10608 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-03-12T19:24:52.133+07:00 DEBUG 10608 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-03-12T19:24:52.155+07:00 DEBUG 10608 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@4fef0c9b
+2025-03-12T19:24:52.169+07:00 DEBUG 10608 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@18514f6f
+2025-03-12T19:24:52.171+07:00 DEBUG 10608 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-03-12T19:24:52.171+07:00  INFO 10608 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 123 ms
+2025-03-12T19:24:52.226+07:00 DEBUG 10608 --- [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/public/users
+2025-03-12T19:24:52.282+07:00 DEBUG 10608 --- [http-nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-03-12T19:24:52.302+07:00 DEBUG 10608 --- [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/public/users
+2025-03-12T19:24:52.351+07:00 DEBUG 10608 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/public/users", parameters={}
+2025-03-12T19:24:52.368+07:00 DEBUG 10608 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.UserController#getUsers(Integer, Integer, String, String)
+2025-03-12T19:24:52.917+07:00 DEBUG 10608 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
+2025-03-12T19:24:52.970+07:00 DEBUG 10608 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [UserReponse(content=[UserDTO(userId=2, fullname=Nguy?n Phát ??t, email=dat48421@gmail.com, username= (truncated)...]
+2025-03-12T19:24:53.061+07:00 DEBUG 10608 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-03-12T19:26:32.986+07:00 DEBUG 10608 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing PUT /api/public/users/2
+2025-03-12T19:26:32.991+07:00 DEBUG 10608 --- [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-03-12T19:26:32.998+07:00 DEBUG 10608 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured PUT /api/public/users/2
+2025-03-12T19:26:32.999+07:00 DEBUG 10608 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : PUT "/api/public/users/2", parameters={}
+2025-03-12T19:26:33.001+07:00 DEBUG 10608 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.backend.backend_java.controller.UserController#updateUser(UserDTO, Long)
+2025-03-12T19:26:33.123+07:00 DEBUG 10608 --- [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [UserDTO(userId=null, fullname=Nguy?n Phát ??t ddax sua, email=dat48421@gmail.com, username=fatdat04, (truncated)...]
+2025-03-12T19:26:33.425+07:00 DEBUG 10608 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json, application/*+json, application/yaml]
+2025-03-12T19:26:33.434+07:00 DEBUG 10608 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [UserDTO(userId=2, fullname=Nguy?n Phát ??t ddax sua, email=dat48421@gmail.com, username=fatdat04, ph (truncated)...]
+2025-03-12T19:26:33.445+07:00 DEBUG 10608 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK

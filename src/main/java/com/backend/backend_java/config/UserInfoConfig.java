@@ -28,7 +28,9 @@ public class UserInfoConfig implements UserDetails {
     public UserInfoConfig(User user) {
         this.email = user.getEmail();
         this.password = user.getPassword();
-        this.authorities = List.of(new SimpleGrantedAuthority(user.getRole().getRoleName()));
+        this.authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
+                .collect(Collectors.toList());
     }
 
     @Override

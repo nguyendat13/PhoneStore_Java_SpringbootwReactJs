@@ -30,6 +30,14 @@ public class JWTFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@SuppressWarnings("null") HttpServletRequest request,
             @SuppressWarnings("null") HttpServletResponse response, @SuppressWarnings("null") FilterChain filterChain)
             throws ServletException, IOException {
+
+        // 🛑 Bỏ qua xác thực JWT cho các route công khai
+        String requestURI = request.getRequestURI();
+        if (requestURI.startsWith("/api/public/")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null && !authHeader.isBlank() && authHeader.startsWith("Bearer ")) {
             String jwt = authHeader.substring(7);

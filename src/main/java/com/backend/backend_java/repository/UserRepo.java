@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.backend.backend_java.entity.User;
+
+import jakarta.transaction.Transactional;
 
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
@@ -17,4 +20,14 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE u.email = :email")
     Optional<User> findByEmail(@Param("email") String email);
+
+    // Lấy ID lớn nhất hiện có
+    @Query(value = "SELECT MAX(user_id) FROM users", nativeQuery = true)
+    Long findMaxUserId();
+
+    // Reset AUTO_INCREMENT theo ID lớn nhất hiện có
+    @Modifying
+    @Transactional
+    @Query(value = "ALTER TABLE users AUTO_INCREMENT =1", nativeQuery = true)
+    void resetAutoIncrement(Long nextId);
 }

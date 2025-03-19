@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CartItemDTO {
     private Long cartItemId;
-    private Double productPrice;
-    private Double discount;
+    private CartDTO cart;
+    private ProductDTO product;
     private Integer quantity;
-    private Long productId; // Chỉ lấy ID của sản phẩm
-    private String productName; // Tên sản phẩm
-    private String productImage; // Ảnh sản phẩm
+    private double discount;
+    private double productPrice;
 }

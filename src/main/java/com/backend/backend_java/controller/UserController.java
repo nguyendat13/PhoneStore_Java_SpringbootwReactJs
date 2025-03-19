@@ -75,6 +75,7 @@ public class UserController {
 
     @DeleteMapping("/admin/users/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
+        
         String status = userService.deleteUser(userId);
         return new ResponseEntity<String>(status, HttpStatus.OK);
     }

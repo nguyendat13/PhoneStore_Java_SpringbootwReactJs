@@ -23,7 +23,7 @@ public class UserDTO {
     private String password;
     private Set<Long> roleIds = new HashSet<>();
     private List<AddressDTO> addresses;
-    private List<CartDTO> carts;
+    private CartDTO cart;  // Single cart for each user
     private List<FavoriteDTO> favorites;
     private List<OrderDTO> orders;
 }

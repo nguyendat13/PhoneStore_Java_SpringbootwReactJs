@@ -11,14 +11,14 @@ import com.backend.backend_java.payloads.ProductDTO;
 import com.backend.backend_java.payloads.ProductResponse;
 
 public interface ProductService {
-        ProductDTO addProduct(Long categoryId, Product product);
+        ProductDTO addProduct(Long brandId, Long categoryId, Product product);
 
         ProductResponse getAllProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 
         ProductResponse searchByCategory(Long categoryId, Integer pageNumber, Integer pageSize, String sortBy,
                         String sortOrder);
 
-        ProductDTO updateProduct(Long productId, Product product);
+        ProductDTO updateProduct(Long categoryId, Long brandId, Long productId, Product product);
 
         ProductDTO updateProductImage(Long productId, MultipartFile image) throws IOException;
 

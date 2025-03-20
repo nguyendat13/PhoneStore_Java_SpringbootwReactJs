@@ -39,9 +39,9 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    // @ManyToOne
-    // @JoinColumn(name = "brand_id")
-    // private Brand brand;
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;

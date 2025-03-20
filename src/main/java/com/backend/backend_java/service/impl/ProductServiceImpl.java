@@ -24,12 +24,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 // import com.backend.backend_java.entity.Cart;
 import com.backend.backend_java.entity.Category;
+import com.backend.backend_java.entity.Brand;
 import com.backend.backend_java.entity.Product;
 import com.backend.backend_java.exceptions.APIException;
 import com.backend.backend_java.exceptions.ResourceNotFoundException;
 // import com.backend.backend_java.payloads.CartDTO;
 import com.backend.backend_java.payloads.ProductDTO;
 import com.backend.backend_java.payloads.ProductResponse;
+import com.backend.backend_java.repository.BrandRepo;
 // import com.backend.backend_java.repository.CartRepo;
 import com.backend.backend_java.repository.CategoryRepo;
 import com.backend.backend_java.repository.ProductRepo;
@@ -49,6 +51,9 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private CategoryRepo categoryRepo;
 
+    @Autowired
+    private BrandRepo brandRepo;
+
     // @Autowired
     // private CartRepo cartRepo;
 
@@ -65,11 +70,14 @@ public class ProductServiceImpl implements ProductService {
     private String path;
 
     @Override
-    public ProductDTO addProduct(Long categoryId, Product product) {
+    public ProductDTO addProduct(Long brandId, Long categoryId, Product product) {
         // Lấy danh mục, nếu không tìm thấy thì ném lỗi
         Category category = categoryRepo.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
-
+        
+        Brand brand = brandRepo.findById(brandId)
+                .orElseThrow(() -> new ResourceNotFoundException("Brand", "brandId", brandId)); // ✅ Đảm bảo brand được tìm thấy
+    
         // Kiểm tra xem sản phẩm đã tồn tại trong danh mục chưa
         if (isProductExistsInCategory(category, product)) {
             throw new APIException("Product already exists in this category!");
@@ -85,6 +93,7 @@ public class ProductServiceImpl implements ProductService {
         // Thiết lập ảnh mặc định và gán danh mục
         product.setImage("default.png");
         product.setCategory(category);
+        product.setBrand(brand); // ✅ Gán thương hiệu cho sản phẩm
 
         // Tính giá khuyến mãi
         double priceSale = product.getPrice() - ((product.getDiscount() * 0.01) * product.getPrice());
@@ -188,45 +197,38 @@ public class ProductServiceImpl implements ProductService {
                 pageProducts.isLast());
     }
 
-    public ProductDTO updateProduct(Long productId, Product product) {
+    public ProductDTO updateProduct(Long productId, Long brandId, Long categoryId, Product product) {
+        // Lấy product từ DB
         Product productFromDB = productRepo.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
-        if (productFromDB == null) {
-            throw new APIException("Product not found with productId: " + productId);
-        }
+    
+        // Lấy brand từ DB
+        Brand brand = brandRepo.findById(brandId)
+                .orElseThrow(() -> new ResourceNotFoundException("Brand", "brandId", brandId));
+    
+        // Lấy category từ DB
+        Category category = categoryRepo.findById(categoryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
+    
         // Giữ lại ảnh cũ nếu không có ảnh mới
-        // if (product.getImage() != null) {
-        // productFromDB.setImage(product.getImage());
-        // }
-
         product.setImage(productFromDB.getImage());
+    
+        // Cập nhật ID, brand, category
         product.setProductId(productId);
-        product.setCategory(productFromDB.getCategory());
-
+        product.setBrand(brand);
+        product.setCategory(category);
+    
+        // Tính lại giá giảm
         double priceSale = product.getPrice() - ((product.getDiscount() * 0.01) * product.getPrice());
         product.setPriceSale(priceSale);
-
-        Product saveProduct = productRepo.save(product);
-
-        // List<Cart> carts = cartRepo.findCartsByProductID(productId);
-
-        // List<CartDTO> cartDTOs = carts.stream().map(cart -> {
-        // CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
-
-        // List<ProductDTO> products = cart.getCartItems().stream()
-        // .map(p -> modelMapper.map(p.getProduct(), ProductDTO.class))
-        // .collect(Collectors.toList());
-
-        // cartDTO.setProducts(products);
-
-        // return cartDTO;
-
-        // }).collect(Collectors.toList());
-        // cartDTOs.forEach(cart -> cartService.updateProductInCarts(cart.getCartId(),
-        // productId));
-        return modelMapper.map(saveProduct, ProductDTO.class);
+    
+        // Lưu vào DB
+        Product savedProduct = productRepo.save(product);
+    
+        // Trả về DTO
+        return modelMapper.map(savedProduct, ProductDTO.class);
     }
-
+    
     @Override
     public ProductDTO updateProductImage(Long productId, MultipartFile image) throws IOException {
         Product productFromDB = productRepo.findById(productId)

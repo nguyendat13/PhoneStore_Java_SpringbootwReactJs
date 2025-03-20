@@ -134,13 +134,13 @@
         @PutMapping("/admin/categories/{categoryId}/product/{productId}/brands/{brandId}")
         public ResponseEntity<ProductDTO> updateProduct(
                 @PathVariable Long categoryId,
-                @PathVariable Long brandId,
                 @PathVariable Long productId,
+                @PathVariable Long brandId,
                 @RequestBody Product product) {
-        
-            ProductDTO updatedProduct = productService.updateProduct(categoryId, brandId, productId, product);
-            return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+            ProductDTO updatedProduct = productService.updateProduct(productId, brandId, categoryId, product);
+            return ResponseEntity.ok(updatedProduct);
         }
+        
         
 
         @PutMapping("/admin/products/{productId}/image")
@@ -154,6 +154,12 @@
         public ResponseEntity<String> deleteProductByCategory(@PathVariable Long productId) {
             String status = productService.deleteProduct(productId);
             return new ResponseEntity<>(status, HttpStatus.OK);
+        }
+
+      @GetMapping("/public/products/{productId}/related")
+        public ResponseEntity<List<ProductDTO>> getRelatedProducts(@PathVariable Long productId) {
+            List<ProductDTO> relatedProducts = productService.getRelatedProducts(productId);
+            return ResponseEntity.ok(relatedProducts);
         }
 
     }

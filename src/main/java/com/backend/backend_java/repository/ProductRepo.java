@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,4 +33,16 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     @Transactional
     @Query(value = "ALTER TABLE products AUTO_INCREMENT =1", nativeQuery = true)
     void resetAutoIncrement(Long nextId);
+
+    @Query("SELECT p FROM Product p WHERE (p.category.categoryId = :categoryId OR p.brand.brandId = :brandId) AND p.productId <> :productId AND p.productName <> :productName")
+List<Product> findRelatedProducts(
+    @Param("categoryId") Long categoryId,
+    @Param("brandId") Long brandId,
+    @Param("productId") Long productId,
+    @Param("productName") String productName
+);
+
+    @Query("SELECT p FROM Product p WHERE p.category.categoryId = :categoryId AND p.productId <> :productId")
+    List<Product> findProductsByCategory(@Param("categoryId") Long categoryId, @Param("productId") Long productId);
+    
 }

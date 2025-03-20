@@ -212,21 +212,24 @@ public class ProductServiceImpl implements ProductService {
     
         // Giữ lại ảnh cũ nếu không có ảnh mới
         product.setImage(productFromDB.getImage());
-    
-        // Cập nhật ID, brand, category
-        product.setProductId(productId);
-        product.setBrand(brand);
-        product.setCategory(category);
-    
-        // Tính lại giá giảm
-        double priceSale = product.getPrice() - ((product.getDiscount() * 0.01) * product.getPrice());
-        product.setPriceSale(priceSale);
-    
-        // Lưu vào DB
-        Product savedProduct = productRepo.save(product);
-    
-        // Trả về DTO
-        return modelMapper.map(savedProduct, ProductDTO.class);
+      // Cập nhật thông tin
+      productFromDB.setProductName(product.getProductName());
+      productFromDB.setDescription(product.getDescription());
+      productFromDB.setQuantity(product.getQuantity());
+      productFromDB.setPrice(product.getPrice());
+      productFromDB.setDiscount(product.getDiscount());
+      productFromDB.setColor(product.getColor());
+      productFromDB.setCategory(category);
+      productFromDB.setBrand(brand);
+  
+      // Tính lại giá giảm
+      double priceSale = product.getPrice() - ((product.getDiscount() * 0.01) * product.getPrice());
+      productFromDB.setPriceSale(priceSale);
+  
+      // Lưu vào DB
+      Product updatedProduct = productRepo.save(productFromDB);
+  
+      return modelMapper.map(updatedProduct, ProductDTO.class);
     }
     
     @Override
@@ -277,4 +280,25 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
+    public List<ProductDTO> getRelatedProducts(Long productId) {
+        Product product = productRepo.findById(productId)
+                .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
+    
+        List<Product> relatedProducts = productRepo.findRelatedProducts(
+                product.getCategory().getCategoryId(),
+                product.getBrand().getBrandId(),
+                productId,
+                product.getProductName()
+        );
+    
+        if (relatedProducts.isEmpty()) {
+            throw new APIException("Không có sản phẩm cùng danh mục hoặc thương hiệu!");
+        }
+    
+        return relatedProducts.stream()
+                .map(p -> modelMapper.map(p, ProductDTO.class))
+                .collect(Collectors.toList());
+    }
+    
 }

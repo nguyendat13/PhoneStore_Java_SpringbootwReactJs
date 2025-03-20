@@ -3,6 +3,7 @@ package com.backend.backend_java.service;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,4 +33,5 @@ public interface ProductService {
 
         ProductDTO getProductById(Long productId);
 
+        List<ProductDTO> getRelatedProducts(Long productId);
 }

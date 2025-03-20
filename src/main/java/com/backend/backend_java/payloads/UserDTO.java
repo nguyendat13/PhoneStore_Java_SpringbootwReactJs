@@ -26,4 +26,5 @@ public class UserDTO {
     private CartDTO cart;  // Single cart for each user
     private List<FavoriteDTO> favorites;
     private List<OrderDTO> orders;
+    
 }

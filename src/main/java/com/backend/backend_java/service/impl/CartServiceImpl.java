@@ -10,6 +10,7 @@ import com.backend.backend_java.entity.Product;
 import com.backend.backend_java.exceptions.APIException;
 import com.backend.backend_java.exceptions.ResourceNotFoundException;
 import com.backend.backend_java.payloads.CartDTO;
+import com.backend.backend_java.payloads.CartItemDTO;
 import com.backend.backend_java.payloads.ProductDTO;
 import com.backend.backend_java.repository.CartItemRepo;
 import com.backend.backend_java.repository.CartRepo;
@@ -36,17 +37,12 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private ModelMapper modelMapper;
 
-    private List<ProductDTO> convertToProductDTOList(Cart cart) {
+    private List<CartItemDTO> convertToCartItemDTOList(Cart cart) {
         return cart.getCartItems().stream()
-                .map(cartItem -> {
-                    ProductDTO productDTO = modelMapper.map(cartItem.getProduct(), ProductDTO.class);
-                    // Format numbers to avoid scientific notation
-                    productDTO.setPrice(formatNumber(cartItem.getProduct().getPrice()));
-                    productDTO.setPriceSale(formatNumber(cartItem.getProduct().getPriceSale()));
-                    return productDTO;
-                })
+                .map(cartItem -> modelMapper.map(cartItem, CartItemDTO.class))
                 .collect(Collectors.toList());
     }
+    
 
     private Double formatNumber(Double number) {
         if (number == null) return null;
@@ -97,7 +93,7 @@ public class CartServiceImpl implements CartService {
 
         // Map and return updated cart
         CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
-        cartDTO.setProducts(convertToProductDTOList(cart));
+        cartDTO.setCartItems(convertToCartItemDTOList(cart));
         cartDTO.setEmail(cart.getUser().getEmail());
 
         return cartDTO;
@@ -115,7 +111,7 @@ public class CartServiceImpl implements CartService {
                     CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
                     cartDTO.setEmail(cart.getUser().getEmail()); // Gán email từ User
 
-                    cartDTO.setProducts(convertToProductDTOList(cart));
+                    cartDTO.setCartItems(convertToCartItemDTOList(cart));
                     return cartDTO;
                 })
                 .collect(Collectors.toList());
@@ -129,7 +125,7 @@ public class CartServiceImpl implements CartService {
         }
 
         CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
-        cartDTO.setProducts(convertToProductDTOList(cart));
+        cartDTO.setCartItems(convertToCartItemDTOList(cart));
         cartDTO.setEmail(cart.getUser().getEmail());
         return cartDTO;
     }
@@ -186,7 +182,7 @@ public class CartServiceImpl implements CartService {
         cartItemRepo.save(cartItem);
 
         CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
-        cartDTO.setProducts(convertToProductDTOList(cart));
+        cartDTO.setCartItems(convertToCartItemDTOList(cart));
         cartDTO.setEmail(cart.getUser().getEmail());
         cartDTO.setTotalPrice(formatNumber(cart.getTotalPrice())); // Format total price
 

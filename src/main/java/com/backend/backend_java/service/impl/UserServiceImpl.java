@@ -20,7 +20,9 @@ import org.springframework.stereotype.Service;
 import com.backend.backend_java.config.AppConstants;
 import com.backend.backend_java.entity.Address;
 import com.backend.backend_java.entity.Cart;
+import com.backend.backend_java.entity.CartItem;
 import com.backend.backend_java.entity.Favorite;
+import com.backend.backend_java.entity.Product;
 import com.backend.backend_java.entity.Role;
 import com.backend.backend_java.entity.User;
 import com.backend.backend_java.exceptions.APIException;
@@ -36,6 +38,7 @@ import com.backend.backend_java.payloads.UserReponse;
 import com.backend.backend_java.repository.AddressRepo;
 import com.backend.backend_java.repository.CartItemRepo;
 import com.backend.backend_java.repository.CartRepo;
+import com.backend.backend_java.repository.ProductRepo;
 import com.backend.backend_java.repository.RoleRepo;
 import com.backend.backend_java.repository.UserRepo;
 import com.backend.backend_java.service.UserService;
@@ -54,6 +57,8 @@ import jakarta.transaction.Transactional;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
+    private ProductRepo productRepo;
     @Autowired
     private UserRepo userRepo;
     @Autowired
@@ -138,6 +143,23 @@ public class UserServiceImpl implements UserService {
             cart.setEmail(userDTO.getEmail()); // Gán email vào cart khi tạo mới
             cart = cartRepo.save(cart); // Lưu lại trước khi gán vào user
             user.setCart(cart);
+
+
+            // // Thêm CartItem mặc định (nếu cần)
+            // List<Product> defaultProducts = productRepo.findDefaultProducts(); // Lấy danh sách sản phẩm mặc định
+            // List<CartItem> cartItems = new ArrayList<>();
+
+            // for (Product product : defaultProducts) {
+            //     CartItem cartItem = new CartItem();
+            //     cartItem.setCart(cart);
+            //     cartItem.setProduct(product);
+            //     cartItem.setQuantity(1); // Mặc định 1 sản phẩm
+            //     cartItem.setDiscount(0.0);
+            //     cartItem.setProductPrice(product.getPrice());
+            //     cartItems.add(cartItem);
+            // }
+            // // Lưu danh sách CartItem vào database
+            // cartItemRepo.saveAll(cartItems);
 
 
             // Save user (this will also save the cart due to cascade)

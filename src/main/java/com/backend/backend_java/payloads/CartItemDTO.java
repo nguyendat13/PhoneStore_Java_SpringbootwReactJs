@@ -9,9 +9,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CartItemDTO {
     private Long cartItemId;
-    private CartDTO cart;
-    private ProductDTO product;
+    private Long cartId; // Thay vì CartDTO để tránh vòng lặp
+    private Long productId; // Nếu chỉ cần ID, tránh serialize quá nhiều dữ liệu
     private Integer quantity;
     private double discount;
     private double productPrice;
+
+    public double getFinalPrice() {
+        return productPrice - (productPrice * discount / 100);
+    }
 }

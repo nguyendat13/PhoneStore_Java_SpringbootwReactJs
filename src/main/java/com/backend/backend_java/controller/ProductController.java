@@ -144,12 +144,16 @@
         
 
         @PutMapping("/admin/products/{productId}/image")
-        public ResponseEntity<ProductDTO> updateProductImage(@PathVariable Long productId,
+        public ResponseEntity<ProductDTO> updateProductImage(
+                @PathVariable Long productId,
                 @RequestParam("image") MultipartFile image) throws IOException {
+                    if (image == null || image.isEmpty()) {
+                        throw new APIException("File image is missing!");
+                    }
             ProductDTO updatedProduct = productService.updateProductImage(productId, image);
             return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
         }
-
+        
         @DeleteMapping("/admin/product/{productId}")
         public ResponseEntity<String> deleteProductByCategory(@PathVariable Long productId) {
             String status = productService.deleteProduct(productId);

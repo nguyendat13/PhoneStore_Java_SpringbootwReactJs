@@ -72,22 +72,6 @@ public class UserController {
         return new ResponseEntity<UserDTO>(user, HttpStatus.FOUND);
     }
 
-    @GetMapping("/public/user/me")
-    public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
-        if (userDetails == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("Không thể xác thực người dùng. Hãy kiểm tra lại token.");
-        }
-    
-        User user = userService.getUserByEmail(userDetails.getUsername());
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy người dùng.");
-        }
-    
-        return ResponseEntity.ok(user);
-    }
-    
-
     @PutMapping("/public/users/{userId}")
     public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO, @PathVariable Long userId) {
         UserDTO updatedUser = userService.updateUser(userId, userDTO);

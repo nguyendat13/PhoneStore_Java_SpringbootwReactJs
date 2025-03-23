@@ -74,10 +74,11 @@ public class ProductServiceImpl implements ProductService {
         // Lấy danh mục, nếu không tìm thấy thì ném lỗi
         Category category = categoryRepo.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
-        
+
         Brand brand = brandRepo.findById(brandId)
-                .orElseThrow(() -> new ResourceNotFoundException("Brand", "brandId", brandId)); // ✅ Đảm bảo brand được tìm thấy
-    
+                .orElseThrow(() -> new ResourceNotFoundException("Brand", "brandId", brandId)); // ✅ Đảm bảo brand được
+                                                                                                // tìm thấy
+
         // Kiểm tra xem sản phẩm đã tồn tại trong danh mục chưa
         if (isProductExistsInCategory(category, product)) {
             throw new APIException("Product already exists in this category!");
@@ -168,6 +169,38 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public ProductResponse searchByBrand(Long brandId, Integer pageNumber, Integer pageSize, String sortBy,
+            String sortOrder) {
+        Brand brand = brandRepo.findById(brandId)
+                .orElseThrow(() -> new ResourceNotFoundException("Brand", "brandId", brandId));
+
+        Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+        Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
+
+        Page<Product> pageProducts = productRepo.findByBrandBrandId(brandId, pageDetails);
+        List<Product> products = pageProducts.getContent();
+
+        if (products.isEmpty()) {
+            throw new APIException(brand.getBrandName() + " brand doesn't contain any products !!!");
+        }
+
+        List<ProductDTO> productDTOs = products.stream()
+                .map(p -> modelMapper.map(p, ProductDTO.class))
+                .collect(Collectors.toList());
+
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setContent(productDTOs);
+        productResponse.setPageNumber(pageProducts.getNumber());
+        productResponse.setPageSize(pageProducts.getSize());
+        productResponse.setTotalElements(pageProducts.getTotalElements());
+        productResponse.setTotalPages(pageProducts.getTotalPages());
+        productResponse.setLastPage(pageProducts.isLast());
+
+        return productResponse;
+    }
+
+    @Override
     public ProductResponse searchProductByKeyword(String keyword, Long categoryId, Integer pageNumber, Integer pageSize,
             String sortBy, String sortOrder) {
 
@@ -201,37 +234,37 @@ public class ProductServiceImpl implements ProductService {
         // Lấy product từ DB
         Product productFromDB = productRepo.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
-    
+
         // Lấy brand từ DB
         Brand brand = brandRepo.findById(brandId)
                 .orElseThrow(() -> new ResourceNotFoundException("Brand", "brandId", brandId));
-    
+
         // Lấy category từ DB
         Category category = categoryRepo.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
-    
+
         // Giữ lại ảnh cũ nếu không có ảnh mới
         product.setImage(productFromDB.getImage());
-      // Cập nhật thông tin
-      productFromDB.setProductName(product.getProductName());
-      productFromDB.setDescription(product.getDescription());
-      productFromDB.setQuantity(product.getQuantity());
-      productFromDB.setPrice(product.getPrice());
-      productFromDB.setDiscount(product.getDiscount());
-      productFromDB.setColor(product.getColor());
-      productFromDB.setCategory(category);
-      productFromDB.setBrand(brand);
-  
-      // Tính lại giá giảm
-      double priceSale = product.getPrice() - ((product.getDiscount() * 0.01) * product.getPrice());
-      productFromDB.setPriceSale(priceSale);
-  
-      // Lưu vào DB
-      Product updatedProduct = productRepo.save(productFromDB);
-  
-      return modelMapper.map(updatedProduct, ProductDTO.class);
+        // Cập nhật thông tin
+        productFromDB.setProductName(product.getProductName());
+        productFromDB.setDescription(product.getDescription());
+        productFromDB.setQuantity(product.getQuantity());
+        productFromDB.setPrice(product.getPrice());
+        productFromDB.setDiscount(product.getDiscount());
+        productFromDB.setColor(product.getColor());
+        productFromDB.setCategory(category);
+        productFromDB.setBrand(brand);
+
+        // Tính lại giá giảm
+        double priceSale = product.getPrice() - ((product.getDiscount() * 0.01) * product.getPrice());
+        productFromDB.setPriceSale(priceSale);
+
+        // Lưu vào DB
+        Product updatedProduct = productRepo.save(productFromDB);
+
+        return modelMapper.map(updatedProduct, ProductDTO.class);
     }
-    
+
     @Override
     public ProductDTO updateProductImage(Long productId, MultipartFile image) throws IOException {
         Product productFromDB = productRepo.findById(productId)
@@ -284,21 +317,20 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDTO> getRelatedProducts(Long productId) {
         Product product = productRepo.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
-    
+
         List<Product> relatedProducts = productRepo.findRelatedProducts(
                 product.getCategory().getCategoryId(),
                 product.getBrand().getBrandId(),
                 productId,
-                product.getProductName()
-        );
-    
+                product.getProductName());
+
         if (relatedProducts.isEmpty()) {
             throw new APIException("Không có sản phẩm cùng danh mục hoặc thương hiệu!");
         }
-    
+
         return relatedProducts.stream()
                 .map(p -> modelMapper.map(p, ProductDTO.class))
                 .collect(Collectors.toList());
     }
-    
+
 }

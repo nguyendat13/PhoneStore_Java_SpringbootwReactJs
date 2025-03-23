@@ -21,7 +21,10 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     Page<Product> findByCategoryCategoryId(Long categoryId, Pageable pageable);
 
-    // @Query("SELECT p FROM Product p WHERE p.isDefault = true") // Thay đổi theo logic của bạn
+    Page<Product> findByBrandBrandId(Long brandId, Pageable pageable);
+
+    // @Query("SELECT p FROM Product p WHERE p.isDefault = true") // Thay đổi theo
+    // logic của bạn
     // List<Product> findDefaultProducts();
 
     // Lấy ID lớn nhất hiện có
@@ -35,14 +38,13 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     void resetAutoIncrement(Long nextId);
 
     @Query("SELECT p FROM Product p WHERE (p.category.categoryId = :categoryId OR p.brand.brandId = :brandId) AND p.productId <> :productId AND p.productName <> :productName")
-List<Product> findRelatedProducts(
-    @Param("categoryId") Long categoryId,
-    @Param("brandId") Long brandId,
-    @Param("productId") Long productId,
-    @Param("productName") String productName
-);
+    List<Product> findRelatedProducts(
+            @Param("categoryId") Long categoryId,
+            @Param("brandId") Long brandId,
+            @Param("productId") Long productId,
+            @Param("productName") String productName);
 
     @Query("SELECT p FROM Product p WHERE p.category.categoryId = :categoryId AND p.productId <> :productId")
     List<Product> findProductsByCategory(@Param("categoryId") Long categoryId, @Param("productId") Long productId);
-    
+
 }

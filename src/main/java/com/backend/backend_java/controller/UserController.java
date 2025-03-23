@@ -1,5 +1,7 @@
 package com.backend.backend_java.controller;
 
+import java.nio.file.attribute.UserPrincipal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ import com.backend.backend_java.payloads.UserDTO;
 import com.backend.backend_java.payloads.UserReponse;
 import com.backend.backend_java.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @RestController
 @RequestMapping("/api")
@@ -46,26 +50,43 @@ public class UserController {
             @RequestParam(name = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
             @RequestParam(name = "sortBy", defaultValue = AppConstants.SORT_USERS_BY, required = false) String sortBy,
             @RequestParam(name = "sortOrder", defaultValue = AppConstants.SORT_DIR, required = false) String sortOrder) {
-    
+
         // Validate and adjust parameters
         pageNumber = Math.max(0, pageNumber - 1); // Ensure pageNumber starts from 0
         pageSize = Math.max(1, pageSize); // Ensure minimum page size is 1
-        
+
         // Normalize sort parameters
         String sortField = "id".equals(sortBy) ? "userId" : sortBy;
         String order = "asc".equalsIgnoreCase(sortOrder) ? "asc" : "desc";
-    
+
         // Get data from service
         UserReponse userResponse = userService.getAllUsers(pageNumber, pageSize, sortField, order);
-    
+
         return ResponseEntity.ok(userResponse);
     }
+
     @GetMapping("/public/users/{userId}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long userId) {
         UserDTO user = userService.getUserById(userId);
 
         return new ResponseEntity<UserDTO>(user, HttpStatus.FOUND);
     }
+
+    @GetMapping("/public/user/me")
+    public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Không thể xác thực người dùng. Hãy kiểm tra lại token.");
+        }
+    
+        User user = userService.getUserByEmail(userDetails.getUsername());
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy người dùng.");
+        }
+    
+        return ResponseEntity.ok(user);
+    }
+    
 
     @PutMapping("/public/users/{userId}")
     public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO, @PathVariable Long userId) {
@@ -75,7 +96,7 @@ public class UserController {
 
     @DeleteMapping("/admin/users/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
-        
+
         String status = userService.deleteUser(userId);
         return new ResponseEntity<String>(status, HttpStatus.OK);
     }

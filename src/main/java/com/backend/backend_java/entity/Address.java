@@ -48,7 +48,7 @@ public class Address {
     private String country;
 
     @NotBlank
-    @Size(min = 6, message = "Pincode name must contain atleast 6 characters")
+    @Pattern(regexp = "\\d{6,}", message = "Pincode must contain at least 6 digits and only numbers")
     private String pincode;
 
     @ManyToMany(mappedBy = "addresses")

@@ -56,8 +56,6 @@ public class User {
     @JsonIgnore
     private Cart cart;
     
-
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Favorite> favorites;
 

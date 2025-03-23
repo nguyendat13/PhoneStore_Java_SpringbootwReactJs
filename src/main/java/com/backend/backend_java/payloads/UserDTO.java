@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Set;
 
 import com.backend.backend_java.entity.Role;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,8 +25,8 @@ public class UserDTO {
     private String password;
     private Set<Long> roleIds = new HashSet<>();
     private List<AddressDTO> addresses;
-    private CartDTO cart;  // Single cart for each user
+    private CartDTO cart; // Single cart for each user
     private List<FavoriteDTO> favorites;
     private List<OrderDTO> orders;
-    
+
 }

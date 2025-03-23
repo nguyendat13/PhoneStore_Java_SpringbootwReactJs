@@ -43,25 +43,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf
-                        .disable())
+                .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers(AppConstants.PUBLIC_URLS).permitAll()
-                        .requestMatchers(AppConstants.USER_URLS).hasAnyAuthority("USER", "ADMIN")
-                        .requestMatchers(AppConstants.ADMIN_URLS).hasAuthority("ADMIN")
-                        .anyRequest()
-                        .authenticated())
+                        .requestMatchers(AppConstants.PUBLIC_URLS).permitAll() // Cho phép API public
+                        .requestMatchers(AppConstants.ADMIN_URLS).hasAuthority("ADMIN") // Chỉ ADMIN truy cập
+                        .anyRequest().authenticated()) // Các API còn lại yêu cầu xác thực
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(
                         (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
                                 "Unauthorized")))
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-        http.authenticationProvider(daoAuthenticationProvider());
-
-        DefaultSecurityFilterChain defaultSecurityFilterChain = http.build();
-        return defaultSecurityFilterChain;
-
+        return http.build();
     }
 
     @Bean
@@ -86,12 +80,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // configuration.setAllowedOrigins(List.of("http://localhost:3000"));
-        configuration.setAllowedOrigins(List.of("http://localhost:5173",
-                "http://localhost:3000"));
-        configuration.setAllowedOriginPatterns(List.of("*"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE",
-                "OPTION"));
+        configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:3000"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
 

@@ -27,37 +27,34 @@ public class JWTFilter extends OncePerRequestFilter {
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Override
-    protected void doFilterInternal(@SuppressWarnings("null") HttpServletRequest request,
-            @SuppressWarnings("null") HttpServletResponse response, @SuppressWarnings("null") FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain)
             throws ServletException, IOException {
 
-        // 🛑 Bỏ qua xác thực JWT cho các route công khai
-        String requestURI = request.getRequestURI();
-        if (requestURI.startsWith("/api/public/")) {
+        String authHeader = request.getHeader("Authorization");
+
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader != null && !authHeader.isBlank() && authHeader.startsWith("Bearer ")) {
-            String jwt = authHeader.substring(7);
-            if (jwt == null || jwt.isBlank()) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invlaid JWT token in Bearer Header");
-            } else {
-                try {
-                    String email = jwtUtil.validateTokenAndRetrieveSubject(jwt);
-                    UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(email);
-                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                            email, userDetails.getPassword(),
-                            userDetails.getAuthorities());
-                    if (SecurityContextHolder.getContext().getAuthentication() == null) {
-                        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-                    }
-                } catch (JWTVerificationException e) {
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid JWT Token");
-                }
-            }
+        String token = authHeader.substring(7);
+
+        try {
+            String email = jwtUtil.validateTokenAndRetrieveSubject(token);
+            UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(email);
+
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                    userDetails, null, userDetails.getAuthorities());
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        } catch (JWTVerificationException e) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired JWT Token");
+            return;
         }
+
         filterChain.doFilter(request, response);
     }
 }

@@ -35,8 +35,7 @@ public class CartController {
     public ResponseEntity<CartDTO> addProductToCart(@PathVariable Long cartId, @PathVariable Long productId,
             @PathVariable Integer quantity) {
         CartDTO cartDTO = cartService.addProductToCart(cartId, productId, quantity);
-
-        return new ResponseEntity<CartDTO>(cartDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(cartDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/admin/carts")

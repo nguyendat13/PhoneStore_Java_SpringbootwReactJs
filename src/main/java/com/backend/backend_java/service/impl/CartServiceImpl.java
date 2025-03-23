@@ -37,19 +37,6 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private ModelMapper modelMapper;
 
-    private List<CartItemDTO> convertToCartItemDTOList(Cart cart) {
-        return cart.getCartItems().stream()
-                .map(cartItem -> modelMapper.map(cartItem, CartItemDTO.class))
-                .collect(Collectors.toList());
-    }
-    
-
-    private Double formatNumber(Double number) {
-        if (number == null) return null;
-        // Round to 2 decimal places and avoid scientific notation
-        return Math.round(number * 100.0) / 100.0;
-    }
-
     @Override
     public CartDTO addProductToCart(Long cartId, Long productId, Integer quantity) {
         Cart cart = cartRepo.findById(cartId)
@@ -58,25 +45,22 @@ public class CartServiceImpl implements CartService {
         Product product = productRepo.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
 
-        // Check if product is already in cart
+        // Kiểm tra số lượng tồn kho
+        if (product.getQuantity() < quantity) {
+            throw new APIException("Chỉ còn " + product.getQuantity() + " sản phẩm trong kho.");
+        }
+
+        // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
         CartItem cartItem = cartItemRepo.findCartItemByProductIdAndCartId(cartId, productId);
 
         if (cartItem != null) {
-            // Update quantity if product exists
             int newQuantity = cartItem.getQuantity() + quantity;
             if (newQuantity > product.getQuantity()) {
-                throw new APIException("Not enough stock, only " + product.getQuantity() + " items available.");
+                throw new APIException("Không đủ hàng, chỉ còn " + product.getQuantity() + " sản phẩm.");
             }
             cartItem.setQuantity(newQuantity);
         } else {
-            // Add new product to cart
-            if (product.getQuantity() == 0) {
-                throw new APIException(product.getProductName() + " is out of stock.");
-            }
-            if (product.getQuantity() < quantity) {
-                throw new APIException("Only " + product.getQuantity() + " items available in stock.");
-            }
-
+            // Nếu chưa có sản phẩm trong giỏ, thêm mới
             cartItem = new CartItem();
             cartItem.setProduct(product);
             cartItem.setCart(cart);
@@ -87,16 +71,36 @@ public class CartServiceImpl implements CartService {
             cartItemRepo.save(cartItem);
         }
 
-        // Update product quantity and cart total
+        // Cập nhật lại số lượng sản phẩm còn lại
         product.setQuantity(product.getQuantity() - quantity);
-        cart.setTotalPrice(cart.getTotalPrice() + (product.getPriceSale() * quantity));
+        productRepo.save(product);
 
-        // Map and return updated cart
+        // Cập nhật tổng giá giỏ hàng
+        double updatedTotalPrice = cart.getTotalPrice() + (product.getPriceSale() * quantity);
+        cart.setTotalPrice(formatNumber(updatedTotalPrice));
+
+        cartRepo.save(cart);
+
+        // Chuyển đổi sang DTO và trả về kết quả
         CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
         cartDTO.setCartItems(convertToCartItemDTOList(cart));
         cartDTO.setEmail(cart.getUser().getEmail());
 
         return cartDTO;
+    }
+
+    // Chuyển đổi danh sách CartItem -> CartItemDTO
+    private List<CartItemDTO> convertToCartItemDTOList(Cart cart) {
+        return cart.getCartItems().stream()
+                .map(cartItem -> modelMapper.map(cartItem, CartItemDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    // Định dạng số để làm tròn về 2 chữ số thập phân
+    private Double formatNumber(Double number) {
+        if (number == null)
+            return null;
+        return Math.round(number * 100.0) / 100.0;
     }
 
     @Override
@@ -216,7 +220,7 @@ public class CartServiceImpl implements CartService {
 
         // First delete all cart items
         cartItemRepo.deleteCartItemsByCartId(cartId);
-        
+
         // Then delete the cart
         cartRepo.delete(cart);
         cartRepo.flush(); // Force the delete operation

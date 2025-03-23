@@ -14,22 +14,25 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 
 @Component
 public class JWTUtil {
+
     @Value("${jwt_secret}")
     private String secret;
 
-    public String generateToken(String email) throws IllegalArgumentException, JWTCreationException {
+    // 🔹 Tạo JWT Token
+    public String generateToken(String email) {
         return JWT.create()
                 .withSubject("User Details")
                 .withClaim("email", email)
                 .withIssuedAt(new Date())
-                .withIssuer("Event Scheduler")
+                .withIssuer("Backend API")
                 .sign(Algorithm.HMAC256(secret));
     }
 
-    public String validateTokenAndRetrieveSubject(String token) throws JWTVerificationException {
+    // 🔹 Xác minh Token & lấy email
+    public String validateTokenAndRetrieveSubject(String token) {
         JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret))
                 .withSubject("User Details")
-                .withIssuer("Event Scheduler").build();
+                .withIssuer("Backend API").build();
         DecodedJWT jwt = verifier.verify(token);
         return jwt.getClaim("email").asString();
     }

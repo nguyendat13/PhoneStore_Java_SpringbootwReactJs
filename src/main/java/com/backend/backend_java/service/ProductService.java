@@ -38,5 +38,6 @@ public interface ProductService {
 
         List<ProductDTO> getRelatedProducts(Long productId);
 
-        
+        List<ProductDTO> getNewProducts();
+
 }

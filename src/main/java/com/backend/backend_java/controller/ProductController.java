@@ -182,4 +182,9 @@ public class ProductController {
         return ResponseEntity.ok(relatedProducts);
     }
 
+    @GetMapping("/public/products/new")
+    public ResponseEntity<List<ProductDTO>> getNewProducts() {
+        List<ProductDTO> newProducts = productService.getNewProducts();
+        return ResponseEntity.ok(newProducts);
+    }
 }

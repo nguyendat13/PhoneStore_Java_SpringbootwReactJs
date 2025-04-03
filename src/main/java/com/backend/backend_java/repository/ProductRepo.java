@@ -1,5 +1,6 @@
 package com.backend.backend_java.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -47,4 +48,6 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.category.categoryId = :categoryId AND p.productId <> :productId")
     List<Product> findProductsByCategory(@Param("categoryId") Long categoryId, @Param("productId") Long productId);
 
+    @Query("SELECT p FROM Product p WHERE p.createdAt >= :lastWeek ORDER BY p.createdAt DESC")
+    List<Product> findNewProducts(@Param("lastWeek") Date lastWeek);
 }

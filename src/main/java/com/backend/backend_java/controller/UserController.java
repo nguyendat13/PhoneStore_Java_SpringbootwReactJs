@@ -16,13 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.backend_java.config.AppConstants;
-import com.backend.backend_java.payloads.ProductResponse;
 import com.backend.backend_java.payloads.UserDTO;
 import com.backend.backend_java.payloads.UserReponse;
 import com.backend.backend_java.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @RestController
 @RequestMapping("/api")

@@ -15,16 +15,21 @@ import com.backend.backend_java.payloads.ProductDTO;
 import com.backend.backend_java.repository.CartItemRepo;
 import com.backend.backend_java.repository.CartRepo;
 import com.backend.backend_java.repository.ProductRepo;
+import com.backend.backend_java.repository.UserRepo;
 import com.backend.backend_java.service.CartService;
 
 import jakarta.transaction.Transactional;
+
+import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Transactional
 @Service
 public class CartServiceImpl implements CartService {
-
+    @Autowired
+    private UserRepo userRepo;
     @Autowired
     private CartRepo cartRepo;
 
@@ -37,63 +42,130 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private ModelMapper modelMapper;
 
+    /**
+     * Thêm sản phẩm vào giỏ hàng
+     * 
+     * @param cartId    ID giỏ hàng
+     * @param productId ID sản phẩm
+     * @param quantity  Số lượng thêm
+     * @return CartDTO - DTO giỏ hàng cập nhật
+     * @throws ResourceNotFoundException nếu không tìm thấy giỏ hàng/sản phẩm
+     * @throws APIException              nếu số lượng vượt quá tồn kho
+     */
     @Override
     public CartDTO addProductToCart(Long cartId, Long productId, Integer quantity) {
+        // 1. Validate input
+        if (quantity <= 0) {
+            throw new APIException("Số lượng phải lớn hơn 0");
+        }
+
+        // 2. Tìm giỏ hàng và sản phẩm
         Cart cart = cartRepo.findById(cartId)
                 .orElseThrow(() -> new ResourceNotFoundException("Cart", "cartId", cartId));
 
         Product product = productRepo.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
 
-        // Kiểm tra số lượng tồn kho
+        // 3. Kiểm tra số lượng tồn kho
         if (product.getQuantity() < quantity) {
-            throw new APIException("Chỉ còn " + product.getQuantity() + " sản phẩm trong kho.");
+            throw new APIException(String.format(
+                    "Sản phẩm '%s' chỉ còn %d trong kho",
+                    product.getProductName(),
+                    product.getQuantity()));
         }
 
-        // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
-        CartItem cartItem = cartItemRepo.findCartItemByProductIdAndCartId(cartId, productId);
+        // 4. Kiểm tra sản phẩm đã có trong giỏ hàng chưa
+        CartItem existingItem = cart.getCartItems().stream()
+                .filter(item -> item.getProduct().getProductId().equals(productId))
+                .findFirst()
+                .orElse(null);
 
-        if (cartItem != null) {
-            int newQuantity = cartItem.getQuantity() + quantity;
+        if (existingItem != null) {
+            // 4a. Nếu đã có, cập nhật số lượng
+            int newQuantity = existingItem.getQuantity() + quantity;
             if (newQuantity > product.getQuantity()) {
-                throw new APIException("Không đủ hàng, chỉ còn " + product.getQuantity() + " sản phẩm.");
+                throw new APIException(String.format(
+                        "Tổng số lượng %d vượt quá số lượng tồn kho (%d)",
+                        newQuantity,
+                        product.getQuantity()));
             }
-            cartItem.setQuantity(newQuantity);
+            existingItem.setQuantity(newQuantity);
         } else {
-            // Nếu chưa có sản phẩm trong giỏ, thêm mới
-            cartItem = new CartItem();
-            cartItem.setProduct(product);
-            cartItem.setCart(cart);
-            cartItem.setQuantity(quantity);
-            cartItem.setDiscount(product.getDiscount());
-            cartItem.setProductPrice(product.getPriceSale());
+            // 4b. Nếu chưa có, thêm mới
+            CartItem newItem = new CartItem();
+            newItem.setCart(cart);
+            newItem.setProduct(product);
+            newItem.setQuantity(quantity);
+            newItem.setProductPrice(product.getPriceSale());
+            newItem.setDiscount(product.getDiscount());
 
-            cartItemRepo.save(cartItem);
+            cart.getCartItems().add(newItem);
+
+            // Nhưng thiếu:
+            cartItemRepo.save(newItem); // ⚠️ Cần thêm dòng này để đảm bảo lưu
         }
 
-        // Cập nhật lại số lượng sản phẩm còn lại
+        // 5. Cập nhật tồn kho và tổng giá
         product.setQuantity(product.getQuantity() - quantity);
+        updateCartTotalPrice(cart);
+
+     
+        // 6. Lưu các thay đổi
         productRepo.save(product);
-
-        // Cập nhật tổng giá giỏ hàng
-        double updatedTotalPrice = cart.getTotalPrice() + (product.getPriceSale() * quantity);
-        cart.setTotalPrice(formatNumber(updatedTotalPrice));
-
         cartRepo.save(cart);
 
-        // Chuyển đổi sang DTO và trả về kết quả
-        CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
-        cartDTO.setCartItems(convertToCartItemDTOList(cart));
-        cartDTO.setEmail(cart.getUser().getEmail());
-
-        return cartDTO;
+        // 7. Convert sang DTO và trả về
+        return convertCartToDTO(cart);
     }
 
-    // Chuyển đổi danh sách CartItem -> CartItemDTO
-    private List<CartItemDTO> convertToCartItemDTOList(Cart cart) {
-        return cart.getCartItems().stream()
-                .map(cartItem -> modelMapper.map(cartItem, CartItemDTO.class))
-                .collect(Collectors.toList());
+    private void updateCartTotalPrice(Cart cart) {
+        double total = cart.getCartItems().stream()
+                .mapToDouble(item -> item.getProductPrice() * item.getQuantity())
+                .sum();
+        cart.setTotalPrice(Math.round(total * 100.0) / 100.0); // Làm tròn 2 chữ số
+    }
+
+    private CartDTO convertCartToDTO(Cart cart) {
+        CartDTO dto = new CartDTO();
+        dto.setCartId(cart.getCartId());
+        dto.setTotalPrice(cart.getTotalPrice());
+
+        if (cart.getUser() != null) {
+            dto.setEmail(cart.getUser().getEmail());
+        }
+
+        // Kiểm tra cartItems và chuyển đổi nếu có
+        if (cart.getCartItems() != null && !cart.getCartItems().isEmpty()) {
+            // Convert cart items
+            dto.setCartItems(convertToCartItemDTOList(cart));
+        } else {
+            // Nếu không có cartItems, bạn có thể gán danh sách rỗng hoặc xử lý đặc biệt
+            dto.setCartItems(Collections.emptyList());
+        }
+
+        return dto;
+    }
+
+    private CartItemDTO convertCartItemToDTO(CartItem item) {
+        CartItemDTO dto = new CartItemDTO();
+        dto.setCartItemId(item.getCartItemId());
+        dto.setQuantity(item.getQuantity());
+
+        // Giữ nguyên kiểu double
+        dto.setProductPrice(item.getProductPrice());
+        dto.setDiscount(item.getDiscount());
+
+        if (item.getCart() != null) {
+            dto.setCartId(item.getCart().getCartId());// them cart id
+        }
+        // Product info
+        if (item.getProduct() != null) {
+            dto.setProductId(item.getProduct().getProductId());
+            dto.setProductName(item.getProduct().getProductName());
+            dto.setProductImage(item.getProduct().getImage());
+        }
+
+        return dto;
     }
 
     // Định dạng số để làm tròn về 2 chữ số thập phân
@@ -101,6 +173,21 @@ public class CartServiceImpl implements CartService {
         if (number == null)
             return null;
         return Math.round(number * 100.0) / 100.0;
+    }
+
+    /**
+     * Chuyển đổi danh sách CartItem của giỏ hàng sang DTO
+     * 
+     * @param cart Entity giỏ hàng
+     * @return Danh sách CartItemDTO
+     */
+    private List<CartItemDTO> convertToCartItemDTOList(Cart cart) {
+        if (cart.getCartItems() == null || cart.getCartItems().isEmpty()) {
+            return Collections.emptyList();
+        }
+        return cart.getCartItems().stream()
+                .map(this::convertCartItemToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -111,13 +198,7 @@ public class CartServiceImpl implements CartService {
         }
 
         return carts.stream()
-                .map(cart -> {
-                    CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
-                    cartDTO.setEmail(cart.getUser().getEmail()); // Gán email từ User
-
-                    cartDTO.setCartItems(convertToCartItemDTOList(cart));
-                    return cartDTO;
-                })
+                .map(this::convertCartToDTO) // <- dùng hàm tự ánh xạ
                 .collect(Collectors.toList());
     }
 
@@ -128,10 +209,7 @@ public class CartServiceImpl implements CartService {
             throw new ResourceNotFoundException("Cart", "cartId", cartId);
         }
 
-        CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
-        cartDTO.setCartItems(convertToCartItemDTOList(cart));
-        cartDTO.setEmail(cart.getUser().getEmail());
-        return cartDTO;
+        return convertCartToDTO(cart);
     }
 
     @Override
@@ -218,13 +296,18 @@ public class CartServiceImpl implements CartService {
         Cart cart = cartRepo.findById(cartId)
                 .orElseThrow(() -> new ResourceNotFoundException("Cart", "cartId", cartId));
 
-        // First delete all cart items
-        cartItemRepo.deleteCartItemsByCartId(cartId);
+        // Kiểm tra và cập nhật User
+        if (cart.getUser() != null) {
+            cart.getUser().setCart(null); // Đặt Cart của User thành null trước khi xóa
+            userRepo.save(cart.getUser());
+        }
 
-        // Then delete the cart
+        // Xóa các CartItem và Cart
+        cartItemRepo.deleteCartItemsByCartId(cartId);
         cartRepo.delete(cart);
         cartRepo.flush(); // Force the delete operation
 
         return "Cart with ID " + cartId + " deleted successfully!!!";
     }
+
 }

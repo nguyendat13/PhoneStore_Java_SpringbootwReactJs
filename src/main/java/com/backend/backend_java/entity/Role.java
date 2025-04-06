@@ -24,5 +24,6 @@ public class Role {
 
     @Column(nullable = false)
     private Integer roleStatus; // 0 = Super Admin, 1 = Admin, 2 = User (càng nhỏ quyền càng cao)
-
+    @Version
+    private Long version; // Thêm phiên bản cho entity này
 }

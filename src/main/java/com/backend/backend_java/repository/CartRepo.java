@@ -19,10 +19,10 @@ public interface CartRepo extends JpaRepository<Cart, Long> {
     @Query("SELECT c FROM Cart c JOIN FETCH c.cartItems ci JOIN FETCH ci.product p WHERE p.id=?1")
     List<Cart> findCartsByProductID(Long productId);
 
-    
-// Tìm giỏ hàng theo User ID
-@Query("SELECT c FROM Cart c WHERE c.user.id = ?1")
-Cart findCartByUserId(Long userId);
+    // Tìm giỏ hàng theo User ID
+    @Query("SELECT c FROM Cart c WHERE c.user.id = ?1")
+    Cart findCartByUserId(Long userId);
+
     // Lấy ID lớn nhất hiện có
     @Query(value = "SELECT MAX(cart_id) FROM carts", nativeQuery = true)
     Long findMaxCartId();
@@ -32,5 +32,5 @@ Cart findCartByUserId(Long userId);
     @Transactional
     @Query(value = "ALTER TABLE carts AUTO_INCREMENT =1", nativeQuery = true)
     void resetAutoIncrement(Long nextId);
-    
+
 }

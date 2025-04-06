@@ -12,7 +12,7 @@ import java.util.List;
 import jakarta.transaction.Transactional;
 
 public interface CartItemRepo extends JpaRepository<CartItem, Long> {
-    
+
     // Find a Product by its ID through CartItem
     @Query("SELECT ci.product FROM CartItem ci WHERE ci.product.id = ?1")
     Product findProductById(Long productId);
@@ -30,11 +30,13 @@ public interface CartItemRepo extends JpaRepository<CartItem, Long> {
     @Query("SELECT ci FROM CartItem ci WHERE ci.cart.id = ?1")
     List<CartItem> findCartItemsByCartId(Long cartId);
 
-    // Find Carts associated with a specific Product (this method is commented in your code)
+    // Find Carts associated with a specific Product (this method is commented in
+    // your code)
     @Query("SELECT ci.cart FROM CartItem ci WHERE ci.product.id = ?1")
     List<Cart> findCartsByProductId(Long productId);
 
-    // Optional: Query to find Cart by User Email and Cart ID (requires proper User-Cart relation)
+    // Optional: Query to find Cart by User Email and Cart ID (requires proper
+    // User-Cart relation)
     @Query("SELECT ci.cart FROM CartItem ci WHERE ci.cart.user.email = ?1 AND ci.cart.id = ?2")
     Cart findCartByEmailAndCartId(String email, Long cartId);
 
@@ -55,6 +57,10 @@ public interface CartItemRepo extends JpaRepository<CartItem, Long> {
     @Transactional
     @Query(value = "ALTER TABLE cart_items AUTO_INCREMENT =1", nativeQuery = true)
     void resetAutoIncrement(Long nextId);
-    
 
+    @Query("SELECT ci FROM CartItem ci WHERE ci.cart.id = :cartId AND ci.product.id = :productId")
+    CartItem findByCartIdAndProductId(@Param("cartId") Long cartId, @Param("productId") Long productId);
+
+    // Custom method to delete all CartItems by Cart
+    void deleteAllByCart(Cart cart);
 }

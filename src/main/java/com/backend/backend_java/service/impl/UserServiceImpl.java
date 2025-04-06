@@ -29,6 +29,7 @@ import com.backend.backend_java.exceptions.APIException;
 import com.backend.backend_java.exceptions.ResourceNotFoundException;
 import com.backend.backend_java.payloads.AddressDTO;
 import com.backend.backend_java.payloads.CartDTO;
+import com.backend.backend_java.payloads.CartItemDTO;
 import com.backend.backend_java.payloads.FavoriteDTO;
 import com.backend.backend_java.payloads.OrderDTO;
 import com.backend.backend_java.payloads.ProductDTO;
@@ -89,24 +90,23 @@ public class UserServiceImpl implements UserService {
                 throw new APIException("Email đã tồn tại: " + userDTO.getEmail());
             }
             // if (userRepo.existsByUsername(userDTO.getUsername())) {
-            //     throw new ResourceAlreadyExistsException("Username đã tồn tại!");
+            // throw new ResourceAlreadyExistsException("Username đã tồn tại!");
             // }
-                // Kiểm tra ID lớn nhất hiện tại
-                Long maxId = userRepo.findMaxUserId();
-                if (maxId == null) {
-                    maxId = 0L;
-                }
-                // Reset AUTO_INCREMENT
-                userRepo.resetAutoIncrement(maxId + 1);
+            // Kiểm tra ID lớn nhất hiện tại
+            Long maxId = userRepo.findMaxUserId();
+            if (maxId == null) {
+                maxId = 0L;
+            }
+            // Reset AUTO_INCREMENT
+            userRepo.resetAutoIncrement(maxId + 1);
 
-                
-                // Kiểm tra ID lớn nhất hiện tại
-                Long maxId1 = cartRepo.findMaxCartId();
-                if (maxId1 == null) {
-                    maxId1 = 0L;
-                }
-                // Reset AUTO_INCREMENT
-                cartRepo.resetAutoIncrement(maxId1 + 1);
+            // Kiểm tra ID lớn nhất hiện tại
+            Long maxId1 = cartRepo.findMaxCartId();
+            if (maxId1 == null) {
+                maxId1 = 0L;
+            }
+            // Reset AUTO_INCREMENT
+            cartRepo.resetAutoIncrement(maxId1 + 1);
 
             // Map DTO to entity
             User user = modelMapper.map(userDTO, User.class);
@@ -133,7 +133,6 @@ public class UserServiceImpl implements UserService {
                         .collect(Collectors.toList()));
             }
 
-
             Cart cart = cartRepo.findCartByUserId(user.getUserId()); // Tìm cart theo user ID
             if (cart == null) {
                 cart = new Cart(); // Tạo mới nếu chưa có
@@ -144,24 +143,6 @@ public class UserServiceImpl implements UserService {
             cart = cartRepo.save(cart); // Lưu lại trước khi gán vào user
             user.setCart(cart);
 
-
-            // // Thêm CartItem mặc định (nếu cần)
-            // List<Product> defaultProducts = productRepo.findDefaultProducts(); // Lấy danh sách sản phẩm mặc định
-            // List<CartItem> cartItems = new ArrayList<>();
-
-            // for (Product product : defaultProducts) {
-            //     CartItem cartItem = new CartItem();
-            //     cartItem.setCart(cart);
-            //     cartItem.setProduct(product);
-            //     cartItem.setQuantity(1); // Mặc định 1 sản phẩm
-            //     cartItem.setDiscount(0.0);
-            //     cartItem.setProductPrice(product.getPrice());
-            //     cartItems.add(cartItem);
-            // }
-            // // Lưu danh sách CartItem vào database
-            // cartItemRepo.saveAll(cartItems);
-
-
             // Save user (this will also save the cart due to cascade)
             User registeredUser = userRepo.save(user);
 
@@ -171,7 +152,7 @@ public class UserServiceImpl implements UserService {
                 responseDTO.getCart().setEmail(registeredUser.getEmail());
                 responseDTO.getCart().setCartId(1L); // Ensure cart ID is 1 in response
             }
-            
+
             // Set roleIds in response
             responseDTO.setRoleIds(registeredUser.getRoles().stream()
                     .map(Role::getRoleId)
@@ -226,10 +207,19 @@ public class UserServiceImpl implements UserService {
                             .map(address -> modelMapper.map(address, AddressDTO.class))
                             .collect(Collectors.toList()));
 
-                    // Set cart giống như trong getUserById
-                    if (user.getCart() != null) {
-                        userDTO.setCart(modelMapper.map(user.getCart(), CartDTO.class));
-                    }
+                           // Set cart giống như trong getUserById
+                if (user.getCart() != null) {
+                    // Map CartDTO và thêm CartItemDTO
+                    CartDTO cartDTO = modelMapper.map(user.getCart(), CartDTO.class);
+
+                    // Ánh xạ CartItem cho Cart
+                    List<CartItemDTO> cartItemsDTO = user.getCart().getCartItems().stream()
+                            .map(cartItem -> modelMapper.map(cartItem, CartItemDTO.class))
+                            .collect(Collectors.toList());
+                    
+                    cartDTO.setCartItems(cartItemsDTO);
+                    userDTO.setCart(cartDTO);
+                }
                     // Set favorites giống như trong getUserById
                     userDTO.setFavorites(user.getFavorites().stream()
                             .map(favorite -> modelMapper.map(favorite, FavoriteDTO.class))
@@ -288,10 +278,25 @@ public class UserServiceImpl implements UserService {
                 .map(address -> modelMapper.map(address, AddressDTO.class))
                 .collect(Collectors.toList()));
 
-        // Set cart with email
+        // Xử lý cart một cách an toàn
         if (user.getCart() != null) {
-            CartDTO cartDTO = modelMapper.map(user.getCart(), CartDTO.class);
-            cartDTO.setEmail(user.getEmail());
+            CartDTO cartDTO = new CartDTO();
+            cartDTO.setCartId(user.getCart().getCartId());
+            cartDTO.setTotalPrice(user.getCart().getTotalPrice());
+            cartDTO.setEmail(user.getCart().getEmail());
+
+            // ⭐ Thêm cartItems
+            cartDTO.setCartItems(
+                    user.getCart().getCartItems().stream()
+                            .map(cartItem -> {
+                                CartItemDTO cartItemDTO = new CartItemDTO();
+                                cartItemDTO.setCartItemId(cartItem.getCartItemId());
+                                cartItemDTO.setProductId(cartItem.getProduct().getProductId());
+                                cartItemDTO.setQuantity(cartItem.getQuantity());
+                                // ... set các trường khác
+                                return cartItemDTO;
+                            })
+                            .collect(Collectors.toList()));
             userDTO.setCart(cartDTO);
         }
 
@@ -311,131 +316,130 @@ public class UserServiceImpl implements UserService {
     public UserDTO updateUser(Long userId, UserDTO userDTO) {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
-    
+
         // Kiểm tra nếu email mới đã tồn tại và không phải của chính user này
         if (!user.getEmail().equals(userDTO.getEmail()) && userRepo.findByEmail(userDTO.getEmail()).isPresent()) {
             throw new APIException("Email đã tồn tại: " + userDTO.getEmail());
         }
-    
+
         // Cập nhật thông tin cơ bản
         user.setFullname(userDTO.getFullname());
         user.setPhone(userDTO.getPhone());
         user.setUsername(userDTO.getUsername());
         user.setGender(userDTO.getGender());
-    
+
         // // ✅ Nếu email thay đổi, cập nhật vào user và cart
         // if (!user.getEmail().equals(userDTO.getEmail())) {
-        //     user.setEmail(userDTO.getEmail());
-        //     if (user.getCart() != null) {
-        //         user.getCart().setEmail(userDTO.getEmail()); // Đồng bộ email trong giỏ hàng
-        //     }
+        // user.setEmail(userDTO.getEmail());
+        // if (user.getCart() != null) {
+        // user.getCart().setEmail(userDTO.getEmail()); // Đồng bộ email trong giỏ hàng
         // }
-        
-     // ✅ Nếu email thay đổi, cập nhật vào user
-     if (!user.getEmail().equals(userDTO.getEmail())) {
-        user.setEmail(userDTO.getEmail());
-    }
+        // }
+
+        // ✅ Nếu email thay đổi, cập nhật vào user
+        if (!user.getEmail().equals(userDTO.getEmail())) {
+            user.setEmail(userDTO.getEmail());
+        }
 
         // Cập nhật password nếu có
         if (userDTO.getPassword() != null && !userDTO.getPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         }
-    
+
         // ✅ Cập nhật vai trò (roles)
         Set<Role> newRoles = userDTO.getRoleIds().stream()
                 .map(roleId -> roleRepo.findById(roleId)
                         .orElseThrow(() -> new APIException("Role not found with id: " + roleId)))
                 .collect(Collectors.toSet());
         user.setRoles(newRoles);
-    
-          // ✅ **Cập nhật địa chỉ thay vì tạo mới**
-    if (userDTO.getAddresses() != null) {
-       // ✅ Lấy danh sách địa chỉ hiện có của user
-List<Address> existingAddresses = user.getAddresses();
 
-if (userDTO.getAddresses() != null) {
-    for (int i = 0; i < userDTO.getAddresses().size(); i++) {
-        AddressDTO addressDTO = userDTO.getAddresses().get(i);
+        // ✅ **Cập nhật địa chỉ thay vì tạo mới**
+        if (userDTO.getAddresses() != null) {
+            // ✅ Lấy danh sách địa chỉ hiện có của user
+            List<Address> existingAddresses = user.getAddresses();
 
-        // ✅ Nếu đã có địa chỉ cũ, cập nhật thay vì tạo mới
-        if (i < existingAddresses.size()) {
-            Address existingAddress = existingAddresses.get(i);
-            existingAddress.setStreet(addressDTO.getStreet());
-            existingAddress.setBuildingName(addressDTO.getBuildingName());
-            existingAddress.setCity(addressDTO.getCity());
-            existingAddress.setState(addressDTO.getState());
-            existingAddress.setCountry(addressDTO.getCountry());
-            existingAddress.setPincode(addressDTO.getPincode());
-        } else {
-            // ✅ Nếu user có thêm địa chỉ mới, tạo mới
-            Address newAddress = new Address();
-            newAddress.setStreet(addressDTO.getStreet());
-            newAddress.setBuildingName(addressDTO.getBuildingName());
-            newAddress.setCity(addressDTO.getCity());
-            newAddress.setState(addressDTO.getState());
-            newAddress.setCountry(addressDTO.getCountry());
-            newAddress.setPincode(addressDTO.getPincode());
-            newAddress.setUsers(List.of(user));
-            existingAddresses.add(newAddress);
+            if (userDTO.getAddresses() != null) {
+                for (int i = 0; i < userDTO.getAddresses().size(); i++) {
+                    AddressDTO addressDTO = userDTO.getAddresses().get(i);
+
+                    // ✅ Nếu đã có địa chỉ cũ, cập nhật thay vì tạo mới
+                    if (i < existingAddresses.size()) {
+                        Address existingAddress = existingAddresses.get(i);
+                        existingAddress.setStreet(addressDTO.getStreet());
+                        existingAddress.setBuildingName(addressDTO.getBuildingName());
+                        existingAddress.setCity(addressDTO.getCity());
+                        existingAddress.setState(addressDTO.getState());
+                        existingAddress.setCountry(addressDTO.getCountry());
+                        existingAddress.setPincode(addressDTO.getPincode());
+                    } else {
+                        // ✅ Nếu user có thêm địa chỉ mới, tạo mới
+                        Address newAddress = new Address();
+                        newAddress.setStreet(addressDTO.getStreet());
+                        newAddress.setBuildingName(addressDTO.getBuildingName());
+                        newAddress.setCity(addressDTO.getCity());
+                        newAddress.setState(addressDTO.getState());
+                        newAddress.setCountry(addressDTO.getCountry());
+                        newAddress.setPincode(addressDTO.getPincode());
+                        newAddress.setUsers(List.of(user));
+                        existingAddresses.add(newAddress);
+                    }
+                }
+            }
+
+            // ✅ Lưu lại danh sách địa chỉ đã cập nhật
+            user.setAddresses(existingAddresses);
+
         }
-    }
-}
-
-        // ✅ Lưu lại danh sách địa chỉ đã cập nhật
-        user.setAddresses(existingAddresses);
-
-    }
 
         // ✅ Cập nhật giỏ hàng (cart)
         Cart cart = user.getCart();
         if (cart == null) {
             cart = new Cart(); // Tạo mới nếu user chưa có giỏ hàng
         }
-    
+
         // Cập nhật thông tin giỏ hàng nếu có trong request
         if (userDTO.getCart() != null) {
             cart.setTotalPrice(userDTO.getCart().getTotalPrice());
         }
-    
+
         cart.setUser(user);
         user.setCart(cart);
-    
+
         // ✅ Lưu user (cascade sẽ tự động lưu cart và addresses)
         User updatedUser = userRepo.save(user);
-    
+
         // ✅ Chuyển đổi sang DTO để trả về
         UserDTO responseDTO = modelMapper.map(updatedUser, UserDTO.class);
         responseDTO.setRoleIds(updatedUser.getRoles().stream().map(Role::getRoleId).collect(Collectors.toSet()));
-    
+
         return responseDTO;
     }
-    
+
     @Override
     @Transactional
     public String deleteUser(Long userId) {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
-    
-      // Xóa quan hệ giữa user và address nhưng không xóa Address khỏi DB
-    if (user.getAddresses() != null && !user.getAddresses().isEmpty()) {
-        user.getAddresses().forEach(address -> address.getUsers().remove(user));
-    }
 
-    
+        // Xóa quan hệ giữa user và address nhưng không xóa Address khỏi DB
+        if (user.getAddresses() != null && !user.getAddresses().isEmpty()) {
+            user.getAddresses().forEach(address -> address.getUsers().remove(user));
+        }
+
         // Xóa địa chỉ liên kết với user (nếu có)
         addressRepo.deleteAddressesByUserId(userId);
-        
+
         // Xóa giỏ hàng của user và các mục trong giỏ hàng
         Cart cart = cartRepo.findCartByUserId(userId);
         if (cart != null) {
             cartItemRepo.deleteCartItemsByCartId(cart.getCartId()); // Xóa tất cả sản phẩm trong giỏ hàng
             cartRepo.delete(cart); // Xóa giỏ hàng của user
         }
-    
+
         // Cuối cùng, xóa user
         userRepo.delete(user);
-    
+
         return "User with ID " + userId + " has been deleted successfully!";
     }
-    
+
 }

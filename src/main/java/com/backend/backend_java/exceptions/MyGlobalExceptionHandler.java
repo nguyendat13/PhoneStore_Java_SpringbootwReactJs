@@ -79,4 +79,11 @@ public class MyGlobalExceptionHandler {
 
         return new ResponseEntity<APIReponse>(res, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<APIReponse> handleAllExceptions(Exception e) {
+        APIReponse response = new APIReponse("An unexpected error occurred: " + e.getMessage(), false);
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

@@ -44,14 +44,6 @@ public class CartController {
         return ResponseEntity.ok(response);
     }
 
-    // Lấy giỏ hàng của user theo email + cartId
-    @GetMapping("/public/users/{emailId}/carts/{cartId}")
-    public ResponseEntity<CartDTO> getCartById(
-            @PathVariable String emailId,
-            @PathVariable Long cartId) {
-        CartDTO cartDTO = cartService.getCart(emailId, cartId);
-        return ResponseEntity.ok(cartDTO);
-    }
 
     // Cập nhật số lượng sản phẩm trong giỏ hàng
     @PutMapping("/public/carts/{cartId}/products/{productId}/quantity/{quantity}")

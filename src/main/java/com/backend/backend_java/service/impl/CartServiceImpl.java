@@ -58,6 +58,13 @@ public class CartServiceImpl implements CartService {
         if (quantity <= 0) {
             throw new APIException("Số lượng phải lớn hơn 0");
         }
+        // Kiểm tra ID lớn nhất hiện tại
+        Long maxId1 = cartItemRepo.findMaxCartItemId();
+        if (maxId1 == null) {
+            maxId1 = 0L;
+        }
+        // Reset AUTO_INCREMENT
+        cartItemRepo.resetAutoIncrement(maxId1 + 1);
 
         // 2. Tìm giỏ hàng và sản phẩm
         Cart cart = cartRepo.findById(cartId)
@@ -109,7 +116,6 @@ public class CartServiceImpl implements CartService {
         product.setQuantity(product.getQuantity() - quantity);
         updateCartTotalPrice(cart);
 
-     
         // 6. Lưu các thay đổi
         productRepo.save(product);
         cartRepo.save(cart);
@@ -125,7 +131,7 @@ public class CartServiceImpl implements CartService {
         cart.setTotalPrice(Math.round(total * 100.0) / 100.0); // Làm tròn 2 chữ số
     }
 
-    private CartDTO convertCartToDTO(Cart cart) {
+    public CartDTO convertCartToDTO(Cart cart) {
         CartDTO dto = new CartDTO();
         dto.setCartId(cart.getCartId());
         dto.setTotalPrice(cart.getTotalPrice());
@@ -166,13 +172,6 @@ public class CartServiceImpl implements CartService {
         }
 
         return dto;
-    }
-
-    // Định dạng số để làm tròn về 2 chữ số thập phân
-    private Double formatNumber(Double number) {
-        if (number == null)
-            return null;
-        return Math.round(number * 100.0) / 100.0;
     }
 
     /**
@@ -308,6 +307,13 @@ public class CartServiceImpl implements CartService {
         cartRepo.flush(); // Force the delete operation
 
         return "Cart with ID " + cartId + " deleted successfully!!!";
+    }
+
+    // Định dạng số để làm tròn về 2 chữ số thập phân
+    private Double formatNumber(Double number) {
+        if (number == null)
+            return null;
+        return Math.round(number * 100.0) / 100.0;
     }
 
 }

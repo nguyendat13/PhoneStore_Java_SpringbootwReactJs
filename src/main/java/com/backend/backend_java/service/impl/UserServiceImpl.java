@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.backend_java.config.AppConstants;
 import com.backend.backend_java.entity.Address;
@@ -44,7 +45,9 @@ import com.backend.backend_java.repository.RoleRepo;
 import com.backend.backend_java.repository.UserRepo;
 import com.backend.backend_java.service.UserService;
 import com.backend.backend_java.service.AddressService;
-import jakarta.transaction.Transactional;
+import com.backend.backend_java.service.CartService;
+
+import jakarta.persistence.EntityNotFoundException;
 
 // import com.backend.backend_java.entity.Address;
 // import com.backend.backend_java.entity.Cart;
@@ -57,11 +60,15 @@ import jakarta.transaction.Transactional;
 @Transactional
 @Service
 public class UserServiceImpl implements UserService {
+    @Autowired
+    private CartService cartService;
 
     @Autowired
     private ProductRepo productRepo;
+
     @Autowired
     private UserRepo userRepo;
+
     @Autowired
     private CartRepo cartRepo;
 
@@ -184,84 +191,34 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserReponse getAllUsers(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
-        Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending()
+        Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")
+                ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
 
         Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
         Page<User> pageUsers = userRepo.findAll(pageDetails);
 
-        // Map users giống như cách xử lý trong getUserById
         List<UserDTO> userDTOS = pageUsers.getContent().stream()
-                .map(user -> {
-                    // Sử dụng lại cách mapping từ getUserById
-                    UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+                .map(this::convertToUserDTO) // dùng hàm mới
+                .collect(Collectors.toList());
 
-                    // Set roleIds giống như trong getUserById
-                    userDTO.setRoleIds(user.getRoles().stream()
-                            .map(Role::getRoleId)
-                            .collect(Collectors.toSet()));
-
-                    // Set addresses giống như trong getUserById
-                    userDTO.setAddresses(user.getAddresses().stream()
-                            .map(address -> modelMapper.map(address, AddressDTO.class))
-                            .collect(Collectors.toList()));
-
-                           // Set cart giống như trong getUserById
-                if (user.getCart() != null) {
-                    // Map CartDTO và thêm CartItemDTO
-                    CartDTO cartDTO = modelMapper.map(user.getCart(), CartDTO.class);
-
-                    // Ánh xạ CartItem cho Cart
-                    List<CartItemDTO> cartItemsDTO = user.getCart().getCartItems().stream()
-                            .map(cartItem -> modelMapper.map(cartItem, CartItemDTO.class))
-                            .collect(Collectors.toList());
-                    
-                    cartDTO.setCartItems(cartItemsDTO);
-                    userDTO.setCart(cartDTO);
-                }
-                    // Set favorites giống như trong getUserById
-                    userDTO.setFavorites(user.getFavorites().stream()
-                            .map(favorite -> modelMapper.map(favorite, FavoriteDTO.class))
-                            .collect(Collectors.toList()));
-
-                    // Set orders giống như trong getUserById
-                    userDTO.setOrders(user.getOrders().stream()
-                            .map(order -> modelMapper.map(order, OrderDTO.class))
-                            .collect(Collectors.toList()));
-
-                    return userDTO;
-                }).collect(Collectors.toList());
-
-        return new UserReponse(userDTOS, pageUsers.getNumber(), pageUsers.getSize(),
-                pageUsers.getTotalElements(), pageUsers.getTotalPages(), pageUsers.isLast());
+        return new UserReponse(
+                userDTOS,
+                pageUsers.getNumber(),
+                pageUsers.getSize(),
+                pageUsers.getTotalElements(),
+                pageUsers.getTotalPages(),
+                pageUsers.isLast());
     }
 
     @Override
-
     public UserDTO getUserByEmail(String email) {
         User user = userRepo.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
 
-        // Sử dụng lại logic từ getUserById
-        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-        userDTO.setRoleIds(user.getRoles().stream()
-                .map(Role::getRoleId)
-                .collect(Collectors.toSet()));
-
-        userDTO.setAddresses(user.getAddresses().stream()
-                .map(address -> modelMapper.map(address, AddressDTO.class))
-                .collect(Collectors.toList()));
-
-        userDTO.setFavorites(user.getFavorites().stream()
-                .map(favorite -> modelMapper.map(favorite, FavoriteDTO.class))
-                .collect(Collectors.toList()));
-
-        userDTO.setOrders(user.getOrders().stream()
-                .map(order -> modelMapper.map(order, OrderDTO.class))
-                .collect(Collectors.toList()));
-
-        return userDTO;
+        return convertToUserDTO(user);
     }
 
     @Override
@@ -269,46 +226,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 
-        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-        userDTO.setRoleIds(user.getRoles().stream()
-                .map(Role::getRoleId)
-                .collect(Collectors.toSet()));
-
-        userDTO.setAddresses(user.getAddresses().stream()
-                .map(address -> modelMapper.map(address, AddressDTO.class))
-                .collect(Collectors.toList()));
-
-        // Xử lý cart một cách an toàn
-        if (user.getCart() != null) {
-            CartDTO cartDTO = new CartDTO();
-            cartDTO.setCartId(user.getCart().getCartId());
-            cartDTO.setTotalPrice(user.getCart().getTotalPrice());
-            cartDTO.setEmail(user.getCart().getEmail());
-
-            // ⭐ Thêm cartItems
-            cartDTO.setCartItems(
-                    user.getCart().getCartItems().stream()
-                            .map(cartItem -> {
-                                CartItemDTO cartItemDTO = new CartItemDTO();
-                                cartItemDTO.setCartItemId(cartItem.getCartItemId());
-                                cartItemDTO.setProductId(cartItem.getProduct().getProductId());
-                                cartItemDTO.setQuantity(cartItem.getQuantity());
-                                // ... set các trường khác
-                                return cartItemDTO;
-                            })
-                            .collect(Collectors.toList()));
-            userDTO.setCart(cartDTO);
-        }
-
-        userDTO.setFavorites(user.getFavorites().stream()
-                .map(favorite -> modelMapper.map(favorite, FavoriteDTO.class))
-                .collect(Collectors.toList()));
-
-        userDTO.setOrders(user.getOrders().stream()
-                .map(order -> modelMapper.map(order, OrderDTO.class))
-                .collect(Collectors.toList()));
-
-        return userDTO;
+        return convertToUserDTO(user);
     }
 
     @Override
@@ -440,6 +358,55 @@ public class UserServiceImpl implements UserService {
         userRepo.delete(user);
 
         return "User with ID " + userId + " has been deleted successfully!";
+    }
+
+    private UserDTO convertToUserDTO(User user) {
+        UserDTO userDTO = new UserDTO();
+
+        userDTO.setUserId(user.getUserId());
+        userDTO.setFullname(user.getFullname());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setUsername(user.getUsername());
+        userDTO.setPhone(user.getPhone());
+        userDTO.setGender(user.getGender());
+        // Không set password vì không trả về mật khẩu
+
+        // Set roleIds
+        userDTO.setRoleIds(user.getRoles().stream()
+                .map(Role::getRoleId)
+                .collect(Collectors.toSet()));
+
+        // Set addresses
+        if (user.getAddresses() != null) {
+            List<AddressDTO> addressDTOs = user.getAddresses().stream()
+                    .map(address -> modelMapper.map(address, AddressDTO.class))
+                    .collect(Collectors.toList());
+            userDTO.setAddresses(addressDTOs);
+        }
+
+        // Set cart
+        if (user.getCart() != null) {
+            CartDTO cartDTO = cartService.convertCartToDTO(user.getCart());
+            userDTO.setCart(cartDTO);
+        }
+
+        // Set favorites
+        if (user.getFavorites() != null) {
+            List<FavoriteDTO> favoriteDTOs = user.getFavorites().stream()
+                    .map(favorite -> modelMapper.map(favorite, FavoriteDTO.class))
+                    .collect(Collectors.toList());
+            userDTO.setFavorites(favoriteDTOs);
+        }
+
+        // Set orders
+        if (user.getOrders() != null) {
+            List<OrderDTO> orderDTOs = user.getOrders().stream()
+                    .map(order -> modelMapper.map(order, OrderDTO.class))
+                    .collect(Collectors.toList());
+            userDTO.setOrders(orderDTOs);
+        }
+
+        return userDTO;
     }
 
 }

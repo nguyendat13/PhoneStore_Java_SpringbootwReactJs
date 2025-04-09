@@ -44,7 +44,6 @@ public class CartController {
         return ResponseEntity.ok(response);
     }
 
-
     // Cập nhật số lượng sản phẩm trong giỏ hàng
     @PutMapping("/public/carts/{cartId}/products/{productId}/quantity/{quantity}")
     public ResponseEntity<CartDTO> updateCartProduct(
@@ -70,4 +69,11 @@ public class CartController {
         String status = cartService.deleteCart(cartId);
         return ResponseEntity.ok(status);
     }
+
+    @GetMapping("public/cart/user/{userId}")
+    public ResponseEntity<CartDTO> getCartByUserId(@PathVariable Long userId) {
+        CartDTO cart = cartService.getCartByUserId(userId);
+        return ResponseEntity.ok(cart);
+    }
+
 }

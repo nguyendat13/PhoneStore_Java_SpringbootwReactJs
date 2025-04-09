@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.backend.backend_java.entity.Cart;
 import com.backend.backend_java.entity.CartItem;
 import com.backend.backend_java.entity.Product;
+import com.backend.backend_java.entity.User;
 import com.backend.backend_java.exceptions.APIException;
 import com.backend.backend_java.exceptions.ResourceNotFoundException;
 import com.backend.backend_java.payloads.CartDTO;
@@ -21,6 +22,7 @@ import com.backend.backend_java.service.CartService;
 import jakarta.transaction.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -339,5 +341,44 @@ public class CartServiceImpl implements CartService {
             return 0.0;
         return Math.round(number * 100.0) / 100.0;
     }
+
+   @Override
+public CartDTO getCartByUserId(Long userId) {
+    User user = userRepo.findById(userId)
+            .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+
+    Cart cart = user.getCart();
+    if (cart == null) {
+        throw new APIException("Người dùng chưa có giỏ hàng.");
+    }
+
+    List<CartItemDTO> cartItemDTOs = new ArrayList<>();
+    double totalCartPrice = 0.0;
+
+    if (cart.getCartItems() != null) {
+        cartItemDTOs = cart.getCartItems().stream().map(item -> {
+            Product product = item.getProduct();
+            double finalPrice = item.getProductPrice() - (item.getProductPrice() * item.getDiscount() / 100);
+            double itemTotalPrice = finalPrice * item.getQuantity();
+
+            return new CartItemDTO(
+                    item.getCartItemId(),
+                    cart.getCartId(),
+                    product.getProductId(),
+                    item.getQuantity(),
+                    item.getDiscount(),
+                    item.getProductPrice(),
+                    itemTotalPrice,
+                    product.getProductName(),
+                    product.getImage()
+            );
+        }).collect(Collectors.toList());
+
+        totalCartPrice = cartItemDTOs.stream().mapToDouble(CartItemDTO::getTotalPrice).sum();
+    }
+
+    return new CartDTO(cart.getCartId(), totalCartPrice, cartItemDTOs, user.getEmail());
+}
+
 
 }

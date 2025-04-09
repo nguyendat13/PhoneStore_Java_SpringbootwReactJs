@@ -13,6 +13,8 @@ import jakarta.transaction.Transactional;
 
 public interface CartItemRepo extends JpaRepository<CartItem, Long> {
 
+    List<CartItem> findByCart(Cart cart); // 🔥 Thêm dòng này để tìm các item trong giỏ hàng
+
     // Find a Product by its ID through CartItem
     @Query("SELECT ci.product FROM CartItem ci WHERE ci.product.id = ?1")
     Product findProductById(Long productId);

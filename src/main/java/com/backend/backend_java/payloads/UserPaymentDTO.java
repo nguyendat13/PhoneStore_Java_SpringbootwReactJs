@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserPaymentDTO {
-    private String transactionId;
+    private Long transactionId;
     private Double paymentAmount;
 
     private LocalDateTime paymentDate;

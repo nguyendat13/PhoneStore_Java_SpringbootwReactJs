@@ -21,4 +21,6 @@ public interface CartService {
     String deleteCart(Long cartId);
 
     CartDTO convertCartToDTO(Cart cart);
+
+    CartDTO getCartByUserId(Long userId);
 }

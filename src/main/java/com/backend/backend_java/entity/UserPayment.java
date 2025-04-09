@@ -1,6 +1,7 @@
 package com.backend.backend_java.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,9 +18,9 @@ public class UserPayment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String transactionId;
+    private Long transactionId;
     private Double paymentAmount;
-    
+
     @Column(name = "payment_date")
     private LocalDateTime paymentDate;
 
@@ -36,5 +37,6 @@ public class UserPayment {
     @ManyToOne
     private User user;
 
+  
     // Getters and setters
 }

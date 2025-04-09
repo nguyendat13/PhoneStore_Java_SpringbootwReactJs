@@ -19,6 +19,7 @@ import com.backend.backend_java.repository.ProductRepo;
 import com.backend.backend_java.repository.UserPaymentRepo;
 import com.backend.backend_java.repository.UserRepo;
 import com.backend.backend_java.service.CartService;
+import com.backend.backend_java.service.OrderService;
 import com.backend.backend_java.service.PaymentService;
 
 import jakarta.transaction.Transactional;
@@ -36,6 +37,8 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class PaymentServiceImpl implements PaymentService {
+    @Autowired
+    private OrderService orderService;
 
     @Autowired
     private UserRepo userRepo;
@@ -100,7 +103,7 @@ public class PaymentServiceImpl implements PaymentService {
                 .mapToDouble(CartItem::getTotalPrice)
                 .sum();
 
-        // 4. Lấy địa chỉ đầu tiên (có thể chọn logic khác nếu cần)
+        // 4. Lấy địa chỉ đầu tiên
         Address address = user.getAddresses().isEmpty() ? null : user.getAddresses().get(0);
         if (address == null) {
             throw new APIException("Không tìm thấy địa chỉ người dùng.");
@@ -109,13 +112,14 @@ public class PaymentServiceImpl implements PaymentService {
         String fullAddress = address.getBuildingName() + ", " + address.getStreet() + ", " + address.getCity() +
                 ", " + address.getState() + ", " + address.getCountry() + " - " + address.getPincode();
 
-        // 5. Tạo đối tượng thanh toán
+        // 5. Tạo UserPayment
         UserPayment payment = new UserPayment();
         payment.setUser(user);
         payment.setFullname(user.getFullname());
         payment.setPhone(user.getPhone());
         payment.setAddress(fullAddress);
-        payment.setTransactionId(UUID.randomUUID().toString()); // Sinh mã giao dịch
+        long transactionId = System.currentTimeMillis() + (long) (Math.random() * 1000);
+        payment.setTransactionId(transactionId);
         payment.setPaymentDate(LocalDateTime.now());
         payment.setPaymentAmount(totalAmount);
 
@@ -129,22 +133,17 @@ public class PaymentServiceImpl implements PaymentService {
                 .orElseThrow(() -> new ResourceNotFoundException("PaymentStatus", "id", dto.getPaymentStatusId()));
         payment.setPaymentStatus(status);
 
-        // 8. Lưu vào database
+        // 8. Lưu vào DB
         UserPayment saved = userPaymentRepo.save(payment);
 
-        // 8. Cập nhật số lượng sản phẩm trước
+        // 9. Trừ số lượng tồn kho
         for (CartItem item : cart.getCartItems()) {
             Product product = item.getProduct();
             product.setQuantity(product.getQuantity() - item.getQuantity());
             productRepo.save(product);
         }
 
-        // 9. Xóa giỏ hàng an toàn
-        cart.getCartItems().clear(); // chỉ xóa quan hệ trong bộ nhớ
-        cartRepo.save(cart); // cập nhật cart sau khi xóa quan hệ
-
-        // 10. Trả về DTO
+        // ❌ KHÔNG tạo đơn hàng và KHÔNG xoá giỏ hàng
         return modelMapper.map(saved, UserPaymentDTO.class);
     }
-
 }

@@ -62,4 +62,9 @@ public class Address {
         this.street = street;
         this.buildingName = buildingName;
     }
+
+    public String getAddressLine() {
+        return buildingName + ", " + street + ", " + city + ", " + state + ", " + country + " - " + pincode;
+    }
+
 }

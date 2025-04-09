@@ -1,5 +1,7 @@
 package com.backend.backend_java.payloads;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,16 +9,19 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentDTO {
-    private Long paymentId;
-    private String paymentMethod;
-    private String paymentStatus;
+public class UserPaymentDTO {
     private String transactionId;
     private Double paymentAmount;
-    private String paymentDate;
+
+    private LocalDateTime paymentDate;
+
     private String fullname;
     private String address;
     private String phone;
-    private Long userId; // Chỉ lấy ID của User
-    private Long cartId; // Chỉ lấy ID của Cart
+
+    private Long userId;
+    private Long paymentMethodId;
+    private Long paymentStatusId;
+
+    // Getters và Setters đầy đủ
 }

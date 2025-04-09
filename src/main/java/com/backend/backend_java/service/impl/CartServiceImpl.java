@@ -106,6 +106,11 @@ public class CartServiceImpl implements CartService {
             newItem.setProductPrice(product.getPriceSale());
             newItem.setDiscount(product.getDiscount());
 
+            // ✅ Tính toán và set totalPrice
+            double priceAfterDiscount = product.getPriceSale() * (1 - product.getDiscount() / 100.0);
+            double itemTotalPrice = priceAfterDiscount * quantity;
+            newItem.setTotalPrice(itemTotalPrice);
+
             cart.getCartItems().add(newItem);
 
             // Nhưng thiếu:
@@ -125,10 +130,13 @@ public class CartServiceImpl implements CartService {
     }
 
     private void updateCartTotalPrice(Cart cart) {
-        double total = cart.getCartItems().stream()
-                .mapToDouble(item -> item.getProductPrice() * item.getQuantity())
-                .sum();
-        cart.setTotalPrice(Math.round(total * 100.0) / 100.0); // Làm tròn 2 chữ số
+        double total = 0.0;
+        for (CartItem item : cart.getCartItems()) {
+            double finalPrice = item.getProductPrice() * (1 - item.getDiscount() / 100.0);
+            item.setTotalPrice(finalPrice * item.getQuantity()); // cập nhật lại luôn totalPrice
+            total += item.getTotalPrice();
+        }
+        cart.setTotalPrice(total);
     }
 
     public CartDTO convertCartToDTO(Cart cart) {
@@ -160,6 +168,7 @@ public class CartServiceImpl implements CartService {
         // Giữ nguyên kiểu double
         dto.setProductPrice(item.getProductPrice());
         dto.setDiscount(item.getDiscount());
+        dto.setTotalPrice(item.getTotalPrice());
 
         if (item.getCart() != null) {
             dto.setCartId(item.getCart().getCartId());// them cart id
@@ -280,13 +289,20 @@ public class CartServiceImpl implements CartService {
             throw new ResourceNotFoundException("Product", "productId", productId);
         }
 
-        cart.setTotalPrice(cart.getTotalPrice() - (cartItem.getProductPrice() * cartItem.getQuantity()));
+        // Trả lại số lượng cho sản phẩm
         Product product = cartItem.getProduct();
         product.setQuantity(product.getQuantity() + cartItem.getQuantity());
+        productRepo.save(product);
 
-        cartItemRepo.deleteCartItemByProductIdAndCartId(cartId, productId);
+        // Xóa cart item
+        cart.getCartItems().remove(cartItem); // Loại khỏi danh sách
+        cartItemRepo.delete(cartItem);
 
-        return "Product " + cartItem.getProduct().getProductName() + " removed from the cart!!!";
+        // Cập nhật lại tổng tiền
+        updateCartTotalPrice(cart);
+        cartRepo.save(cart);
+
+        return "Product " + product.getProductName() + " removed from the cart!!!";
     }
 
     @Override
@@ -295,24 +311,32 @@ public class CartServiceImpl implements CartService {
         Cart cart = cartRepo.findById(cartId)
                 .orElseThrow(() -> new ResourceNotFoundException("Cart", "cartId", cartId));
 
-        // Kiểm tra và cập nhật User
+        // Trả lại số lượng cho từng sản phẩm trong giỏ
+        if (cart.getCartItems() != null) {
+            for (CartItem item : cart.getCartItems()) {
+                Product product = item.getProduct();
+                product.setQuantity(product.getQuantity() + item.getQuantity());
+                productRepo.save(product);
+            }
+        }
+
+        // Ngắt liên kết giữa user và cart
         if (cart.getUser() != null) {
-            cart.getUser().setCart(null); // Đặt Cart của User thành null trước khi xóa
+            cart.getUser().setCart(null);
             userRepo.save(cart.getUser());
         }
 
-        // Xóa các CartItem và Cart
+        // Xóa cartItems và cart
         cartItemRepo.deleteCartItemsByCartId(cartId);
         cartRepo.delete(cart);
-        cartRepo.flush(); // Force the delete operation
 
         return "Cart with ID " + cartId + " deleted successfully!!!";
     }
 
     // Định dạng số để làm tròn về 2 chữ số thập phân
     private Double formatNumber(Double number) {
-        if (number == null)
-            return null;
+        if (number == null || number < 0)
+            return 0.0;
         return Math.round(number * 100.0) / 100.0;
     }
 

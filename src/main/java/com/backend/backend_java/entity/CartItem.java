@@ -30,6 +30,7 @@ public class CartItem {
     private Integer quantity;
     private double discount;
     private double productPrice;
+    private Double totalPrice;
 
     // Tính giá sau khi giảm giá
     public double getFinalPrice() {

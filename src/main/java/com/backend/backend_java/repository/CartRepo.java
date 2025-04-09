@@ -1,6 +1,7 @@
 package com.backend.backend_java.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.backend.backend_java.entity.Cart;
+import com.backend.backend_java.entity.User;
 
 import jakarta.transaction.Transactional;
 
@@ -32,5 +34,7 @@ public interface CartRepo extends JpaRepository<Cart, Long> {
     @Transactional
     @Query(value = "ALTER TABLE carts AUTO_INCREMENT =1", nativeQuery = true)
     void resetAutoIncrement(Long nextId);
+
+    Optional<Cart> findByUser(User user);
 
 }

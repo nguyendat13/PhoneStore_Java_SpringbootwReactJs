@@ -14,11 +14,12 @@ import com.backend.backend_java.payloads.AuthResponse;
 import com.backend.backend_java.payloads.LoginRequest;
 import com.backend.backend_java.repository.UserRepo;
 import com.backend.backend_java.security.JWTUtil;
+import java.util.List;
 
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/public")
+@RequestMapping("/api")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -33,30 +34,30 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        // Kiểm tra xem user có tồn tại không
         Optional<User> optionalUser = userRepo.findByEmail(request.getEmail());
 
         if (optionalUser.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tài khoản không tồn tại!");
         }
         try {
-            // Xác thực user bằng AuthenticationManager
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
-            );
-    
+                    new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+
             SecurityContextHolder.getContext().setAuthentication(authentication);
-    
-            // Lấy user từ database
+
             User user = optionalUser.get();
-    
-            // Tạo JWT
+
             String token = jwtUtil.generateToken(user.getEmail());
-    
-            // Trả về thông tin user + token
-            return ResponseEntity.ok(new AuthResponse(user.getUserId(), user.getEmail(), token));
+
+            // Lấy danh sách role name từ user
+            List<String> roles = user.getRoles().stream()
+                    .map(role -> role.getRoleName()) // giữ nguyên hoặc .toUpperCase() nếu bạn muốn
+                    .toList();
+
+            return ResponseEntity.ok(new AuthResponse(user.getUserId(), user.getEmail(), token, roles));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Mật khẩu không đúng!");
         }
     }
+
 }

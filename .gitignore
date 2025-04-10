@@ -1,0 +1,34 @@
+# Bỏ qua thư mục node_modules
+node_modules/
+
+# Bỏ thư mục build, dist
+dist/
+build/
+
+# Bỏ các file log
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Bỏ file môi trường
+.env
+.env.* 
+
+# Bỏ hệ điều hành
+.DS_Store
+Thumbs.db
+
+# Bỏ cache của IDE
+.vscode/
+.idea/
+
+# Bỏ các file lock nếu không cần
+package-lock.json
+yarn.lock
+
+# Nếu dùng testing
+coverage/
+
+# Nếu có docker
+docker-compose.override.yml

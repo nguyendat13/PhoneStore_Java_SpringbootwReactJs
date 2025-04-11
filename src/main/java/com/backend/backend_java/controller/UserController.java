@@ -75,7 +75,7 @@ public class UserController {
         return new ResponseEntity<UserDTO>(updatedUser, HttpStatus.OK);
     }
 
-    @DeleteMapping("/admin/users/{userId}")
+    @DeleteMapping("/public/users/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
 
         String status = userService.deleteUser(userId);

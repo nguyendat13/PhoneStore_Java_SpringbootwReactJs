@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class BrandDTO {
     private Long brandId;
     private String brandName;
-    private Integer brandQty;
+    private Long brandQty;
 }

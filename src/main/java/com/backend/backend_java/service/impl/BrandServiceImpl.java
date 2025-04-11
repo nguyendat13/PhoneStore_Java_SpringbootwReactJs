@@ -6,6 +6,7 @@ import com.backend.backend_java.exceptions.ResourceNotFoundException;
 import com.backend.backend_java.payloads.BrandDTO;
 import com.backend.backend_java.payloads.BrandResponse;
 import com.backend.backend_java.repository.BrandRepo;
+import com.backend.backend_java.repository.ProductRepo;
 import com.backend.backend_java.service.BrandService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -20,6 +21,8 @@ import java.util.stream.Collectors;
 @Service
 public class BrandServiceImpl implements BrandService {
     @Autowired
+    private ProductRepo productRepo;
+    @Autowired
     private BrandRepo brandRepo;
 
     @Autowired
@@ -32,7 +35,7 @@ public class BrandServiceImpl implements BrandService {
         }
 
         Brand brand = modelMapper.map(brandDTO, Brand.class);
-        brand.setBrandQty(0);
+        brand.setBrandQty(0L);
         brand = brandRepo.save(brand);
         return modelMapper.map(brand, BrandDTO.class);
     }
@@ -43,7 +46,13 @@ public class BrandServiceImpl implements BrandService {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
         Page<Brand> brandPage = brandRepo.findAll(pageable);
         List<BrandDTO> brandDTOs = brandPage.getContent().stream()
-                .map(brand -> modelMapper.map(brand, BrandDTO.class))
+                .map(brand -> {
+                    BrandDTO dto = modelMapper.map(brand, BrandDTO.class);
+                    // Đếm số sản phẩm theo brandId
+                    Long qty = productRepo.countByBrand_BrandId(brand.getBrandId());
+                    dto.setBrandQty(qty);
+                    return dto;
+                })
                 .collect(Collectors.toList());
 
         return new BrandResponse(brandDTOs, brandPage.getNumber(), brandPage.getSize(),
@@ -62,7 +71,9 @@ public class BrandServiceImpl implements BrandService {
         Brand brand = brandRepo.findById(brandId)
                 .orElseThrow(() -> new ResourceNotFoundException("Brand", "brandId", brandId));
         brand.setBrandName(brandDTO.getBrandName());
-        brand.setBrandQty(brandDTO.getBrandQty());
+        // Gán mặc định 0 nếu brandQty bị null
+        Long qty = brandDTO.getBrandQty() != null ? brandDTO.getBrandQty() : 0;
+        brand.setBrandQty(qty);
         brand = brandRepo.save(brand);
         return modelMapper.map(brand, BrandDTO.class);
     }

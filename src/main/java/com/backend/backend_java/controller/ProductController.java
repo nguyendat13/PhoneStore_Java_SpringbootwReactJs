@@ -170,7 +170,7 @@ public class ProductController {
         return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
     }
 
-    @DeleteMapping("/admin/product/{productId}")
+    @DeleteMapping("/admin/products/{productId}")
     public ResponseEntity<String> deleteProductByCategory(@PathVariable Long productId) {
         String status = productService.deleteProduct(productId);
         return new ResponseEntity<>(status, HttpStatus.OK);

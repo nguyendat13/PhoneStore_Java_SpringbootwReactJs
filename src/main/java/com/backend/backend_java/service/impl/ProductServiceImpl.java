@@ -109,10 +109,12 @@ public class ProductServiceImpl implements ProductService {
                 // Lưu sản phẩm vào database
                 Product savedProduct = productRepo.save(product);
 
-                // Cập nhật số lượng sản phẩm trong danh mục (+1)
-                category.setCategoryQty(category.getCategoryQty() + 1);
-                categoryRepo.save(category); // Lưu lại danh mục đã cập nhật
-
+                // ✅ Tăng số lượng sản phẩm trong danh mục
+                category.setCategoryQty((category.getCategoryQty() == null ? 0 : category.getCategoryQty()) + 1);
+                categoryRepo.save(category);
+                // ✅ Tăng số lượng sản phẩm trong thương hiệu
+                brand.setBrandQty((brand.getBrandQty() == null ? 0 : brand.getBrandQty()) + 1);
+                brandRepo.save(brand);
                 return modelMapper.map(savedProduct, ProductDTO.class);
         }
 

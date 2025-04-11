@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class CategoryDTO {
     private Long categoryId;
     private String categoryName;
-    private Integer categoryQty; // Tổng số sản phẩm trong danh mục
+    private Long categoryQty; // Tổng số sản phẩm trong danh mục
 
 }

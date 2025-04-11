@@ -5,8 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.backend.backend_java.config.AppConstants;
 import com.backend.backend_java.payloads.BrandDTO;
 import com.backend.backend_java.payloads.BrandResponse;
+import com.backend.backend_java.payloads.CategoryResponse;
 import com.backend.backend_java.service.BrandService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -29,12 +31,20 @@ public class BrandController {
 
     @GetMapping("/public/brands")
     public ResponseEntity<BrandResponse> getBrands(
-            @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
-            @RequestParam(name = "sortBy", defaultValue = "brandId") String sortBy,
-            @RequestParam(name = "sortOrder", defaultValue = "asc") String sortOrder) {
+            @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+            @RequestParam(name = "sortBy", defaultValue = AppConstants.SORT_BRANDS_BY, required = false) String sortBy,
+            @RequestParam(name = "sortOrder", defaultValue = AppConstants.SORT_DIR, required = false) String sortOrder) {
 
-        BrandResponse brandResponse = brandService.getBrands(pageNumber, pageSize, sortBy, sortOrder);
+        // Kiểm tra nếu pageNumber nhỏ hơn hoặc bằng 0 thì chuyển thành 0
+        pageNumber = pageNumber > 0 ? pageNumber - 1 : 0;
+
+        BrandResponse brandResponse = brandService.getBrands(
+                pageNumber,
+                pageSize,
+                "id".equals(sortBy) ? "brandId" : sortBy,
+                sortOrder);
+
         return new ResponseEntity<>(brandResponse, HttpStatus.OK);
     }
 

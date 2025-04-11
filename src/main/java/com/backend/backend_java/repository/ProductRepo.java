@@ -50,4 +50,8 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p WHERE p.createdAt >= :lastWeek ORDER BY p.createdAt DESC")
     List<Product> findNewProducts(@Param("lastWeek") Date lastWeek);
+
+    Long countByBrand_BrandId(Long brandId);
+
+    Long countByCategory_CategoryId(Long categoryId);
 }

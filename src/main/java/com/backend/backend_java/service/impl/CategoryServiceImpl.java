@@ -7,6 +7,7 @@ import com.backend.backend_java.exceptions.ResourceNotFoundException;
 import com.backend.backend_java.payloads.CategoryDTO;
 import com.backend.backend_java.payloads.CategoryResponse;
 import com.backend.backend_java.repository.CategoryRepo;
+import com.backend.backend_java.repository.ProductRepo;
 import com.backend.backend_java.service.CategoryService;
 import com.backend.backend_java.service.ProductService;
 import jakarta.transaction.Transactional;
@@ -22,6 +23,8 @@ import java.util.stream.Collectors;
 @Transactional
 @Service
 public class CategoryServiceImpl implements CategoryService {
+    @Autowired
+    private ProductRepo productRepo;
     @Autowired
     private CategoryRepo categoryRepo;
 
@@ -46,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepo.resetAutoIncrement(maxId + 1);
 
         Category category = modelMapper.map(categoryDTO, Category.class); // Chuyển DTO sang Entity
-        category.setCategoryQty(0); // Mặc định số lượng sản phẩm là 0 khi tạo danh mục mới
+        category.setCategoryQty(0L); // Mặc định số lượng sản phẩm là 0 khi tạo danh mục mới
         category = categoryRepo.save(category); // Lưu vào database
         return modelMapper.map(category, CategoryDTO.class);
     }
@@ -57,7 +60,13 @@ public class CategoryServiceImpl implements CategoryService {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
         Page<Category> categoryPage = categoryRepo.findAll(pageable);
         List<CategoryDTO> categoryDTOs = categoryPage.getContent().stream()
-                .map(category -> modelMapper.map(category, CategoryDTO.class))
+                .map(category -> {
+                    CategoryDTO dto = modelMapper.map(category, CategoryDTO.class);
+                    // Đếm số sản phẩm theo categoryId
+                    Long qty = productRepo.countByCategory_CategoryId(category.getCategoryId());
+                    dto.setCategoryQty(qty);
+                    return dto;
+                })
                 .collect(Collectors.toList());
 
         return new CategoryResponse(categoryDTOs, categoryPage.getNumber(), categoryPage.getSize(),
@@ -76,7 +85,9 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepo.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
         category.setCategoryName(categoryDTO.getCategoryName());
-        category.setCategoryQty(categoryDTO.getCategoryQty());
+        // Gán mặc định 0 nếu categoryQty bị null
+        Long qty = categoryDTO.getCategoryQty() != null ? categoryDTO.getCategoryQty() : 0;
+        category.setCategoryQty(qty);
         category = categoryRepo.save(category);
         return modelMapper.map(category, CategoryDTO.class);
     }

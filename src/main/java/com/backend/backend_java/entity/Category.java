@@ -23,7 +23,7 @@ public class Category {
     @Size(min = 3, message = "Category name must contain at least 3 characters")
     private String categoryName;
 
-    private Integer categoryQty; // Số lượng sản phẩm trong danh mục
+    private Long categoryQty; // Số lượng sản phẩm trong danh mục
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Product> products;

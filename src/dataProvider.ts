@@ -102,7 +102,7 @@ export const dataProvider: DataProvider = {
         categories: 'categoryId',
         carts: 'cartId',
         orders: 'orderId',
-
+        brands:'brandId'
         // Add more mappings as needed
     };
 
@@ -123,11 +123,22 @@ export const dataProvider: DataProvider = {
       const keyword = filter.search;
       delete query.search;
       url = `${apiUrl}/public/${resource}/keyword/${encodeURIComponent(keyword)}?${new URLSearchParams(query)}`;
-  } else if (filter?.categoryId) {
+  
+    } else if (filter?.categoryId) {
+
       const categoryId = filter.categoryId;
       delete query.categoryId;
       url = `${apiUrl}/public/categories/${categoryId}/${resource}?${new URLSearchParams(query)}`;
-  } else if (resource === "carts") {
+
+
+    } else if (filter?.brandId) {
+
+      const brandId = filter.brandId;
+      delete query.brandId;
+      url = `${apiUrl}/public/brands/${brandId}/${resource}?${new URLSearchParams(query)}`;
+
+
+    } else if (resource === "carts") {
       url = `${apiUrl}/admin/${resource}`;
 
   } else if (resource === "orders") {
@@ -224,32 +235,44 @@ deleteMany: async <RecordType extends RaRecord = any>(
     throw new Error('Function not implemented.');
    },
 
-  create: async (resource: string, params: CreateParams): Promise<CreateResult> => {
+   create: async (resource: string, params: CreateParams): Promise<CreateResult> => {
     let url = `${apiUrl}/admin/${resource}`;
-  
-    // Nếu tạo danh mục
-    if (resource === "categories") {
-      url = `${apiUrl}/admin/categories`; // Đường dẫn đúng cho API
-    }
-    if (resource === "products") {
-      url = `${apiUrl}/admin/categories/${params.data.categoryId}/product`;
-      params.data.image = 'default.png';
-  }
     const { data } = params;
+  
+     // Xử lý riêng cho products (cần categoryId và brandId)
+  if (resource === "products") {
+    const { categoryId, brandId } = params.data;
+    url = `${apiUrl}/admin/categories/${categoryId}/product/brands/${brandId}`;
+    data.image = data.image || "default.png"; // Gán mặc định nếu chưa có
+  }
+
+  
+    // Gửi yêu cầu POST
     const result = await httpClient.post(url, data);
-    // Gán ID cho dữ liệu trả về
-    let idKey = resource === "categories" ? "categoryId" : "productId"; 
-    return { data: { ...data, id: result.json[idKey] || result.json.id } }; // Đảm bảo ID trả về đúng
+  
+    // Xác định tên trường ID cần gán cho react-admin
+    let idKey = "id";
+    if (["categories", "brands"].includes(resource)) idKey = `${resource.slice(0, -1)}Id`; // categoryId, brandId
+    if (resource === "products") idKey = "productId";
+  
+    return { data: { ...data, id: result.json[idKey] || result.json.id } };
   },
+  
   
   update: async (resource: string, params: UpdateParams): Promise<UpdateResult> => {
+    if (resource === 'products') {
+      const { categoryId, brandId, ...productData } = params.data;
+      const url = `${apiUrl}/admin/categories/${categoryId}/product/${params.id}/brands/${brandId}`;
+      const result = await httpClient.put(url, productData);
+      return { data: { id: params.id, ...result.json } };
+    }
+  
+    // Default update cho resource khác
     const url = `${apiUrl}/admin/${resource}/${params.id}`;
-    const { data } = params;
-    const result = await httpClient.put(url, data);
-    const updatedData = { id: params.id, ...result.json };
-    return { data: updatedData };
+    const result = await httpClient.put(url, params.data);
+    return { data: { id: params.id, ...result.json } };
   },
-
+  
 getOne: async (resource: string, params: GetOneParams): Promise<GetOneResult> => {
   console.log('getOne called for resource:', resource, 'with params:', params);
   const username = localStorage.getItem('username');
@@ -341,7 +364,7 @@ getMany: async (resource: string, params: GetManyParams): Promise<GetManyResult>
   const idFieldMapping: { [key: string]: string } = {
        products: 'productId',
        categories: 'categoryId',
-       
+       brands:"brandId"
    // Add more mappings as needed
   };
   console.log('Request resource:', resource);

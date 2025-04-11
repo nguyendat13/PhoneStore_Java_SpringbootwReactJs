@@ -14,6 +14,9 @@ import {
   EditButton,
   DeleteButton,
   ReferenceField,
+  useNotify,
+  useRedirect,
+  useRefresh,
 } from 'react-admin';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -64,42 +67,55 @@ export const ProductList = () => (
 );
 
 // ✅ CREATE
-export const ProductCreate = () => (
-  <Create>
-    <SimpleForm>
-      <TextInput source="productName" label="Tên sản phẩm" required />
-      <TextInput source="description" label="Mô tả" required />
-      <TextInput source="color" label="Màu sắc" />
-      <NumberInput source="quantity" label="Số lượng" required />
-      <NumberInput source="price" label="Giá" required />
-      <NumberInput source="discount" label="Giảm giá (%)" required />
-      <NumberInput source="priceSale" label="Giá khuyến mãi" required />
-      <ReferenceInput source="categoryId" reference="categories" label="Danh mục" required>
-        <SelectInput optionText="categoryName" />
-      </ReferenceInput>
-      <ReferenceInput source="brandId" reference="brands" label="Thương hiệu" required>
-        <SelectInput optionText="brandName" />
-      </ReferenceInput>
-    </SimpleForm>
-  </Create>
-);
+export const ProductCreate = () => {
+  const notify = useNotify();
+  const redirect = useRedirect();
+  const refresh = useRefresh();
 
-// ✅ EDIT
+  const onSuccess = () => {
+    notify('Thêm sản phẩm thành công');
+    redirect('list', 'products'); // Chuyển sang danh sách sản phẩm
+    refresh(); // Làm mới
+  };
+
+  return (
+    <Create mutationOptions={{ onSuccess }}>
+      <SimpleForm>
+        <TextInput source="productName" label="Tên sản phẩm" required />
+        <TextInput source="description" label="Mô tả" required />
+        <TextInput source="color" label="Màu sắc" />
+        <NumberInput source="quantity" label="Số lượng" required />
+        <NumberInput source="price" label="Giá" required />
+        <NumberInput source="discount" label="Giảm giá (%)" required />
+        <NumberInput source="priceSale" label="Giá khuyến mãi" required />
+        <ReferenceInput source="categoryId" reference="categories" label="Danh mục" required>
+          <SelectInput optionText="categoryName" />
+        </ReferenceInput>
+        <ReferenceInput source="brandId" reference="brands" label="Thương hiệu" required>
+          <SelectInput optionText="brandName" />
+        </ReferenceInput>
+      </SimpleForm>
+    </Create>
+  );
+};
+
 export const ProductEdit = () => (
   <Edit>
     <SimpleForm>
-      <TextInput source="productId" disabled />
+      <TextInput source="productId" disabled label="ID" />
       <TextInput source="productName" label="Tên sản phẩm" />
+      <TextInput source="image" label="Link ảnh" />
       <TextInput source="description" label="Mô tả" />
-      <TextInput source="color" label="Màu sắc" />
-      <TextInput source="image" disabled label="Link ảnh (readonly)" />
       <NumberInput source="quantity" label="Số lượng" />
       <NumberInput source="price" label="Giá" />
       <NumberInput source="discount" label="Giảm giá (%)" />
       <NumberInput source="priceSale" label="Giá khuyến mãi" />
+      <TextInput source="color" label="Màu sắc" />
+
       <ReferenceInput source="categoryId" reference="categories" label="Danh mục">
         <SelectInput optionText="categoryName" />
       </ReferenceInput>
+
       <ReferenceInput source="brandId" reference="brands" label="Thương hiệu">
         <SelectInput optionText="brandName" />
       </ReferenceInput>

@@ -41,7 +41,7 @@ public class UserController {
         return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/public/users")
+    @GetMapping("/admin/users")
     public ResponseEntity<UserReponse> getUsers(
             @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
             @RequestParam(name = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,

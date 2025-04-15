@@ -11,9 +11,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,6 +49,9 @@ import com.backend.backend_java.repository.UserRepo;
 import com.backend.backend_java.service.UserService;
 import com.backend.backend_java.service.AddressService;
 import com.backend.backend_java.service.CartService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -190,18 +196,60 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    // @Override
+    // @Transactional(readOnly = true)
+    // public UserReponse getAllUsers(Integer pageNumber, Integer pageSize, String
+    // sortBy, String sortOrder) {
+    // Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")
+    // ? Sort.by(sortBy).ascending()
+    // : Sort.by(sortBy).descending();
+
+    // Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
+    // Page<User> pageUsers = userRepo.findAll(pageDetails);
+
+    // List<UserDTO> userDTOS = pageUsers.getContent().stream()
+    // .map(this::convertToUserDTO) // dùng hàm mới
+    // .collect(Collectors.toList());
+
+    // return new UserReponse(
+    // userDTOS,
+    // pageUsers.getNumber(),
+    // pageUsers.getSize(),
+    // pageUsers.getTotalElements(),
+    // pageUsers.getTotalPages(),
+    // pageUsers.isLast());
+    // }
+
     @Override
     @Transactional(readOnly = true)
     public UserReponse getAllUsers(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        
+        User currentUser = userRepo.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+        
+        boolean isSuperAdmin = currentUser.getRoles().stream()
+                .anyMatch(role -> role.getRoleId() == 1); // SUPER_ADMIN có roleId = 1
+
         Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")
                 ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
 
         Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
-        Page<User> pageUsers = userRepo.findAll(pageDetails);
+        Page<User> pageUsers;
+
+        if (isSuperAdmin) {
+            // SUPER_ADMIN xem được tất cả người dùng
+            pageUsers = userRepo.findAll(pageDetails);
+        } else {
+            // Người thường chỉ xem được chính mình
+            List<User> currentUserList = List.of(currentUser);
+            pageUsers = new PageImpl<>(currentUserList, pageDetails, 1);
+        }
 
         List<UserDTO> userDTOS = pageUsers.getContent().stream()
-                .map(this::convertToUserDTO) // dùng hàm mới
+                .map(this::convertToUserDTO) // dùng hàm convert đã viết
                 .collect(Collectors.toList());
 
         return new UserReponse(

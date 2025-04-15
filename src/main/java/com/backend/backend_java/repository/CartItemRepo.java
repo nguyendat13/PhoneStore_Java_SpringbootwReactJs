@@ -8,6 +8,7 @@ import com.backend.backend_java.entity.Cart;
 import com.backend.backend_java.entity.CartItem;
 import com.backend.backend_java.entity.Product;
 import java.util.List;
+import java.util.Optional;
 
 import jakarta.transaction.Transactional;
 
@@ -65,4 +66,7 @@ public interface CartItemRepo extends JpaRepository<CartItem, Long> {
 
     // Custom method to delete all CartItems by Cart
     void deleteAllByCart(Cart cart);
+
+    Optional<CartItem> findByCartAndProduct(Cart cart, Product product);
+
 }

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.backend.backend_java.entity.Cart;
@@ -36,5 +37,8 @@ public interface CartRepo extends JpaRepository<Cart, Long> {
     void resetAutoIncrement(Long nextId);
 
     Optional<Cart> findByUser(User user);
+
+    @Query("SELECT c FROM Cart c JOIN c.user u JOIN u.roles r WHERE r.roleName  = :roleName")
+    List<Cart> findCartsByUserRole(@Param("roleName") String roleName);
 
 }

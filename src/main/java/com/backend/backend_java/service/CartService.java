@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.backend.backend_java.entity.Cart;
 import com.backend.backend_java.payloads.CartDTO;
+import com.backend.backend_java.payloads.CartItemDTO;
+import com.backend.backend_java.payloads.request.CartRequest;
 
 public interface CartService {
-    CartDTO addProductToCart(Long cartId, Long productId, Integer quantity);
+    // CartDTO addProductToCart(Long cartId, Long productId, Integer quantity);
 
     List<CartDTO> getAllCarts();
 
@@ -22,5 +24,10 @@ public interface CartService {
 
     CartDTO convertCartToDTO(Cart cart);
 
-    CartDTO getCartByUserId(Long userId);
+    CartDTO getCartByCartId(Long cartId);
+
+    List<CartDTO> getCartsByUserRole(String roleName);
+
+    CartItemDTO addToCart(CartRequest request);
+
 }

@@ -16,13 +16,10 @@ public class CartItemDTO {
     private Integer quantity;
     private double discount;
     private double productPrice;
-    private double totalPrice; // ✅ thêm dòng này
+    private double finalPrice;
 
     // Thêm các trường mới
     private String productName;
     private String productImage;
 
-    public double getFinalPrice() {
-        return productPrice - (productPrice * discount / 100);
-    }
 }

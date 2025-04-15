@@ -47,7 +47,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(AppConstants.PUBLIC_URLS).permitAll() // Cho phép API public
-                        .requestMatchers(AppConstants.ADMIN_URLS).hasAuthority("ADMIN") // Chỉ ADMIN truy cập
+                        .requestMatchers(AppConstants.ADMIN_URLS).hasAnyAuthority("ADMIN", "SUPER_ADMIN") // Chỉ ADMIN truy
+                                                                                                       // cập
                         .anyRequest().authenticated()) // Các API còn lại yêu cầu xác thực
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(
                         (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED,

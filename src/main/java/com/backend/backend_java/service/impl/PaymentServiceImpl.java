@@ -100,7 +100,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         // 3. Tính tổng tiền
         double totalAmount = cart.getCartItems().stream()
-                .mapToDouble(CartItem::getTotalPrice)
+                .mapToDouble(CartItem::getFinalPrice)
                 .sum();
 
         // 4. Lấy địa chỉ đầu tiên

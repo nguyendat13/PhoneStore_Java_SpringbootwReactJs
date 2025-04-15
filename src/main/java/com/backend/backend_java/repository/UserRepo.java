@@ -18,8 +18,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u JOIN FETCH u.addresses a WHERE a.addressId = ?1")
     List<User> findByAddress(Long addressId);
 
-    @Query("SELECT u FROM User u WHERE u.email = :email")
-    Optional<User> findByEmail(@Param("email") String email);
+    Optional<User> findByEmail(String email);
 
     // Lấy ID lớn nhất hiện có
     @Query(value = "SELECT MAX(user_id) FROM users", nativeQuery = true)

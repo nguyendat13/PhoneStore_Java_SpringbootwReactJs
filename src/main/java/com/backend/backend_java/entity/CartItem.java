@@ -30,10 +30,6 @@ public class CartItem {
     private Integer quantity;
     private double discount;
     private double productPrice;
-    private Double totalPrice;
+    private Double finalPrice;
 
-    // Tính giá sau khi giảm giá
-    public double getFinalPrice() {
-        return productPrice - (productPrice * discount / 100);
-    }
 }

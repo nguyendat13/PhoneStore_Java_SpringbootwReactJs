@@ -15,5 +15,16 @@ public class CartDTO {
     private Double totalPrice = 0.0;
     private List<CartItemDTO> cartItems; // ✅ Thay vì products, ta lưu CartItem
     private String email; // Lấy từ User
+    // Hàm tính tổng tiền giỏ hàng
+
+    public void calculateTotalPrice() {
+        if (cartItems != null) {
+            this.totalPrice = cartItems.stream()
+                    .mapToDouble(item -> item.getFinalPrice() * item.getQuantity())
+                    .sum();
+        } else {
+            this.totalPrice = 0.0;
+        }
+    }
 
 }

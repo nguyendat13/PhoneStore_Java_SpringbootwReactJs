@@ -42,10 +42,10 @@ public class Cart {
 
     private Double totalPrice = 0.0;
 
-    public double getTotalPrice() {
-        return cartItems.stream()
-                .mapToDouble(CartItem::getTotalPrice)
-                .sum();
-    }
+    // public double getTotalPrice() {
+    // return cartItems.stream()
+    // .mapToDouble(CartItem::getFinalPrice)
+    // .sum();
+    // }
 
 }

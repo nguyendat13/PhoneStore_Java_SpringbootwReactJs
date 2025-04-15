@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserPaymentDTO {
+    private Long id; // Thêm paymentId
+
     private Long transactionId;
     private Double paymentAmount;
 

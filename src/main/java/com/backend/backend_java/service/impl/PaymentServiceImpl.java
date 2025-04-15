@@ -60,7 +60,7 @@ public class PaymentServiceImpl implements PaymentService {
     private ProductRepo productRepo;
     @Autowired
     private ModelMapper modelMapper;
-
+    
     @Autowired
     private CartService cartService;
 
@@ -146,4 +146,42 @@ public class PaymentServiceImpl implements PaymentService {
         // ❌ KHÔNG tạo đơn hàng và KHÔNG xoá giỏ hàng
         return modelMapper.map(saved, UserPaymentDTO.class);
     }
+
+    @Override
+    @Transactional
+    public void cancelAndDeletePayment(Long paymentId) {
+        UserPayment payment = userPaymentRepo.findById(paymentId)
+                .orElseThrow(() -> new ResourceNotFoundException("UserPayment", "id", paymentId));
+
+        userPaymentRepo.delete(payment); // Xoá thẳng không kiểm tra trạng thái
+    }
+
+    @Override
+    public List<UserPaymentDTO> getAllPayments() {
+        List<UserPayment> payments = userPaymentRepo.findAll();
+        return payments.stream()
+                .map(payment -> {
+                    UserPaymentDTO paymentDTO = modelMapper.map(payment, UserPaymentDTO.class);
+                    paymentDTO.setId(payment.getId()); // Thêm paymentId vào DTO
+                    return paymentDTO;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserPaymentDTO> getPaymentsByUserId(Long userId) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
+
+        List<UserPayment> payments = userPaymentRepo.findByUser(user);
+
+        return payments.stream()
+                .map(payment -> {
+                    UserPaymentDTO paymentDTO = modelMapper.map(payment, UserPaymentDTO.class);
+                    paymentDTO.setId(payment.getId()); // Thêm paymentId vào DTO
+                    return paymentDTO;
+                })
+                .collect(Collectors.toList());
+    }
+
 }

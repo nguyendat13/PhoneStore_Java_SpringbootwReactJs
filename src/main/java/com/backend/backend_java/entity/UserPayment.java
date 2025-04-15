@@ -35,8 +35,8 @@ public class UserPayment {
     private PaymentStatus paymentStatus;
 
     @ManyToOne
+    @JoinColumn(name = "user_id") // đặt tên cột mong muốn
     private User user;
 
-  
     // Getters and setters
 }

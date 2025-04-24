@@ -225,12 +225,17 @@ public class UserServiceImpl implements UserService {
     public UserReponse getAllUsers(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        
+
         User currentUser = userRepo.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
-        
+
+        // Kiểm tra xem người dùng có phải là SUPER_ADMIN hay không
         boolean isSuperAdmin = currentUser.getRoles().stream()
                 .anyMatch(role -> role.getRoleId() == 1); // SUPER_ADMIN có roleId = 1
+
+        // Kiểm tra xem người dùng có phải là ADMIN hay không
+        boolean isAdmin = currentUser.getRoles().stream()
+                .anyMatch(role -> role.getRoleId() == 2); // ADMIN có roleId = 2
 
         Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")
                 ? Sort.by(sortBy).ascending()
@@ -242,8 +247,11 @@ public class UserServiceImpl implements UserService {
         if (isSuperAdmin) {
             // SUPER_ADMIN xem được tất cả người dùng
             pageUsers = userRepo.findAll(pageDetails);
+        } else if (isAdmin) {
+            // ADMIN chỉ xem người dùng có role USER
+            pageUsers = userRepo.findByRoles_RoleId(3, pageDetails); // Giả sử roleId = 3 là USER
         } else {
-            // Người thường chỉ xem được chính mình
+            // Người dùng thường chỉ xem chính mình
             List<User> currentUserList = List.of(currentUser);
             pageUsers = new PageImpl<>(currentUserList, pageDetails, 1);
         }

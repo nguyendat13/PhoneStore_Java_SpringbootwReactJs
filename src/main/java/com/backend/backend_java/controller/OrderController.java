@@ -42,4 +42,10 @@ public class OrderController {
         return ResponseEntity.ok(orders);
     }
 
+    // ✅ API: Lấy danh sách tất cả đơn hàng (dành cho admin)
+    @GetMapping("/all")
+    public ResponseEntity<List<OrderDTO>> getAllOrders() {
+        List<OrderDTO> orders = orderService.getAllOrders();
+        return ResponseEntity.ok(orders);
+    }
 }

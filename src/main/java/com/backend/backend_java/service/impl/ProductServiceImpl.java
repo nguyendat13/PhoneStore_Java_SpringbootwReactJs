@@ -346,15 +346,83 @@ public class ProductServiceImpl implements ProductService {
                                 .collect(Collectors.toList());
         }
 
+        // SẢN PHẨM MỚI
         @Override
-        public List<ProductDTO> getNewProducts() {
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.DAY_OF_YEAR, -7);
-                Date lastWeek = calendar.getTime();
+        public ProductResponse getLatestProducts(Integer pageNumber, Integer pageSize, String sortBy,
+                        String sortOrder) {
+                // Nếu không có thứ tự sắp xếp cụ thể, mặc định sắp xếp theo ngày tạo hoặc ID
+                // (tuỳ thuộc vào cách lưu trữ)
+                Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending()
+                                : Sort.by(sortBy).descending();
 
-                List<Product> newProducts = productRepo.findNewProducts(lastWeek);
-                return newProducts.stream()
+                Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
+
+                // Truy vấn sản phẩm từ repository
+                Page<Product> pageProducts = productRepo.findAll(pageDetails);
+
+                // Chuyển các sản phẩm thành DTO
+                List<Product> products = pageProducts.getContent();
+                List<ProductDTO> productDTOs = products.stream()
                                 .map(product -> modelMapper.map(product, ProductDTO.class))
                                 .collect(Collectors.toList());
+
+                // Tạo đối tượng ProductResponse để trả về thông tin phân trang
+                ProductResponse productResponse = new ProductResponse();
+                productResponse.setContent(productDTOs);
+                productResponse.setPageNumber(pageProducts.getNumber());
+                productResponse.setPageSize(pageProducts.getSize());
+                productResponse.setTotalElements(pageProducts.getTotalElements());
+                productResponse.setTotalPages(pageProducts.getTotalPages());
+                productResponse.setLastPage(pageProducts.isLast());
+
+                return productResponse;
+        }
+
+        // SẢN PHẨM KHUYẾN MÃI
+        @Override
+        public ProductResponse getSaleProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
+                Sort sort = sortOrder.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending()
+                                : Sort.by(sortBy).descending();
+                Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+
+                Page<Product> saleProducts = productRepo.findProductsOnSale(pageable); // gọi method mới
+
+                List<ProductDTO> productDTOs = saleProducts.getContent().stream()
+                                .map(product -> modelMapper.map(product, ProductDTO.class))
+                                .collect(Collectors.toList());
+
+                ProductResponse response = new ProductResponse();
+                response.setContent(productDTOs);
+                response.setPageNumber(saleProducts.getNumber());
+                response.setPageSize(saleProducts.getSize());
+                response.setTotalElements(saleProducts.getTotalElements());
+                response.setTotalPages(saleProducts.getTotalPages());
+                response.setLastPage(saleProducts.isLast());
+
+                return response;
+        }
+
+        // SẢN PHẤM BÁN CHẠY
+        @Override
+        public ProductResponse getBestSellingProducts(Integer pageNumber, Integer pageSize, String sortBy,
+                        String sortOrder) {
+                Sort sort = Sort.by("quantity").ascending(); // ít còn trước
+
+                Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+                Page<Product> bestSellers = productRepo.findBestSellingByLeastQuantity(pageable);
+
+                List<ProductDTO> productDTOs = bestSellers.getContent().stream()
+                                .map(product -> modelMapper.map(product, ProductDTO.class))
+                                .collect(Collectors.toList());
+
+                ProductResponse response = new ProductResponse();
+                response.setContent(productDTOs);
+                response.setPageNumber(bestSellers.getNumber());
+                response.setPageSize(bestSellers.getSize());
+                response.setTotalElements(bestSellers.getTotalElements());
+                response.setTotalPages(bestSellers.getTotalPages());
+                response.setLastPage(bestSellers.isLast());
+
+                return response;
         }
 }

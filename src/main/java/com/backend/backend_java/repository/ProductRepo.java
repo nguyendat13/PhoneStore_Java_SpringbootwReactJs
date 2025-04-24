@@ -48,10 +48,19 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.category.categoryId = :categoryId AND p.productId <> :productId")
     List<Product> findProductsByCategory(@Param("categoryId") Long categoryId, @Param("productId") Long productId);
 
-    @Query("SELECT p FROM Product p WHERE p.createdAt >= :lastWeek ORDER BY p.createdAt DESC")
-    List<Product> findNewProducts(@Param("lastWeek") Date lastWeek);
-
     Long countByBrand_BrandId(Long brandId);
 
     Long countByCategory_CategoryId(Long categoryId);
+
+    @Query("SELECT p FROM Product p WHERE p.createdAt >= :lastWeek ORDER BY p.createdAt DESC")
+    List<Product> findNewProducts(@Param("lastWeek") Date lastWeek);
+
+    // sản phẩm khuyến mãi
+    @Query("SELECT p FROM Product p WHERE p.priceSale > 0")
+    Page<Product> findProductsOnSale(Pageable pageable);
+
+    // sản phẩm bán chạy
+    @Query("SELECT p FROM Product p WHERE p.quantity > 0")
+    Page<Product> findBestSellingByLeastQuantity(Pageable pageable);
+
 }

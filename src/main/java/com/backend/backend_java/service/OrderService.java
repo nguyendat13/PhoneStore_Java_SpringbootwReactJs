@@ -8,4 +8,6 @@ public interface OrderService {
     OrderDTO createOrderFromCart(Long userId, UserPayment payment);
 
     List<OrderDTO> getOrdersByUserId(Long userId);
+
+    List<OrderDTO> getAllOrders();
 }

@@ -182,9 +182,46 @@ public class ProductController {
         return ResponseEntity.ok(relatedProducts);
     }
 
+    // Sản phẩm mới
     @GetMapping("/public/products/new")
-    public ResponseEntity<List<ProductDTO>> getNewProducts() {
-        List<ProductDTO> newProducts = productService.getNewProducts();
-        return ResponseEntity.ok(newProducts);
+    public ResponseEntity<ProductResponse> getNewProducts(
+            @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+            @RequestParam(name = "sortBy", defaultValue = "createdDate", required = false) String sortBy,
+            @RequestParam(name = "sortOrder", defaultValue = "desc", required = false) String sortOrder) {
+
+        // Giảm pageNumber đi 1 nếu pageNumber lớn hơn 0 (do PageRequest bắt đầu từ 0)
+        pageNumber = pageNumber > 0 ? pageNumber - 1 : 0;
+
+        // Gọi service để lấy sản phẩm mới với tham số phân trang và sắp xếp
+        ProductResponse productResponse = productService.getLatestProducts(pageNumber, pageSize, sortBy, sortOrder);
+
+        // Trả về dữ liệu với ResponseEntity
+        return new ResponseEntity<>(productResponse, HttpStatus.OK);
     }
+
+    // Sản phẩm khuyến mãi
+    @GetMapping("/public/products/sale")
+    public ResponseEntity<ProductResponse> getSaleProducts(
+            @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+            @RequestParam(name = "sortBy", defaultValue = "createdDate", required = false) String sortBy,
+            @RequestParam(name = "sortOrder", defaultValue = "desc", required = false) String sortOrder) {
+
+        pageNumber = pageNumber > 0 ? pageNumber - 1 : 0;
+        ProductResponse productResponse = productService.getSaleProducts(pageNumber, pageSize, sortBy, sortOrder);
+        return new ResponseEntity<>(productResponse, HttpStatus.OK);
+    }
+
+    // Sản phấm bán chạy
+    @GetMapping("/public/products/best-sellers")
+    public ResponseEntity<ProductResponse> getBestSellingProducts(
+            @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize) {
+
+        pageNumber = pageNumber > 0 ? pageNumber - 1 : 0;
+        ProductResponse response = productService.getBestSellingProducts(pageNumber, pageSize, "quantity", "asc");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

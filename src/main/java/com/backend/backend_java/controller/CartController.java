@@ -44,7 +44,6 @@ public class CartController {
     // }
 
     // Lấy tất cả giỏ hàng (dành cho admin)
-    // Lấy tất cả giỏ hàng (dành cho admin)
     @GetMapping("/admin/carts")
     public ResponseEntity<Map<String, Object>> getCarts() {
         List<CartDTO> cartDTOs = cartService.getAllCarts();

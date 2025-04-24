@@ -14,4 +14,9 @@ public class FavoriteDTO {
     private Long userId; // Chỉ lấy ID của User
     private Long productId; // Chỉ lấy ID của Product
     private LocalDateTime createdAt;
+
+    private String productName;
+    private String image;
+    private double price;
+    private double priceSale;
 }

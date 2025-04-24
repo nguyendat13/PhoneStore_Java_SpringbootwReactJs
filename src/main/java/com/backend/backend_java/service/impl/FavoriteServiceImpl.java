@@ -77,11 +77,26 @@ public class FavoriteServiceImpl implements FavoriteService {
     public List<FavoriteDTO> getFavoritesByUser(Long userId) {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
-
+    
         List<Favorite> favorites = favoriteRepo.findByUser(user);
-
-        return favorites.stream()
-                .map(favorite -> modelMapper.map(favorite, FavoriteDTO.class))
-                .collect(Collectors.toList());
+    
+        return favorites.stream().map(fav -> {
+            Product product = fav.getProduct();
+    
+            FavoriteDTO dto = new FavoriteDTO();
+            dto.setFavoriteId(fav.getFavoriteId());
+            dto.setUserId(user.getUserId());
+            dto.setProductId(product.getProductId());
+            dto.setCreatedAt(fav.getCreatedAt());
+    
+            // Gán thông tin sản phẩm
+            dto.setProductName(product.getProductName());
+            dto.setImage(product.getImage());
+            dto.setPrice(product.getPrice());
+            dto.setPriceSale(product.getPriceSale());
+    
+            return dto;
+        }).collect(Collectors.toList());
     }
+    
 }

@@ -60,7 +60,7 @@ public class PaymentServiceImpl implements PaymentService {
     private ProductRepo productRepo;
     @Autowired
     private ModelMapper modelMapper;
-    
+
     @Autowired
     private CartService cartService;
 
@@ -182,6 +182,30 @@ public class PaymentServiceImpl implements PaymentService {
                     return paymentDTO;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PaymentMethod> getAllPaymentMethods() {
+        return paymentMethodRepo.findAll();
+    }
+
+    @Override
+    public List<PaymentStatus> getAllPaymentStatuses() {
+        return paymentStatusRepo.findAll();
+    }
+
+    @Override
+    public void deletePaymentMethod(Long methodId) {
+        PaymentMethod paymentMethod = paymentMethodRepo.findById(methodId)
+                .orElseThrow(() -> new ResourceNotFoundException("PaymentMethod", "id", methodId));
+        paymentMethodRepo.delete(paymentMethod);
+    }
+
+    @Override
+    public void deletePaymentStatus(Long statusId) {
+        PaymentStatus paymentStatus = paymentStatusRepo.findById(statusId)
+                .orElseThrow(() -> new ResourceNotFoundException("PaymentStatus", "id", statusId));
+        paymentStatusRepo.delete(paymentStatus);
     }
 
 }

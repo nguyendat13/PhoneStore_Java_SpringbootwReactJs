@@ -38,6 +38,9 @@ public interface ProductService {
 
         List<ProductDTO> getRelatedProducts(Long productId);
 
-        List<ProductDTO> getNewProducts();
+        ProductResponse getLatestProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 
+        ProductResponse getSaleProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
+
+        ProductResponse getBestSellingProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 }

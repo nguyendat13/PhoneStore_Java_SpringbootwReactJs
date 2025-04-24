@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.backend.backend_java.entity.User;
 
@@ -29,4 +31,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
     @Transactional
     @Query(value = "ALTER TABLE users AUTO_INCREMENT =1", nativeQuery = true)
     void resetAutoIncrement(Long nextId);
+
+    Page<User> findByRoles_RoleId(Integer roleId, Pageable pageable);
+
 }

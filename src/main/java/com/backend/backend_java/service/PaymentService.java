@@ -18,4 +18,12 @@ public interface PaymentService {
     List<UserPaymentDTO> getAllPayments();
 
     List<UserPaymentDTO> getPaymentsByUserId(Long userId);
+
+    List<PaymentMethod> getAllPaymentMethods(); // Thêm phương thức lấy tất cả PaymentMethods
+
+    List<PaymentStatus> getAllPaymentStatuses(); // Thêm phương thức lấy tất cả PaymentStatuses
+
+    void deletePaymentMethod(Long methodId); // Thêm phương thức xóa PaymentMethod
+
+    void deletePaymentStatus(Long statusId); // Thêm phương thức xóa PaymentStatus
 }

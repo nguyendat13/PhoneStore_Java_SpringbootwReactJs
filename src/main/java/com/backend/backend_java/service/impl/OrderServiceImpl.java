@@ -128,4 +128,35 @@ public class OrderServiceImpl implements OrderService {
         }).collect(Collectors.toList());
     }
 
+    @Transactional
+    @Override
+    public List<OrderDTO> getAllOrders() {
+        // Lấy tất cả đơn hàng từ database
+        List<Order> orders = orderRepo.findAll();
+
+        // Chuyển từng đơn hàng sang OrderDTO và tính lại tổng tiền sau giảm giá
+        return orders.stream().map(order -> {
+            Double totalAmount = order.getOrderItems().stream()
+                    .mapToDouble(item -> {
+                        double discountedPrice = item.getOrderedProductPrice() * (1 - item.getDiscount() / 100);
+                        return discountedPrice * item.getQuantity();
+                    }).sum();
+
+            OrderDTO orderDTO = modelMapper.map(order, OrderDTO.class);
+            orderDTO.setTotalAmount(totalAmount);
+
+            List<OrderItemDTO> itemDTOs = order.getOrderItems().stream().map(item -> {
+                OrderItemDTO dto = modelMapper.map(item, OrderItemDTO.class);
+                dto.setProductId(item.getProduct().getProductId());
+                dto.setProductName(item.getProduct().getProductName());
+                dto.setProductImage(item.getProduct().getImage());
+                return dto;
+            }).collect(Collectors.toList());
+
+            orderDTO.setOrderItems(itemDTOs);
+
+            return orderDTO;
+        }).collect(Collectors.toList());
+    }
+
 }

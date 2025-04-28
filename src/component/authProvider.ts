@@ -23,7 +23,8 @@ export const authProvider: AuthProvider = {
   
       const token = response.data.token;
       const roles: string[] = response.data.roles;
-  
+      const userId = response.data.id; // Lấy userId từ phản hồi
+
       if (!token) {
         throw new Error("Token không tồn tại trong phản hồi từ server.");
       }
@@ -32,10 +33,14 @@ export const authProvider: AuthProvider = {
       if (!roles.includes("ADMIN") && !roles.includes("SUPER_ADMIN")) {
         throw new Error("Tài khoản không có quyền truy cập trang quản trị.");
       }
-  
+       // Kiểm tra userId trước khi lưu vào localStorage
+       if (userId === undefined) {
+        throw new Error("userId không tồn tại trong phản hồi từ server.");
+      }
       // Lưu token và username
       localStorage.setItem("jwt-token", token);
       localStorage.setItem("username", username);
+      localStorage.setItem("userId", userId.toString()); // Chuyển userId thành chuỗi khi lưu
       localStorage.setItem("roles", JSON.stringify(roles));
   
       return Promise.resolve();
@@ -51,6 +56,7 @@ export const authProvider: AuthProvider = {
   logout: () => {
     localStorage.removeItem("jwt-token");
     localStorage.removeItem("username");
+    localStorage.removeItem("userId");
     localStorage.removeItem("roles");
     return Promise.resolve();
   },

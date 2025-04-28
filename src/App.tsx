@@ -17,8 +17,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import { CategoryList, CategoryCreate, CategoryEdit } from "./component/Category";
 import { ProductList, ProductCreate, ProductEdit } from "./component/Product";
 import ProductImageUpdate from "./component/ProductImageUpdate";
-import { CartList, CartShow } from "./component/Cart";
-import { OrderList, OrderShow } from "./component/Order";
+import { OrderEdit, OrderList, OrderShow } from "./component/Order";
 import { UserList, UserCreate, UserEdit } from "./component/User";
 import { BrandList, BrandCreate, BrandEdit } from './component/Brand';
 export const App = () => (
@@ -29,8 +28,7 @@ export const App = () => (
     <Resource name="categories" list={CategoryList} create={CategoryCreate} edit={CategoryEdit} icon={CategoryIcon} />
     <Resource name="brands" list={BrandList} create={BrandCreate} edit={BrandEdit} />
     <Resource name="products" list={ProductList} create={ProductCreate} edit={ProductEdit} icon={Inventory2Icon} />
-    <Resource name="carts" list={CartList} show={CartShow} icon={ShoppingCartIcon} />
-    <Resource name="orders" list={OrderList} show={OrderShow} icon={ReceiptIcon} />
+    <Resource name="orders" list={OrderList} show={OrderShow} edit={OrderEdit} icon={ReceiptIcon} />
     <Resource name="users" list={UserList} create={UserCreate} edit={UserEdit} icon={PersonIcon} />
   
   </Admin>

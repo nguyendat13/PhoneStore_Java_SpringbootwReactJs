@@ -4,6 +4,7 @@ import com.backend.backend_java.entity.*;
 import com.backend.backend_java.exceptions.APIException;
 import com.backend.backend_java.payloads.OrderDTO;
 import com.backend.backend_java.payloads.OrderItemDTO;
+import com.backend.backend_java.payloads.OrderUpdateDTO;
 import com.backend.backend_java.repository.CartRepo;
 import com.backend.backend_java.repository.OrderItemRepo;
 import com.backend.backend_java.repository.OrderRepo;
@@ -134,8 +135,15 @@ public class OrderServiceImpl implements OrderService {
         // Lấy tất cả đơn hàng từ database
         List<Order> orders = orderRepo.findAll();
 
+        // Lọc đơn hàng: chỉ lấy của user có role USER
+        List<Order> userOrders = orders.stream()
+                .filter(order -> order.getUser() != null
+                        && order.getUser().getRoles().stream()
+                                .anyMatch(role -> "USER".equals(role.getRoleName())))
+                .collect(Collectors.toList());
+
         // Chuyển từng đơn hàng sang OrderDTO và tính lại tổng tiền sau giảm giá
-        return orders.stream().map(order -> {
+        return userOrders.stream().map(order -> {
             Double totalAmount = order.getOrderItems().stream()
                     .mapToDouble(item -> {
                         double discountedPrice = item.getOrderedProductPrice() * (1 - item.getDiscount() / 100);
@@ -157,6 +165,46 @@ public class OrderServiceImpl implements OrderService {
 
             return orderDTO;
         }).collect(Collectors.toList());
+    }
+
+    private String mapOrderStatusToPaymentStatus(String orderStatus) {
+        switch (orderStatus) {
+            case "Đang xử lý":
+                return "Chưa thanh toán";
+            case "Đã thanh toán":
+                return "Đã thanh toán";
+            case "Đã hủy":
+                return "Đã hủy";
+            case "Chờ xác nhận":
+                return "Chờ xác nhận";
+            default:
+                return "Không xác định"; // fallback nếu lạ
+        }
+    }
+
+    @Override
+    @Transactional
+    public void updateOrderAndItems(Long orderId, OrderUpdateDTO orderUpdateDTO) {
+        Order order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn hàng"));
+
+        // Cập nhật orderStatus cho đơn hàng
+        if (orderUpdateDTO.getOrderStatus() != null) {
+            order.setOrderStatus(orderUpdateDTO.getOrderStatus());
+
+            // Map orderStatus sang paymentStatus
+            String newPaymentStatus = mapOrderStatusToPaymentStatus(orderUpdateDTO.getOrderStatus());
+
+            // Cập nhật tất cả orderItems
+            if (order.getOrderItems() != null) {
+                order.getOrderItems().forEach(item -> {
+                    item.setPaymentStatus(newPaymentStatus);
+                });
+            }
+        }
+
+        // Lưu lại
+        orderRepo.save(order);
     }
 
 }

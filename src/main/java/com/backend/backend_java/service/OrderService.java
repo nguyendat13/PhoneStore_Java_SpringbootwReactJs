@@ -2,6 +2,8 @@ package com.backend.backend_java.service;
 
 import com.backend.backend_java.entity.UserPayment;
 import com.backend.backend_java.payloads.OrderDTO;
+import com.backend.backend_java.payloads.OrderUpdateDTO;
+
 import java.util.List;
 
 public interface OrderService {
@@ -10,4 +12,7 @@ public interface OrderService {
     List<OrderDTO> getOrdersByUserId(Long userId);
 
     List<OrderDTO> getAllOrders();
+
+    void updateOrderAndItems(Long orderId, OrderUpdateDTO orderUpdateDTO);
+
 }

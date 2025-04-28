@@ -2,6 +2,7 @@ package com.backend.backend_java.controller;
 
 import com.backend.backend_java.entity.UserPayment;
 import com.backend.backend_java.payloads.OrderDTO;
+import com.backend.backend_java.payloads.OrderUpdateDTO;
 import com.backend.backend_java.repository.UserPaymentRepo;
 import com.backend.backend_java.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,15 @@ public class OrderController {
 
     private final OrderService orderService;
     private final UserPaymentRepo userPaymentRepo;
+
+    @PutMapping("/{orderId}/update")
+    public ResponseEntity<?> updateOrderAndItems(
+            @PathVariable Long orderId,
+            @RequestBody OrderUpdateDTO orderUpdateDTO) {
+
+        orderService.updateOrderAndItems(orderId, orderUpdateDTO);
+        return ResponseEntity.ok("Cập nhật đơn hàng và sản phẩm thành công!");
+    }
 
     @PostMapping("/{userId}")
     public ResponseEntity<OrderDTO> createOrder(@PathVariable Long userId) {

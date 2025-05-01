@@ -66,7 +66,13 @@ public class UserController {
     public ResponseEntity<UserDTO> getUser(@PathVariable Long userId) {
         UserDTO user = userService.getUserById(userId);
 
-        return new ResponseEntity<UserDTO>(user, HttpStatus.FOUND);
+        if (user == null) {
+            // Nếu không tìm thấy người dùng, trả về 404
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        // Nếu tìm thấy người dùng, trả về 200 OK và thông tin người dùng
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PutMapping("/public/users/{userId}")
@@ -75,7 +81,7 @@ public class UserController {
         return new ResponseEntity<UserDTO>(updatedUser, HttpStatus.OK);
     }
 
-    @DeleteMapping("/public/users/{userId}")
+    @DeleteMapping("/admin/users/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
 
         String status = userService.deleteUser(userId);

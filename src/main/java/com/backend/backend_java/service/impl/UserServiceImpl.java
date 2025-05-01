@@ -127,6 +127,15 @@ public class UserServiceImpl implements UserService {
 
             // Set roles
             Set<Role> roles = new HashSet<>();
+
+            // // Chỉ cho phép đăng ký với vai trò USER
+            // if (userDTO.getRoleIds() == null || userDTO.getRoleIds().isEmpty()) {
+            // throw new APIException("Vai trò không được để trống.");
+            // }
+            // if (userDTO.getRoleIds().size() > 1 || !userDTO.getRoleIds().contains(3L)) {
+            // throw new APIException("Chỉ được phép đăng ký với vai trò USER.");
+            // }
+
             userDTO.getRoleIds().forEach(roleId -> {
                 Role role = roleRepo.findById(roleId)
                         .orElseThrow(() -> new ResourceNotFoundException("Role", "roleId", roleId));
@@ -195,30 +204,6 @@ public class UserServiceImpl implements UserService {
             throw new APIException("Unknown error during user registration: " + e.getMessage());
         }
     }
-
-    // @Override
-    // @Transactional(readOnly = true)
-    // public UserReponse getAllUsers(Integer pageNumber, Integer pageSize, String
-    // sortBy, String sortOrder) {
-    // Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")
-    // ? Sort.by(sortBy).ascending()
-    // : Sort.by(sortBy).descending();
-
-    // Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
-    // Page<User> pageUsers = userRepo.findAll(pageDetails);
-
-    // List<UserDTO> userDTOS = pageUsers.getContent().stream()
-    // .map(this::convertToUserDTO) // dùng hàm mới
-    // .collect(Collectors.toList());
-
-    // return new UserReponse(
-    // userDTOS,
-    // pageUsers.getNumber(),
-    // pageUsers.getSize(),
-    // pageUsers.getTotalElements(),
-    // pageUsers.getTotalPages(),
-    // pageUsers.isLast());
-    // }
 
     @Override
     @Transactional(readOnly = true)
@@ -368,28 +353,33 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public String deleteUser(Long userId) {
-        User user = userRepo.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
+        try {
+            User user = userRepo.findById(userId)
+                    .orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 
-        // Xóa quan hệ giữa user và address nhưng không xóa Address khỏi DB
-        if (user.getAddresses() != null && !user.getAddresses().isEmpty()) {
-            user.getAddresses().forEach(address -> address.getUsers().remove(user));
+            // Xóa quan hệ giữa user và address nhưng không xóa Address khỏi DB
+            if (user.getAddresses() != null && !user.getAddresses().isEmpty()) {
+                user.getAddresses().forEach(address -> address.getUsers().remove(user));
+            }
+
+            // Xóa địa chỉ liên kết với user (nếu có)
+            addressRepo.deleteAddressesByUserId(userId);
+
+            // Xóa giỏ hàng của user và các mục trong giỏ hàng
+            Cart cart = cartRepo.findCartByUserId(userId);
+            if (cart != null) {
+                cartItemRepo.deleteCartItemsByCartId(cart.getCartId()); // Xóa tất cả sản phẩm trong giỏ hàng
+                cartRepo.delete(cart); // Xóa giỏ hàng của user
+            }
+
+            // Cuối cùng, xóa user
+            userRepo.delete(user);
+
+            return "User with ID " + userId + " has been deleted successfully!";
+        } catch (Exception e) {
+            e.printStackTrace(); // Log lỗi chi tiết
+            throw new RuntimeException("Error occurred while deleting the user: " + e.getMessage());
         }
-
-        // Xóa địa chỉ liên kết với user (nếu có)
-        addressRepo.deleteAddressesByUserId(userId);
-
-        // Xóa giỏ hàng của user và các mục trong giỏ hàng
-        Cart cart = cartRepo.findCartByUserId(userId);
-        if (cart != null) {
-            cartItemRepo.deleteCartItemsByCartId(cart.getCartId()); // Xóa tất cả sản phẩm trong giỏ hàng
-            cartRepo.delete(cart); // Xóa giỏ hàng của user
-        }
-
-        // Cuối cùng, xóa user
-        userRepo.delete(user);
-
-        return "User with ID " + userId + " has been deleted successfully!";
     }
 
     private UserDTO convertToUserDTO(User user) {

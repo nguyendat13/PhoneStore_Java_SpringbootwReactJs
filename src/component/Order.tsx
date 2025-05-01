@@ -70,7 +70,6 @@ import { useLocation, useParams } from 'react-router-dom';
               <NumberField source="orderedProductPrice" label="Final Price" />
               <NumberField source="discount" label="Discount (%)" />
               <TextField source="paymentMethod" label="Payment Method" />
-              <TextField source="paymentStatus" label="Payment Status" />
             </Datagrid>
           </ArrayField>
         </SimpleShowLayout>

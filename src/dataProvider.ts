@@ -375,44 +375,48 @@
     getOne: async (resource, params) => {
       if (resource === "orders") {
         const username = localStorage.getItem("username") || "";
-        const userId = localStorage.getItem("userId");
     
-        const response = await fetch(`${apiUrl}/public/order/user/${userId}`);
-        const orders = await response.json();
+        try {
+          const response = await fetch(`${apiUrl}/public/order/${params.id}`);
+          if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+          }
     
-        const order = orders.find((o: any) => o.orderId === Number(params.id));
+          const order = await response.json();
     
-        if (!order) throw new Error("Order not found");
+          const data = {
+            id: order.orderId,
+            username,
+            orderStatus: order.orderStatus,
+            totalAmount: order.totalAmount,
+            orderDate: order.orderDate,
+            fullname: order.fullname,
+            address: order.address,
+            phone: order.phone,
+            userId: order.userId,
+            orderItems: (order.orderItems || []).map((item: any) => ({
+              orderItemId: item.orderItemId,
+              quantity: item.quantity,
+              orderedProductPrice: item.orderedProductPrice,
+              discount: item.discount,
+              productId: item.productId,
+              productName: item.productName,
+              paymentMethod: item.paymentMethod,
+              paymentStatus: item.paymentStatus,
+              productImage: item.productImage
+                ? `${apiUrl}/public/${item.productImage}`
+                : null,
+            })),
+          };
     
-        const data = {
-          id: order.orderId,
-          username, // dùng username từ localStorage
-          orderStatus: order.orderStatus,
-          totalAmount: order.totalAmount,
-          orderDate: order.orderDate,
-          fullname: order.fullname,
-          address: order.address,
-          phone: order.phone,
-          userId: order.userId,
-          orderItems: order.orderItems.map((item: any) => ({
-            orderItemId: item.orderItemId,
-            quantity: item.quantity,
-            orderedProductPrice: item.orderedProductPrice,
-            discount: item.discount,
-            productId: item.productId,
-            productName: item.productName,
-            paymentMethod: item.paymentMethod,
-            paymentStatus: item.paymentStatus,
-            productImage: item.productImage
-              ? `${apiUrl}/public/${item.productImage}`
-              : null,
-          })),
-        };
-    
-        return { data };
+          return { data };
+        } catch (error) {
+          console.error("Lỗi khi fetch đơn hàng:", error);
+          throw new Error("Không thể tải đơn hàng");
+        }
       }
     
-      // Default xử lý cho các resource khác
+      // Mặc định cho các resource khác
       const url = `${apiUrl}/public/${resource}/${params.id}`;
       const result = await httpClient.get(url);
       return { data: { id: result.json.id || params.id, ...result.json } };

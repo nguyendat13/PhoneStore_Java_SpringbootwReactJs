@@ -18,6 +18,7 @@ public class Order {
     private Long orderId;
 
     private String orderStatus;
+    private String orderMethod;
     private Double totalAmount;
     private String orderDate;
     private String fullname;

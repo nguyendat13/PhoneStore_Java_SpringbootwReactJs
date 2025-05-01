@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import jakarta.transaction.Transactional;
 
@@ -42,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
 
         Order order = new Order();
         order.setUser(user);
-        order.setOrderStatus("Đã thanh toán");
+        order.setOrderStatus("Đang xử lý");
         order.setOrderDate(LocalDate.now().toString());
         order.setFullname(payment.getFullname()); // lấy từ payment
         order.setAddress(payment.getAddress());
@@ -165,6 +166,56 @@ public class OrderServiceImpl implements OrderService {
 
             return orderDTO;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public OrderDTO getOrderById(Long orderId) {
+        Optional<Order> orderOpt = orderRepo.findByOrderId(orderId);
+        if (orderOpt.isEmpty())
+            return null;
+
+        Order order = orderOpt.get();
+
+        return convertToDTO(order);
+    }
+
+    private OrderDTO convertToDTO(Order order) {
+        OrderDTO dto = new OrderDTO();
+
+        dto.setOrderId(order.getOrderId());
+        dto.setOrderDate(order.getOrderDate());
+        dto.setOrderStatus(order.getOrderStatus());
+        dto.setFullname(order.getFullname());
+        dto.setPhone(order.getPhone());
+        dto.setAddress(order.getAddress());
+        dto.setUserId(order.getUser().getUserId());
+
+        // Tính tổng tiền
+        double totalAmount = order.getOrderItems().stream()
+                .mapToDouble(item -> {
+                    double discountedPrice = item.getOrderedProductPrice() * (1 - item.getDiscount() / 100);
+                    return discountedPrice * item.getQuantity();
+                })
+                .sum();
+        dto.setTotalAmount(totalAmount);
+
+        // Mapping orderItems
+        List<OrderItemDTO> items = order.getOrderItems().stream().map(item -> {
+            OrderItemDTO i = new OrderItemDTO();
+            i.setOrderItemId(item.getOrderItemId());
+            i.setProductId(item.getProduct().getProductId());
+            i.setProductName(item.getProduct().getProductName());
+            i.setProductImage(item.getProduct().getImage());
+            i.setQuantity(item.getQuantity());
+            i.setOrderedProductPrice(item.getOrderedProductPrice());
+            i.setDiscount(item.getDiscount());
+            i.setPaymentMethod(item.getPaymentMethod());
+            return i;
+        }).collect(Collectors.toList());
+
+        dto.setOrderItems(items);
+
+        return dto;
     }
 
     private String mapOrderStatusToPaymentStatus(String orderStatus) {

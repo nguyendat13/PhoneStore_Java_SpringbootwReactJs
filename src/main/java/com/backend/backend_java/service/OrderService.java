@@ -15,4 +15,5 @@ public interface OrderService {
 
     void updateOrderAndItems(Long orderId, OrderUpdateDTO orderUpdateDTO);
 
+    OrderDTO getOrderById(Long orderId);
 }

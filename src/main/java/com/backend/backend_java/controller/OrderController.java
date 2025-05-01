@@ -2,6 +2,7 @@ package com.backend.backend_java.controller;
 
 import com.backend.backend_java.entity.UserPayment;
 import com.backend.backend_java.payloads.OrderDTO;
+import com.backend.backend_java.payloads.OrderItemDTO;
 import com.backend.backend_java.payloads.OrderUpdateDTO;
 import com.backend.backend_java.repository.UserPaymentRepo;
 import com.backend.backend_java.service.OrderService;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/public/order")
@@ -50,6 +52,14 @@ public class OrderController {
 
         // Trả về danh sách đơn hàng với mã 200 OK
         return ResponseEntity.ok(orders);
+    }
+
+    @GetMapping("/{orderId}")
+    public ResponseEntity<OrderDTO> getOrderById(@PathVariable Long orderId) {
+        OrderDTO dto = orderService.getOrderById(orderId);
+        if (dto == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(dto);
     }
 
     // ✅ API: Lấy danh sách tất cả đơn hàng (dành cho admin)

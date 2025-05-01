@@ -93,88 +93,178 @@
   };
 
   export const dataProvider: DataProvider = {
-    getList: (resource: string, { pagination = {}, sort = {}, filter = {} }) => {
-      const { page = 0, perPage = 10 } = pagination || {};
-      const { field = 'id', order = 'ASC' } = sort; 
-      const userEmail = localStorage.getItem('username');
 
-      const idFieldMapping: { [key: string]: string } = {
-          products: 'productId',
-          categories: 'categoryId',
-          orders: 'orderId',
-          brands: 'brandId',
-          users: 'userId',
-      };
+  //   getList: (resource: string, { pagination = {}, sort = {}, filter = {} }) => {
+  //     const { page = 0, perPage = 10 } = pagination || {};
+  //     const { field = 'id', order = 'ASC' } = sort; 
+  //     const userEmail = localStorage.getItem('username');
+  //   const userRoles = JSON.parse(localStorage.getItem('roles') || '{}').roleIds || []; // Lấy roles từ localStorage
 
-      const idField = idFieldMapping[resource] || 'id';
-      const query = {
-          pageNumber: page.toString(),
-          pageSize: perPage.toString(),
-          sortBy: field,
-          sortOrder: order,
-          ...filter,
-      };
+  //     const idFieldMapping: { [key: string]: string } = {
+  //         products: 'productId',
+  //         categories: 'categoryId',
+  //         orders: 'orderId',
+  //         brands: 'brandId',
+  //         users: 'userId',
+  //     };
 
-      console.log('Request filter:', filter);
+  //     const idField = idFieldMapping[resource] || 'id';
+  //     const query = {
+  //         pageNumber: page.toString(),
+  //         pageSize: perPage.toString(),
+  //         sortBy: field,
+  //         sortOrder: order,
+  //         ...filter,
+  //     };
 
-      let url: string;
+  //     console.log('Request filter:', filter);
 
-      if (filter?.search) {
-          const keyword = filter.search;
-          delete query.search;
-          url = `${apiUrl}/public/${resource}/keyword/${encodeURIComponent(keyword)}?${new URLSearchParams(query)}`;
-      } else if (filter?.categoryId) {
-          const categoryId = filter.categoryId;
-          delete query.categoryId;
-          url = `${apiUrl}/public/categories/${categoryId}/${resource}?${new URLSearchParams(query)}`;
-      } else if (filter?.brandId) {
-          const brandId = filter.brandId;
-          delete query.brandId;
-          url = `${apiUrl}/public/brands/${brandId}/${resource}?${new URLSearchParams(query)}`;
-      } else if (resource === 'orders') {
-          if (!userEmail) throw new Error("User email is missing!");
-          url = `${apiUrl}/public/order/all`;
+  //     let url: string;
+
+  //     if (filter?.search) {
+  //         const keyword = filter.search;
+  //         delete query.search;
+  //         url = `${apiUrl}/public/${resource}/keyword/${encodeURIComponent(keyword)}?${new URLSearchParams(query)}`;
+  //     } else if (filter?.categoryId) {
+  //         const categoryId = filter.categoryId;
+  //         delete query.categoryId;
+  //         url = `${apiUrl}/public/categories/${categoryId}/${resource}?${new URLSearchParams(query)}`;
+  //     } else if (filter?.brandId) {
+  //         const brandId = filter.brandId;
+  //         delete query.brandId;
+  //         url = `${apiUrl}/public/brands/${brandId}/${resource}?${new URLSearchParams(query)}`;
+  //     } else if (resource === 'orders') {
+  //         if (!userEmail) throw new Error("User email is missing!");
+  //         url = `${apiUrl}/public/order/all`;
+  //     } else if (resource === 'users') {
+  //         url = `${apiUrl}/admin/users?${new URLSearchParams(query)}`;
+  //     } else {
+  //         url = `${apiUrl}/public/${resource}?${new URLSearchParams(query)}`;
+  //     }
+
+  //     console.log('Request URL:', url);
+
+  //     return httpClient.get(url).then(({ json }) => {
+  //         console.log('API Response:', json);
+
+  //         const idField = idFieldMapping[resource] || 'id';
+
+  //         if (Array.isArray(json)) {
+  //             const data = json.map((item: any) => ({
+  //                 id: item[idField],
+  //                 ...item,
+  //             }));
+  //             return {
+  //                 data,
+  //                 total: data.length,
+  //             };
+  //         }
+
+  //         const baseUrl = `${apiUrl}/public/products/image/`;
+
+  //         const data = json.content.map((item: any) => ({
+  //             id: item[idField],
+  //             ...item,
+  //             image: item.image ? `${baseUrl}${item.image}` : null,
+  //         }));
+
+  //         return {
+  //             data,
+  //             total: json.totalElements || 0,
+  //         };
+  //     });
+  // },
+
+
+  getList: (resource: string, { pagination = {}, sort = {}, filter = {} }) => {
+    const { page = 0, perPage = 10 } = pagination ||{};
+    const { field = 'id', order = 'ASC' } = sort;
+    const userEmail = localStorage.getItem('username');
+    const userRoles = JSON.parse(localStorage.getItem('roles') || '[]'); // Đảm bảo lấy đúng mảng roleIds
+  
+    const idFieldMapping: { [key: string]: string } = {
+      products: 'productId',
+      categories: 'categoryId',
+      orders: 'orderId',
+      brands: 'brandId',
+      users: 'userId',
+    };
+  
+    const idField = idFieldMapping[resource] || 'id';
+    const query = {
+      pageNumber: page.toString(),
+      pageSize: perPage.toString(),
+      sortBy: field,
+      sortOrder: order,
+      ...filter,
+    };
+  
+    console.log('Request filter:', filter);
+  
+    let url: string;
+  
+    // Kiểm tra quyền và thiết lập URL tương ứng
+    if (filter?.search) {
+      const keyword = filter.search;
+      delete query.search;
+      url = `${apiUrl}/public/${resource}/keyword/${encodeURIComponent(keyword)}?${new URLSearchParams(query)}`;
+    } else if (filter?.categoryId) {
+      const categoryId = filter.categoryId;
+      delete query.categoryId;
+      url = `${apiUrl}/public/categories/${categoryId}/${resource}?${new URLSearchParams(query)}`;
+    } else if (filter?.brandId) {
+      const brandId = filter.brandId;
+      delete query.brandId;
+      url = `${apiUrl}/public/brands/${brandId}/${resource}?${new URLSearchParams(query)}`;
+    } else if (resource === 'orders') {
+
+      if (!userEmail) throw new Error("User email is missing!");
+       url = `${apiUrl}/public/order/all`;    
       } else if (resource === 'users') {
-          url = `${apiUrl}/admin/users?${new URLSearchParams(query)}`;
-      } else {
-          url = `${apiUrl}/public/${resource}?${new URLSearchParams(query)}`;
+      // Kiểm tra quyền để lấy danh sách người dùng
+      if (!userRoles.includes("SUPER_ADMIN") && !userRoles.includes("ADMIN")) {
+        throw new Error("Tài khoản không có quyền truy cập vào trang người dùng.");
       }
-
-      console.log('Request URL:', url);
-
-      return httpClient.get(url).then(({ json }) => {
-          console.log('API Response:', json);
-
-          const idField = idFieldMapping[resource] || 'id';
-
-          if (Array.isArray(json)) {
-              const data = json.map((item: any) => ({
-                  id: item[idField],
-                  ...item,
-              }));
-              return {
-                  data,
-                  total: data.length,
-              };
-          }
-
-          const baseUrl = `${apiUrl}/public/products/image/`;
-
-          const data = json.content.map((item: any) => ({
-              id: item[idField],
-              ...item,
-              image: item.image ? `${baseUrl}${item.image}` : null,
-          }));
-
-          return {
-              data,
-              total: json.totalElements || 0,
-          };
-      });
+      url = `${apiUrl}/admin/users?${new URLSearchParams(query)}`; // Thay đổi URL cho users
+    } else {
+      // URL cho các resource khác
+      url = `${apiUrl}/public/${resource}?${new URLSearchParams(query)}`;
+    }
+  
+    console.log('Request URL:', url);
+  
+    return httpClient.get(url).then(({ json }) => {
+      console.log('API Response:', json);
+  
+      const idField = idFieldMapping[resource] || 'id';
+  
+      if (Array.isArray(json)) {
+        const data = json.map((item: any) => ({
+          id: item[idField],
+          ...item,
+        }));
+        return {
+          data,
+          total: data.length,
+        };
+      }
+  
+      const baseUrl = `${apiUrl}/public/products/image/`;
+  
+      const data = json.content.map((item: any) => ({
+        id: item[idField],
+        ...item,
+        image: item.image ? `${baseUrl}${item.image}` : null,
+      }));
+  
+      return {
+        data,
+        total: json.totalElements || 0,
+      };
+    });
   },
-
-
-
+  
+  
 
   delete: async <RecordType extends RaRecord = any>(
     resource: string,
@@ -239,7 +329,6 @@
       data.image = data.image || "default.png"; // Gán mặc định nếu chưa có
     }
 
-    
       // Gửi yêu cầu POST
       const result = await httpClient.post(url, data);
     
@@ -247,7 +336,7 @@
       let idKey = "id";
       if (["categories", "brands"].includes(resource)) idKey = `${resource.slice(0, -1)}Id`; // categoryId, brandId
       if (resource === "products") idKey = "productId";
-    
+
       return { data: { ...data, id: result.json[idKey] || result.json.id } };
     },
     
@@ -272,7 +361,11 @@
         return { data: { id: params.id, ...result.json } };
       }
       
-      
+      if (resource === 'users') {
+        const url = `${apiUrl}/public/users/${params.id}`;
+        const result = await httpClient.put(url, params.data);
+        return { data: { id: params.id, ...result.json } };
+      }
       // Default update cho resource khác
       const url = `${apiUrl}/admin/${resource}/${params.id}`;
       const result = await httpClient.put(url, params.data);

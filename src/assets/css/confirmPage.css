@@ -1,0 +1,51 @@
+/* Container for the confirm page */
+.confirm-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.confirm-details {
+  margin-bottom: 20px;
+}
+
+.confirm-details p {
+  margin: 8px 0;
+}
+
+.confirm-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.confirm-button, .cancel-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 45%;
+  transition: background-color 0.3s;
+}
+
+.confirm-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.confirm-button:hover {
+  background-color: #45a049;
+}
+
+.cancel-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+}
+
+.cancel-button:hover {
+  background-color: #e53935;
+}

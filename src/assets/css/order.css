@@ -1,0 +1,63 @@
+/* order.css */
+
+/* Thẻ Card chứa đơn hàng */
+.card {
+    margin-bottom: 30px; /* Tăng khoảng cách giữa các thẻ Card */
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  /* Hiệu ứng hover cho Card */
+  .hover-card:hover {
+    transform: translateY(-5px); /* Card nâng lên một chút khi hover */
+  }
+  
+  /* Các dòng trong bảng khi hover */
+  .hover-row:hover {
+    background-color: #f1f1f1; /* Dòng sáng lên khi hover */
+  }
+  
+  /* Hình ảnh sản phẩm */
+  .img-thumbnail {
+    object-fit: cover;
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+  }
+  
+  /* Cải thiện bảng */
+  .table th, .table td {
+    vertical-align: middle !important;
+  }
+  
+  .table-dark th {
+    background-color: #343a40;
+    color: #fff;
+  }
+  
+  .table th, .table td {
+    padding: 15px;
+  }
+  
+  .text-end h5 {
+    font-weight: bold;
+  }
+  
+  /* Tùy chỉnh Badge */
+  .badge {
+    font-size: 1rem;
+    padding: 8px 16px;
+    border-radius: 20px;
+  }
+  
+  .text-primary {
+    color: #007bff;
+  }
+  
+  .alert-warning {
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    color: #856404;
+  }
+  

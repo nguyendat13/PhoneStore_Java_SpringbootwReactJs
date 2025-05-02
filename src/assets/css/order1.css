@@ -1,0 +1,129 @@
+/* order.css - Shopee Style */
+body {
+    background-color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .order-tab-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+  
+  .order-tab {
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    background-color: #fff;
+    color: #555;
+    border-radius: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .order-tab:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .order-tab.active {
+    border: 1px solid #ee4d2d;
+    color: #ee4d2d;
+    background-color: #fff7f5;
+  }
+  
+  .order-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f0f0;
+  }
+  
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .order-header .order-id {
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  .order-header .order-status {
+    color: #ee4d2d;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  
+  .order-info p {
+    margin: 2px 0;
+    font-size: 14px;
+    color: #444;
+  }
+  
+  .product-table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+  }
+  
+  .product-table thead {
+    background-color: #f7f7f7;
+  }
+  
+  .product-table th,
+  .product-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #eee;
+  }
+  
+  .product-table img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .total-amount {
+    text-align: right;
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ee4d2d;
+  }
+  
+  .alert-warning {
+    background-color: #fff7e6;
+    border: 1px solid #ffd28a;
+    border-radius: 6px;
+    padding: 16px;
+    color: #a66c00;
+    font-weight: 500;
+    text-align: center;
+  }
+  .order-tab-wrapper {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .order-tab-tab {
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .order-tab-tab.active {
+    color: white !important;
+  }
+  

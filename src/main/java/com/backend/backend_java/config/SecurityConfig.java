@@ -47,12 +47,17 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(AppConstants.PUBLIC_URLS).permitAll() // Cho phép API public
-                        .requestMatchers(AppConstants.ADMIN_URLS).hasAnyAuthority("ADMIN", "SUPER_ADMIN") // Chỉ ADMIN truy
-                                                                                                       // cập
+                        .requestMatchers(AppConstants.ADMIN_URLS).hasAnyAuthority("ADMIN", "SUPER_ADMIN") // Chỉ ADMIN
+                                                                                                          // truy
+                                                                                                          // cập
                         .anyRequest().authenticated()) // Các API còn lại yêu cầu xác thực
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(
                         (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
                                 "Unauthorized")))
+
+                .oauth2Login(oauth2 -> oauth2
+                        .defaultSuccessUrl("/oauth2/success", true)
+                        .failureUrl("/oauth2/failure"))
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

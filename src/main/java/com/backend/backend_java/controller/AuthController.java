@@ -1,5 +1,6 @@
 package com.backend.backend_java.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,8 +15,10 @@ import com.backend.backend_java.payloads.AuthResponse;
 import com.backend.backend_java.payloads.LoginRequest;
 import com.backend.backend_java.repository.UserRepo;
 import com.backend.backend_java.security.JWTUtil;
-import java.util.List;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController

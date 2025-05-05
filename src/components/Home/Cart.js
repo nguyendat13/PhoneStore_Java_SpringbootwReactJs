@@ -109,6 +109,7 @@ const CartPage = () => {
     const paymentData = {
       userId: user.userId,
       fullname: user.fullname,
+      email:user.email,
       address: "", // có thể thay bằng form nhập nếu muốn
       phone: user.phone,
       paymentAmount: cart.totalPrice,

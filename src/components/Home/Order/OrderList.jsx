@@ -59,7 +59,7 @@ const OrderList = () => {
 
   return (
     <div className="container my-5">
-      <h2 className="mb-4 text-primary">📋 Danh sách đơn hàng</h2>
+<h2 className="mb-4 text-primary" style={{ marginBottom: "2rem" }}>📋 Danh sách đơn hàng</h2>
 
       {/* Tabs */}
       <div className="order-tab-wrapper mb-4">
@@ -87,15 +87,14 @@ const OrderList = () => {
           <Card key={order.orderId} className="mb-4 shadow-sm">
             <Card.Header className="bg-light d-flex justify-content-between">
               <span className="fw-bold">🧾 Mã đơn: #{order.orderId}</span>
-              <Badge bg={statusColors[order.orderStatus] || "secondary"}>
-                {order.orderStatus}
-              </Badge>
             </Card.Header>
             <Card.Body>
               <p><strong>📅 Ngày đặt:</strong> {formatDate(order.orderDate)}</p>
               <p><strong>👤 Khách hàng:</strong> {order.fullname}</p>
               <p><strong>📍 Địa chỉ:</strong> {order.address}</p>
               <p><strong>📞 Điện thoại:</strong> {order.phone}</p>
+              <p><strong>Phương thức thanh toán:</strong> {order.paymentMethod}</p>
+              <p><strong>Trạng thái đơn hàng:</strong> {order.orderStatus}</p>
 
               <div className="table-responsive">
                 <Table bordered hover className="text-center align-middle">
@@ -106,7 +105,6 @@ const OrderList = () => {
                       <th>SL</th>
                       <th>Giá</th>
                       <th>Giảm</th>
-                      <th>Thanh toán</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -124,7 +122,6 @@ const OrderList = () => {
                         <td>{item.quantity}</td>
                         <td>{formatCurrency(item.orderedProductPrice)}</td>
                         <td>{item.discount}%</td>
-                        <td>{item.paymentMethod}</td>
                       </tr>
                     ))}
                   </tbody>

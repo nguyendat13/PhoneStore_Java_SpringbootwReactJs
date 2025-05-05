@@ -96,6 +96,7 @@ const ConfirmPage = () => {
       <h2>Xác nhận thanh toán</h2>
       <div className="confirm-details">
         <p><strong>Người nhận:</strong> {paymentInfo.fullname}</p>
+        <p><strong>Email:</strong> {paymentInfo.email}</p>
         <p><strong>Địa chỉ:</strong> {paymentInfo.address}</p>
         <p><strong>Số điện thoại:</strong> {paymentInfo.phone}</p>
         <p>Phương thức thanh toán: {paymentMethodName}</p>

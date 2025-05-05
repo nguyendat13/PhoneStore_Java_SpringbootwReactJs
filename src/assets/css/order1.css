@@ -1,129 +1,179 @@
-/* order.css - Shopee Style */
+/* ===== Tổng thể ===== */
 body {
-    background-color: #f5f5f5;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  .order-tab-wrapper {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-bottom: 30px;
-  }
-  
-  .order-tab {
-    padding: 10px 20px;
-    border: 1px solid transparent;
-    background-color: #fff;
-    color: #555;
-    border-radius: 20px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .order-tab:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .order-tab.active {
-    border: 1px solid #ee4d2d;
-    color: #ee4d2d;
-    background-color: #fff7f5;
-  }
-  
-  .order-card {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-    border: 1px solid #f0f0f0;
-  }
-  
-  .order-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px dashed #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-  }
-  
-  .order-header .order-id {
-    font-weight: 600;
-    font-size: 16px;
-  }
-  
-  .order-header .order-status {
-    color: #ee4d2d;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-  
-  .order-info p {
-    margin: 2px 0;
-    font-size: 14px;
-    color: #444;
-  }
-  
-  .product-table {
-    width: 100%;
-    margin-top: 10px;
-    border-collapse: collapse;
-  }
-  
-  .product-table thead {
-    background-color: #f7f7f7;
-  }
-  
-  .product-table th,
-  .product-table td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #eee;
-  }
-  
-  .product-table img {
-    width: 70px;
-    height: 70px;
-    object-fit: contain;
-    border-radius: 6px;
-    border: 1px solid #e0e0e0;
-  }
-  
-  .total-amount {
-    text-align: right;
-    margin-top: 15px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #ee4d2d;
-  }
-  
-  .alert-warning {
-    background-color: #fff7e6;
-    border: 1px solid #ffd28a;
-    border-radius: 6px;
-    padding: 16px;
-    color: #a66c00;
-    font-weight: 500;
-    text-align: center;
-  }
-  .order-tab-wrapper {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-  
+  background-color: #f5f5f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Tiêu đề chính ===== */
+h2.order-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #ee4d2d;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+/* ===== Tabs đơn hàng ===== */
+.order-tab-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.order-tab-tab {
+  border-radius: 20px;
+  padding: 10px 24px;
+  border: 1px solid #ddd;
+  background-color: white;
+  color: #555;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.order-tab-tab:hover {
+  background-color: #f0f0f0;
+}
+
+.order-tab-tab.active {
+  background-color: #ee4d2d;
+  color: white !important;
+  border-color: #ee4d2d;
+  font-weight: 600;
+}
+
+/* ===== Card chứa đơn ===== */
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #eee;
+  margin-bottom: 24px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.card-header {
+  background-color: #fafafa;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.card-body {
+  padding: 16px;
+}
+
+.card-body p {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* ===== Bảng sản phẩm trong đơn hàng ===== */
+.table-responsive {
+  margin-top: 16px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.table thead th {
+  background-color: #f8f8f8;
+  font-size: 14px;
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  text-align: center;
+}
+
+.table td,
+.table th {
+  font-size: 13px;
+  vertical-align: middle !important;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #dee2e6;
+}
+
+.table img {
+  border-radius: 8px;
+  border: 1px solid #eee;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}
+
+/* ===== Tổng tiền ===== */
+.text-end strong.text-danger {
+  font-size: 16px;
+  color: #d0011b !important;
+  display: inline-block;
+  margin-top: 12px;
+}
+
+/* ===== Thông báo không có đơn ===== */
+.alert-warning {
+  background-color: #fff7e6;
+  border: 1px solid #ffd28a;
+  border-radius: 6px;
+  padding: 20px;
+  color: #a66c00;
+  font-weight: 500;
+  text-align: center;
+  font-size: 14px;
+  margin: 32px auto;
+  max-width: 600px;
+}
+
+/* ===== Responsive Mobile ===== */
+@media (max-width: 576px) {
   .order-tab-tab {
-    border-radius: 20px;
     padding: 8px 16px;
-    font-weight: 500;
-    transition: all 0.3s ease;
+    font-size: 13px;
   }
-  
-  .order-tab-tab.active {
-    color: white !important;
+
+  .card-body p {
+    font-size: 13px;
   }
-  
+
+  .table thead {
+    display: none;
+  }
+
+  .table tbody td {
+    display: block;
+    width: 100%;
+    text-align: left !important;
+    padding: 8px 12px;
+    border: none;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .table tbody tr {
+    display: block;
+    margin-bottom: 20px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .table img {
+    width: 100%;
+    height: auto;
+  }
+
+  .text-end {
+    text-align: center !important;
+    margin-top: 12px;
+  }
+}

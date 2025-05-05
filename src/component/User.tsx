@@ -1,6 +1,6 @@
 import { 
   List, Datagrid, TextField, EmailField, EditButton, DeleteButton,
-  Create, SimpleForm, TextInput, SelectInput, Edit, FunctionField, required, SelectArrayInput,
+  SimpleForm, TextInput, SelectInput, Edit, FunctionField, required, SelectArrayInput,
   ArrayInput, SimpleFormIterator, usePermissions
 } from 'react-admin';
 

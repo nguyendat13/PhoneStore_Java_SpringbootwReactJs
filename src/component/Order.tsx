@@ -18,6 +18,9 @@ import { useLocation, useParams } from 'react-router-dom';
           <Datagrid rowClick={(id, resource, record) => handleRowClick(id)}>
             <TextField source="orderId" label="Order ID" />
             <TextField source="fullname" label="Full Name" />
+            <TextField source="email" label="Email" />
+            <TextField source="paymentMethod" label="Phương thức thanh toán" />
+
             <TextField source="orderStatus" label="Order Status" />
             <NumberField source="totalAmount" label="Total Amount" />
             <TextField source="orderDate" label="Order Date" />
@@ -52,12 +55,14 @@ import { useLocation, useParams } from 'react-router-dom';
       <Show queryOptions={{ meta: { username }, onError }}>
         <SimpleShowLayout>
           <TextField source="id" label="Order ID" />
-          <TextField source="username" label="Username" />
           <TextField source="fullname" label="Full Name" />
+          <TextField source="email" label="Email" />
+
           <TextField source="phone" label="Phone" />
           <TextField source="address" label="Address" />
           <NumberField source="totalAmount" label="Total Amount" />
           <TextField source="orderStatus" label="Order Status" />
+
           <DateField source="orderDate" label="Order Date" />
   
           <ArrayField source="orderItems" label="Ordered Products">
@@ -69,7 +74,6 @@ import { useLocation, useParams } from 'react-router-dom';
               <NumberField source="quantity" label="Quantity" />
               <NumberField source="orderedProductPrice" label="Final Price" />
               <NumberField source="discount" label="Discount (%)" />
-              <TextField source="paymentMethod" label="Payment Method" />
             </Datagrid>
           </ArrayField>
         </SimpleShowLayout>
@@ -83,6 +87,8 @@ import { useLocation, useParams } from 'react-router-dom';
         <SimpleForm>
           <TextInput disabled source="orderId" label="Order ID" />
           <TextInput disabled source="fullname" label="Tên khách hàng" />
+          <TextField source="email" label="Email" />
+
           <TextInput disabled source="phone" label="Số điện thoại" />
           <TextInput disabled source="address" label="Địa chỉ" />
           <TextInput disabled source="totalAmount" label="Tổng tiền" />

@@ -19,6 +19,7 @@ import OrderCanceled from "../components/Home/Order/OrderCanceled";
 import OrderPending from "../components/Home/Order/OrderPending";
 import OrderList from "../components/Home/Order/OrderList";
 import UpdateProfile from "../components/Home/User/UpdateProfile";
+import OAuth2RedirectHandler from "../components/Home/User/OAuth2RedirectHandler";
 
 function Main() {
   return (
@@ -50,6 +51,7 @@ function Main() {
         {/* trang cá nhân */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/update-profile" element={<UpdateProfile />} />
+        <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
 
         {/* trang tìm kiếm */}
         <Route path="/search" element={<Search />} />

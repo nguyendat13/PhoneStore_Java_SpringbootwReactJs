@@ -11,6 +11,7 @@ import {
 } from "ionicons/icons";
 import Logo from "../assets/images/logo/logodt.jpg";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google"; // Thêm vào để sử dụng Google Login
 
 function Header() {
   const [keyword, setKeyword] = useState("");
@@ -26,6 +27,7 @@ function Header() {
     const user = localStorage.getItem("user");
     if (user) {
       setIsLoggedIn(true);
+
     }
 
     // Cập nhật giỏ hàng và yêu thích
@@ -64,6 +66,8 @@ function Header() {
     setIsLoggedIn(false);
     navigate("/dang-nhap");
   };
+
+ 
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -253,6 +257,8 @@ function Header() {
           </div>
         </div>
       </div>
+
+
     </header>
   );
 }

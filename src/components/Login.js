@@ -1,18 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  CButton,
-  CCard,
-  CCardBody,
-  CCol,
-  CContainer,
-  CForm,
-  CFormInput,
-  CRow,
-  CInputGroup,
-  CInputGroupText,
-} from '@coreui/react';
 import { FaUser, FaLock } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
+import '../assets/css/Login.css';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -23,20 +13,19 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/api/login', {
+      const res = await fetch('http://localhost:8080/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: username, password: password }),
+        body: JSON.stringify({ email: username, password }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Tên đăng nhập hoặc mật khẩu không đúng!');
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || 'Đăng nhập thất bại');
       }
 
-      const data = await response.json();
+      const data = await res.json();
       localStorage.setItem('token', data.token);
-
       localStorage.setItem('user', JSON.stringify(data));
       navigate('/profile');
       window.location.reload();
@@ -45,111 +34,51 @@ const Login = () => {
     }
   };
 
+  const handleLoginWithGoogle = () => {
+    window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+  };
+
   return (
-    <CContainer style={{ paddingTop: '50px', minHeight: '100vh' }}>
-      <CRow
-        className="justify-content-center align-items-center"
-        style={{ height: '100%' }}
-      >
-        <CCol md={8} lg={6}>
-          <CCard
-            style={{
-              padding: '40px',
-              borderRadius: '20px',
-              boxShadow: '0 12px 24px rgba(0,0,0,0.1)',
-              backgroundColor: '#ffffff',
-            }}
-          >
-            <CCardBody>
-              <h2 className="text-center fw-bold mb-4 text-primary">Đăng Nhập</h2>
-              {error && <p className="text-danger text-center">{error}</p>}
-              <CForm onSubmit={handleLogin}>
-                <CInputGroup className="mb-4">
-                  <CInputGroupText style={{ backgroundColor: '#f0f0f0' }}>
-                    <FaUser color="#555" />
-                  </CInputGroupText>
-                  <CFormInput
-                    type="text"
-                    placeholder="Tên đăng nhập"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                    style={{
-                      fontSize: '16px',
-                      padding: '14px',
-                      border: '1px solid #ccc',
-                      borderRadius: '0 10px 10px 0',
-                    }}
-                  />
-                </CInputGroup>
+    <div className="login-wrapper">
+      <form className="login-box" onSubmit={handleLogin}>
+        <h2>Đăng Nhập</h2>
+        {error && <p className="error">{error}</p>}
 
-                <CInputGroup className="mb-4">
-                  <CInputGroupText style={{ backgroundColor: '#f0f0f0' }}>
-                    <FaLock color="#555" />
-                  </CInputGroupText>
-                  <CFormInput
-                    type="password"
-                    placeholder="Mật khẩu"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    style={{
-                      fontSize: '16px',
-                      padding: '14px',
-                      border: '1px solid #ccc',
-                      borderRadius: '0 10px 10px 0',
-                    }}
-                  />
-                </CInputGroup>
+        <div className="input-group">
+          <FaUser />
+          <input
+            type="text"
+            placeholder="Email"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
 
-                <div className="text-center mb-3">
-                  <CButton
-                    type="submit"
-                    className="w-100"
-                    style={{
-                      padding: '14px',
-                      fontSize: '18px',
-                      borderRadius: '10px',
-                      background: 'linear-gradient(90deg, #667eea, #764ba2)',
-                      border: 'none',
-                      color: '#fff',
-                      fontWeight: 'bold',
-                      transition: 'all 0.3s ease-in-out',
-                    }}
-                    onMouseOver={(e) =>
-                      (e.target.style.background = 'linear-gradient(90deg, #5a67d8, #6b46c1)')
-                    }
-                    onMouseOut={(e) =>
-                      (e.target.style.background = 'linear-gradient(90deg, #667eea, #764ba2)')
-                    }
-                  >
-                    Đăng Nhập
-                  </CButton>
-                </div>
+        <div className="input-group">
+          <FaLock />
+          <input
+            type="password"
+            placeholder="Mật khẩu"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
 
-                <div className="text-center mt-3">
-                  <p className="mb-1 text-muted">Chưa có tài khoản?</p>
-                  <CButton
-                    color="link"
-                    onClick={() => navigate('/register')}
-                    style={{
-                      fontSize: '14px',
-                      textDecoration: 'none',
-                      color: '#667eea',
-                      fontWeight: '500',
-                    }}
-                    onMouseOver={(e) => (e.target.style.color = '#6b46c1')}
-                    onMouseOut={(e) => (e.target.style.color = '#667eea')}
-                  >
-                    Đăng ký ngay
-                  </CButton>
-                </div>
-              </CForm>
-            </CCardBody>
-          </CCard>
-        </CCol>
-      </CRow>
-    </CContainer>
+        <button type="submit" className="btn-login">Đăng Nhập</button>
+
+        <button type="button" className="btn-google" onClick={handleLoginWithGoogle}>
+          <FcGoogle size={20} style={{ marginRight: 8 }} />
+          Đăng nhập với Google
+        </button>
+
+        <p className="register-text">
+          Chưa có tài khoản?{' '}
+          <span onClick={() => navigate('/register')}>Đăng ký ngay</span>
+        </p>
+      </form>
+    </div>
   );
 };
 

@@ -1,26 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from '@react-oauth/google';
+import {jwtDecode} from 'jwt-decode';  // Import jwt-decode đúng cách
 
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const storedUser = JSON.parse(localStorage.getItem('user'));
-        if (!storedUser || !storedUser.email) {
-          setError('Không tìm thấy email người dùng. Vui lòng đăng nhập.');
+        // Lấy token từ localStorage
+        const storedToken = localStorage.getItem('token'); 
+
+        if (!storedToken) {
+          setError('Không tìm thấy token người dùng. Vui lòng đăng nhập.');
           return;
         }
 
-        const response = await fetch(`http://localhost:8080/api/public/users/email/${storedUser.email}`);
+        // Giải mã token để lấy email
+        const decoded = jwtDecode(storedToken);
+        const email = decoded.email;
+
+        if (!email) {
+          setError('Không tìm thấy email trong token. Vui lòng đăng nhập lại.');
+          return;
+        }
+
+        // Gọi API để lấy thông tin người dùng
+        const response = await fetch(`http://localhost:8080/api/public/users/email/${email}`);
         if (!response.ok) throw new Error('Không thể lấy thông tin người dùng');
 
         const data = await response.json();
-        localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('user', JSON.stringify(data));  // Lưu thông tin người dùng vào localStorage
 
+        // Cập nhật state với thông tin người dùng
         setUser({
           fullname: data.fullname,
           email: data.email,
@@ -38,8 +55,36 @@ const Profile = () => {
     fetchUser();
   }, []);
 
+ 
+
+  const handleGoogleLoginSuccess = (credentialResponse) => {
+    // Lưu token vào localStorage khi người dùng đăng nhập thành công
+    localStorage.setItem("token", credentialResponse.credential);
+
+    // Gọi lại useEffect để lấy thông tin người dùng
+    window.location.reload();
+  };
+
+  const handleGoogleLoginError = () => {
+    setError("Đăng nhập Google thất bại.");
+  };
+
   if (error) return <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>;
-  if (!user) return <p style={{ textAlign: 'center' }}>Đang tải...</p>;
+
+  if (!user) {
+    return (
+      <div style={{ textAlign: 'center', marginTop: '50px' }}>
+        <p>Đang tải...</p>
+
+      
+        {/* Google Login */}
+        <GoogleLogin
+          onSuccess={handleGoogleLoginSuccess}
+          onError={handleGoogleLoginError}
+        />
+      </div>
+    );
+  }
 
   return (
     <div style={styles.container}>
@@ -130,6 +175,13 @@ const styles = {
     cursor: 'pointer',
     width: '100%',
     transition: 'background 0.3s',
+  },
+  form: {
+    marginBottom: '20px'
+  },
+  inputGroup: {
+    marginBottom: '10px',
+    textAlign: 'left'
   }
 };
 

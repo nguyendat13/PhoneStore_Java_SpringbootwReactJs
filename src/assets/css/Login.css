@@ -1,0 +1,102 @@
+/* Gradient nền và căn giữa */
+.login-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(to right, #667eea, #764ba2);
+  }
+  
+  /* Box login đẹp, bo tròn, bóng đổ */
+  .login-box {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  /* Tiêu đề */
+  .login-box h2 {
+    margin-bottom: 24px;
+    color: #333;
+  }
+  
+  /* Nhóm input với icon */
+  .input-group {
+    display: flex;
+    align-items: center;
+    background: #f3f3f3;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+  }
+  
+  .input-group input {
+    border: none;
+    outline: none;
+    margin-left: 10px;
+    flex: 1;
+    font-size: 16px;
+    background: transparent;
+  }
+  
+  /* Nút đăng nhập */
+  .btn-login {
+    width: 100%;
+    background-color: #5a67d8;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-bottom: 12px;
+  }
+  
+  .btn-login:hover {
+    background-color: #434190;
+  }
+  
+  /* Nút Google */
+  .btn-google {
+    width: 100%;
+    background-color: #ffffff;
+    color: #333;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .btn-google:hover {
+    background-color: #f3f3f3;
+  }
+  
+  /* Lỗi */
+  .error {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  /* Đăng ký */
+  .register-text {
+    margin-top: 16px;
+    font-size: 14px;
+  }
+  
+  .register-text span {
+    color: #5a67d8;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  

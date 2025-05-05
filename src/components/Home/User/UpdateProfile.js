@@ -10,6 +10,7 @@ function UpdateProfile() {
     phone: "",
     gender: "",
     username: "",
+    roleIds: [3],
     address: {
       street: "",
       buildingName: "",
@@ -27,6 +28,7 @@ function UpdateProfile() {
         phone: storedUser.phone || "",
         gender: storedUser.gender || "",
         username: storedUser.username || "",
+        roleIds: [3],
         address: storedUser.addresses?.[0] || {
           street: "",
           buildingName: "",
@@ -68,6 +70,7 @@ function UpdateProfile() {
           ...formData,
           email: storedUser.email,
           addresses: [formData.address],
+
         }),
       });
 

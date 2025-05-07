@@ -24,7 +24,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import org.springframework.security.web.DefaultSecurityFilterChain;
 
+import com.backend.backend_java.repository.RoleRepo;
+import com.backend.backend_java.repository.UserRepo;
 import com.backend.backend_java.security.JWTFilter;
+import com.backend.backend_java.security.JWTUtil;
 import com.backend.backend_java.service.impl.UserDetailsServiceImpl;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,7 +44,8 @@ public class SecurityConfig {
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, OAuth2SuccessHandler oAuth2SuccessHandler)
+            throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -56,7 +60,7 @@ public class SecurityConfig {
                                 "Unauthorized")))
 
                 .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl("/oauth2/success", true)
+                        .successHandler(oAuth2SuccessHandler)
                         .failureUrl("/oauth2/failure"))
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
@@ -71,6 +75,12 @@ public class SecurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
 
         return provider;
+    }
+
+    @Bean
+    public OAuth2SuccessHandler oAuth2SuccessHandler(JWTUtil jwtUtil, UserRepo userRepo, RoleRepo roleRepo,
+            PasswordEncoder passwordEncoder) {
+        return new OAuth2SuccessHandler(jwtUtil, userRepo, roleRepo, passwordEncoder);
     }
 
     @Bean

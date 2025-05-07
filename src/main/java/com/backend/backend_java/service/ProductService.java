@@ -14,7 +14,7 @@ import com.backend.backend_java.payloads.ProductResponse;
 public interface ProductService {
         ProductDTO addProduct(Long brandId, Long categoryId, Product product);
 
-        ProductResponse getAllProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
+        ProductResponse getAllProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder, Long selectedCategory, Long selectedBrand);
 
         ProductResponse searchByCategory(Long categoryId, Integer pageNumber, Integer pageSize, String sortBy,
                         String sortOrder);

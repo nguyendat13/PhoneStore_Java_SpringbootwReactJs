@@ -24,9 +24,7 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     Page<Product> findByBrandBrandId(Long brandId, Pageable pageable);
 
-    // @Query("SELECT p FROM Product p WHERE p.isDefault = true") // Thay đổi theo
-    // logic của bạn
-    // List<Product> findDefaultProducts();
+    Page<Product> findByCategoryCategoryIdAndBrandBrandId(Long categoryId, Long brandId, Pageable pageable);
 
     // Lấy ID lớn nhất hiện có
     @Query(value = "SELECT MAX(product_id) FROM products", nativeQuery = true)

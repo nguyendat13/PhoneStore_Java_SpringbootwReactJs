@@ -1,14 +1,14 @@
-# Sử dụng OpenJDK 17
+# Sử dụng image Java từ Docker Hub
 FROM openjdk:17-jdk-slim
 
-# Đặt thư mục làm việc
-WORKDIR /app
+# Thêm metadata
+LABEL maintainer="your-email@example.com"
 
-# Copy file JAR từ thư mục target
-COPY target/*.jar app.jar
+# Copy JAR file vào container
+COPY target/backend-java-0.0.1-SNAPSHOT.jar /app/backend.jar
 
-# Mở port cho Spring Boot
+# Định nghĩa cổng mà ứng dụng sẽ chạy
 EXPOSE 8080
 
-# Chạy ứng dụng Spring Boot
-CMD ["java", "-jar", "app.jar"]
+# Chạy ứng dụng khi container khởi động
+ENTRYPOINT ["java", "-jar", "/app/backend.jar"]

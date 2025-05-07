@@ -26,6 +26,7 @@ import com.backend.backend_java.entity.Address;
 import com.backend.backend_java.entity.Cart;
 import com.backend.backend_java.entity.CartItem;
 import com.backend.backend_java.entity.Favorite;
+import com.backend.backend_java.entity.Order;
 import com.backend.backend_java.entity.Product;
 import com.backend.backend_java.entity.Role;
 import com.backend.backend_java.entity.User;
@@ -43,6 +44,8 @@ import com.backend.backend_java.payloads.UserReponse;
 import com.backend.backend_java.repository.AddressRepo;
 import com.backend.backend_java.repository.CartItemRepo;
 import com.backend.backend_java.repository.CartRepo;
+import com.backend.backend_java.repository.FavoriteRepo;
+import com.backend.backend_java.repository.OrderRepo;
 import com.backend.backend_java.repository.ProductRepo;
 import com.backend.backend_java.repository.RoleRepo;
 import com.backend.backend_java.repository.UserRepo;
@@ -50,27 +53,12 @@ import com.backend.backend_java.service.UserService;
 import com.backend.backend_java.service.AddressService;
 import com.backend.backend_java.service.CartService;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import jakarta.persistence.EntityNotFoundException;
-
-// import com.backend.backend_java.entity.Address;
-// import com.backend.backend_java.entity.Cart;
-// import com.backend.backend_java.entity.Role;
-// import com.backend.backend_java.service.CartService;
-// import com.backend.backend_java.repository.AddressRepo;
-// import com.backend.backend_java.repository.RoleRepo;
-// import com.backend.backend_java.payloads.AddressDTO;
-// import com.backend.backend_java.payloads.CartDTO;
 @Transactional
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private CartService cartService;
-
-    @Autowired
-    private ProductRepo productRepo;
 
     @Autowired
     private UserRepo userRepo;
@@ -79,7 +67,11 @@ public class UserServiceImpl implements UserService {
     private CartRepo cartRepo;
 
     @Autowired
-    private CartItemRepo cartItemRepo;
+    private FavoriteRepo favoriteRepo;
+
+    @Autowired
+    private OrderRepo orderRepo;
+
     @Autowired
     private RoleRepo roleRepo;
 
@@ -352,34 +344,61 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public String deleteUser(Long userId) {
-        try {
-            User user = userRepo.findById(userId)
-                    .orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
+    public void deleteUser(Long userId) {
+        // Check if the user exists
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 
-            // Xóa quan hệ giữa user và address nhưng không xóa Address khỏi DB
-            if (user.getAddresses() != null && !user.getAddresses().isEmpty()) {
-                user.getAddresses().forEach(address -> address.getUsers().remove(user));
-            }
+        // Lấy thông tin người dùng hiện tại từ authentication (email hoặc username)
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        User currentUser = userRepo.findByEmail(currentUsername)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng hiện tại"));
 
-            // Xóa địa chỉ liên kết với user (nếu có)
-            addressRepo.deleteAddressesByUserId(userId);
-
-            // Xóa giỏ hàng của user và các mục trong giỏ hàng
-            Cart cart = cartRepo.findCartByUserId(userId);
-            if (cart != null) {
-                cartItemRepo.deleteCartItemsByCartId(cart.getCartId()); // Xóa tất cả sản phẩm trong giỏ hàng
-                cartRepo.delete(cart); // Xóa giỏ hàng của user
-            }
-
-            // Cuối cùng, xóa user
-            userRepo.delete(user);
-
-            return "User with ID " + userId + " has been deleted successfully!";
-        } catch (Exception e) {
-            e.printStackTrace(); // Log lỗi chi tiết
-            throw new RuntimeException("Error occurred while deleting the user: " + e.getMessage());
+        // Kiểm tra nếu SUPER_ADMIN đang cố gắng xóa chính mình
+        if (hasRole(currentUser, "SUPER_ADMIN") && currentUser.getUserId().equals(userId)) {
+            throw new RuntimeException("SUPER_ADMIN không thể xóa chính mình.");
         }
+
+        // Nếu currentUser là ADMIN, kiểm tra không cho phép xóa ADMIN khác hoặc
+        // SUPER_ADMIN
+        if (hasRole(currentUser, "ADMIN")) {
+            if (hasRole(user, "ADMIN") || hasRole(user, "SUPER_ADMIN")) {
+                throw new RuntimeException("ADMIN không thể xóa người dùng có cùng hoặc cao hơn quyền.");
+            }
+        }
+        // Delete associated cart (if any)
+        if (user.getCart() != null) {
+            cartRepo.delete(user.getCart()); // Or handle cascade if cart is mapped correctly
+        }
+
+        // Delete associated addresses (if any)
+        if (user.getAddresses() != null && !user.getAddresses().isEmpty()) {
+            for (Address address : user.getAddresses()) {
+                addressRepo.delete(address); // Or handle cascade if addresses are mapped correctly
+            }
+        }
+
+        // Delete associated orders (if any)
+        if (user.getOrders() != null && !user.getOrders().isEmpty()) {
+            for (Order order : user.getOrders()) {
+                orderRepo.delete(order); // Delete orders or handle cascading
+            }
+        }
+
+        // Delete associated favorites (if any)
+        if (user.getFavorites() != null && !user.getFavorites().isEmpty()) {
+            for (Favorite favorite : user.getFavorites()) {
+                favoriteRepo.delete(favorite); // Delete favorites or handle cascading
+            }
+        }
+
+        // Delete the user
+        userRepo.delete(user);
+    }
+
+    private boolean hasRole(User user, String role) {
+        return user.getRoles().stream()
+                .anyMatch(roleEntity -> roleEntity.getRoleName().equals(role));
     }
 
     private UserDTO convertToUserDTO(User user) {

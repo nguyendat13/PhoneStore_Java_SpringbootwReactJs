@@ -128,17 +128,30 @@ public class ProductServiceImpl implements ProductService {
         }
 
         @Override
-        public ProductResponse getAllProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
+        public ProductResponse getAllProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder,
+                        Long selectedCategory, Long selectedBrand) {
                 Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending()
                                 : Sort.by(sortBy).descending();
                 Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
-                Page<Product> pageProducts = productRepo.findAll(pageDetails);
-                List<Product> products = pageProducts.getContent();
-                List<ProductDTO> productDTOs = products.stream()
+
+                Page<Product> pageProducts;
+
+                if (selectedCategory != null && selectedBrand != null) {
+                        pageProducts = productRepo.findByCategoryCategoryIdAndBrandBrandId(selectedCategory,
+                                        selectedBrand, pageDetails);
+                } else if (selectedCategory != null) {
+                        pageProducts = productRepo.findByCategoryCategoryId(selectedCategory, pageDetails);
+                } else if (selectedBrand != null) {
+                        pageProducts = productRepo.findByBrandBrandId(selectedBrand, pageDetails);
+                } else {
+                        pageProducts = productRepo.findAll(pageDetails);
+                }
+
+                List<ProductDTO> productDTOs = pageProducts.getContent().stream()
                                 .map(product -> modelMapper.map(product, ProductDTO.class))
                                 .collect(Collectors.toList());
-                ProductResponse productResponse = new ProductResponse();
 
+                ProductResponse productResponse = new ProductResponse();
                 productResponse.setContent(productDTOs);
                 productResponse.setPageNumber(pageProducts.getNumber());
                 productResponse.setPageSize(pageProducts.getSize());

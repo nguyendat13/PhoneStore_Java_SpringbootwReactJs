@@ -44,8 +44,10 @@ public class OrderServiceImpl implements OrderService {
         Order order = new Order();
         order.setUser(user);
         order.setOrderStatus("Đang xử lý");
+        order.setPaymentMethod(payment.getPaymentMethod().getName());
         order.setOrderDate(LocalDate.now().toString());
         order.setFullname(payment.getFullname()); // lấy từ payment
+        order.setEmail(payment.getEmail());
         order.setAddress(payment.getAddress());
         order.setPhone(payment.getPhone());
         // Tính tổng giá trị đơn hàng sau giảm giá
@@ -64,8 +66,7 @@ public class OrderServiceImpl implements OrderService {
             item.setQuantity(cartItem.getQuantity());
             item.setDiscount(cartItem.getDiscount());
             item.setOrderedProductPrice(cartItem.getProduct().getPrice());
-            item.setPaymentStatus(payment.getPaymentStatus().getName());
-            item.setPaymentMethod(payment.getPaymentMethod().getName());
+
             item.setProduct(cartItem.getProduct());
             return item;
         }).collect(Collectors.toList());
@@ -185,7 +186,9 @@ public class OrderServiceImpl implements OrderService {
         dto.setOrderId(order.getOrderId());
         dto.setOrderDate(order.getOrderDate());
         dto.setOrderStatus(order.getOrderStatus());
+        dto.setPaymentMethod(order.getPaymentMethod());
         dto.setFullname(order.getFullname());
+        dto.setEmail(order.getEmail());
         dto.setPhone(order.getPhone());
         dto.setAddress(order.getAddress());
         dto.setUserId(order.getUser().getUserId());
@@ -209,7 +212,6 @@ public class OrderServiceImpl implements OrderService {
             i.setQuantity(item.getQuantity());
             i.setOrderedProductPrice(item.getOrderedProductPrice());
             i.setDiscount(item.getDiscount());
-            i.setPaymentMethod(item.getPaymentMethod());
             return i;
         }).collect(Collectors.toList());
 
@@ -244,14 +246,10 @@ public class OrderServiceImpl implements OrderService {
             order.setOrderStatus(orderUpdateDTO.getOrderStatus());
 
             // Map orderStatus sang paymentStatus
-            String newPaymentStatus = mapOrderStatusToPaymentStatus(orderUpdateDTO.getOrderStatus());
+            String newOrderStatus = mapOrderStatusToPaymentStatus(orderUpdateDTO.getOrderStatus());
 
-            // Cập nhật tất cả orderItems
-            if (order.getOrderItems() != null) {
-                order.getOrderItems().forEach(item -> {
-                    item.setPaymentStatus(newPaymentStatus);
-                });
-            }
+            order.setOrderStatus(newOrderStatus);
+
         }
 
         // Lưu lại

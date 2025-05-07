@@ -18,8 +18,8 @@ public class OrderItem {
     private Double orderedProductPrice;
     private Double discount;
     private Integer quantity;
-    private String paymentStatus;
-    private String paymentMethod;
+    // private String paymentStatus;
+    // private String paymentMethod;
 
     @ManyToOne
     @JoinColumn(name = "order_id")

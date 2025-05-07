@@ -18,11 +18,14 @@ public class UserPaymentDTO {
     private LocalDateTime paymentDate;
 
     private String fullname;
+    private String email;
+
     private String address;
     private String phone;
 
     private Long userId;
     private Long paymentMethodId;
+
     private Long paymentStatusId;
 
     // Getters và Setters đầy đủ

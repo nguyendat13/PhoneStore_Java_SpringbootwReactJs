@@ -5,10 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 @Entity
 @Table(name = "roles")
 @Data
@@ -24,6 +20,7 @@ public class Role {
 
     @Column(nullable = false)
     private Integer roleStatus; // 0 = Super Admin, 1 = Admin, 2 = User (càng nhỏ quyền càng cao)
-    @Version
-    private Long version; // Thêm phiên bản cho entity này
+
+    // @Version
+    // private Long version; // Thêm phiên bản cho entity này
 }

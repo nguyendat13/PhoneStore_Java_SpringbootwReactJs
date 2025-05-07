@@ -65,23 +65,22 @@ public class ProductController {
 
     @GetMapping("/public/products")
     public ResponseEntity<ProductResponse> getAllProducts(
-            @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
-            @RequestParam(name = "sortBy", defaultValue = AppConstants.SORT_PRODUCTS_BY, required = false) String sortBy,
-            @RequestParam(name = "sortOrder", defaultValue = AppConstants.SORT_DIR, required = false) String sortOrder) {
-
-        // Kiểm tra nếu pageNumber nhỏ hơn hoặc bằng 0 thì chuyển thành 0
+        @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+        @RequestParam(name = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+        @RequestParam(name = "sortBy", defaultValue = AppConstants.SORT_PRODUCTS_BY, required = false) String sortBy,
+        @RequestParam(name = "sortOrder", defaultValue = AppConstants.SORT_DIR, required = false) String sortOrder,
+        @RequestParam(name = "selectedCategory", required = false) Long selectedCategory,
+        @RequestParam(name = "selectedBrand", required = false) Long selectedBrand
+    ) {
         pageNumber = pageNumber > 0 ? pageNumber - 1 : 0;
-
+    
         ProductResponse productResponse = productService.getAllProducts(
-                pageNumber,
-                pageSize,
-                "id".equals(sortBy) ? "productId" : sortBy,
-                sortOrder);
-
-        return new ResponseEntity<ProductResponse>(productResponse, HttpStatus.OK);
+            pageNumber, pageSize, sortBy, sortOrder, selectedCategory, selectedBrand
+        );
+        return new ResponseEntity<>(productResponse, HttpStatus.OK);
     }
-
+    
+    
     @GetMapping("/public/categories/{categoryId}/products")
     public ResponseEntity<ProductResponse> getProductsByCategory(@PathVariable Long categoryId,
             @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,

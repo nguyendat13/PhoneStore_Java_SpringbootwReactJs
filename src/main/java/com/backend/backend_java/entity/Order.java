@@ -16,12 +16,12 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
-
+    private String paymentMethod;
     private String orderStatus;
-    private String orderMethod;
     private Double totalAmount;
     private String orderDate;
     private String fullname;
+    private String email;
     private String address;
     private String phone;
 

@@ -116,6 +116,7 @@ public class PaymentServiceImpl implements PaymentService {
         UserPayment payment = new UserPayment();
         payment.setUser(user);
         payment.setFullname(user.getFullname());
+        payment.setEmail(user.getEmail());
         payment.setPhone(user.getPhone());
         payment.setAddress(fullAddress);
         long transactionId = System.currentTimeMillis() + (long) (Math.random() * 1000);

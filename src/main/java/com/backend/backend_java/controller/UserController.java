@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.backend_java.config.AppConstants;
+import com.backend.backend_java.exceptions.ResourceNotFoundException;
 import com.backend.backend_java.payloads.UserDTO;
 import com.backend.backend_java.payloads.UserReponse;
 import com.backend.backend_java.service.UserService;
@@ -83,9 +84,17 @@ public class UserController {
 
     @DeleteMapping("/admin/users/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
-
-        String status = userService.deleteUser(userId);
-        return new ResponseEntity<String>(status, HttpStatus.OK);
+        try {
+            // Call service to delete the user
+            userService.deleteUser(userId);
+            return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            // If user is not found, return NOT_FOUND status
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            // Catch any other exceptions and return internal server error
+            return new ResponseEntity<>("An error occurred while deleting the user", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

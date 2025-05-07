@@ -25,6 +25,7 @@ public class UserPayment {
     private LocalDateTime paymentDate;
 
     private String fullname;
+    private String email;
     private String address;
     private String phone;
 

@@ -1,3 +1,2 @@
-// const baseURL="http://localhost:5074/api/"
-const baseURL="http://localhost:8080/api/"
+const baseURL = process.env.REACT_APP_API_URL || "http://localhost:8080/api/";
 export default baseURL;

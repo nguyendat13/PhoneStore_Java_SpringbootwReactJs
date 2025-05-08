@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Card, Table, Badge } from "react-bootstrap";
 import "../../../assets/css/order1.css";
+import baseURL from "../../../api/BaseUrl.js";
 
 const TABS = [
   { label: "Tất cả", value: "Tất cả", color: "secondary" },
@@ -30,7 +31,7 @@ const OrderList = () => {
     if (!userId) return;
 
     axios
-      .get(`http://localhost:8080/api/public/order/user/${userId}`)
+      .get(`${baseURL}/public/order/user/${userId}`)
       .then((res) => {
         setOrders(res.data);
         setFilteredOrders(res.data);
@@ -112,7 +113,7 @@ const OrderList = () => {
                       <tr key={item.orderItemId}>
                         <td>
                           <img
-                            src={`http://localhost:8080/api/public/products/image/${encodeURIComponent(item.productImage || "default.png")}`}
+                            src={`${baseURL}/public/products/image/${encodeURIComponent(item.productImage || "default.png")}`}
                             alt={item.productName}
                             style={{ width: "80px", height: "80px", objectFit: "contain" }}
                             className="img-thumbnail"

@@ -16,38 +16,47 @@ function CategoryProduct() {
   const productsPerPage = 8;
   const [brands, setBrands] = useState({});
   const navigate = useNavigate();
+  const [totalItems, setTotalItems] = useState(0);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  
     if (!categoryId) return;
 
     setLoading(true);
     setError(null);
 
-    // Lấy danh mục
+    // Fetch category details
     axios
-      .get(`${baseURL}public/categories/${categoryId}`)
+      .get(`${baseURL}/public/categories/${categoryId}`)
       .then((response) => setCategory(response.data))
       .catch((error) => {
-        console.error("Lỗi khi lấy danh mục:", error);
-        setError("Không thể tải danh mục.");
+        console.error("Error fetching category:", error);
+        setError("Could not load category.");
       });
 
-    // Lấy sản phẩm
+    // Fetch products of category with pagination
     axios
-      .get(`${baseURL}public/categories/${categoryId}/products`)
+      .get(`${baseURL}/public/categories/${categoryId}/products`, {
+        params: {
+          page: currentPage - 1, // API uses 0-based index for pagination
+          size: productsPerPage,
+        },
+      })
       .then((response) => {
         setProducts(response.data.content);
+        setTotalItems(response.data.totalElements);  // Total items from API response
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Lỗi khi lấy sản phẩm:", error);
-        setError("Không thể tải sản phẩm.");
+        console.error("Error fetching products:", error);
+        setError("Could not load products.");
         setLoading(false);
       });
 
-    // Lấy thông tin thương hiệu
+    // Fetch brand information
     axios
-      .get(`${baseURL}public/brands`)
+      .get(`${baseURL}/public/brands`)
       .then((response) => {
         const brandMap = response.data.content.reduce((acc, brand) => {
           acc[brand.brandId] = brand.brandName;
@@ -56,84 +65,80 @@ function CategoryProduct() {
         setBrands(brandMap);
       })
       .catch((error) => {
-        console.error("Lỗi khi lấy thông tin thương hiệu:", error);
+        console.error("Error fetching brands:", error);
       });
-  }, [categoryId]);
+  }, [categoryId, currentPage]);
 
-  if (loading) return <p>Đang tải...</p>;
+  if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
-  const totalPages = Math.ceil(products.length / productsPerPage);
+  const totalPages = Math.ceil(totalItems / productsPerPage);  // Total number of pages
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
 
-  // Thêm sản phẩm vào giỏ hàng
+  // Add product to cart
   const handleAddToCart = async (product) => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user || !user.userId) {
-      alert("Vui lòng đăng nhập để thêm vào giỏ hàng.");
+      alert("Please log in to add to the cart.");
       return;
     }
 
     try {
-      // Gửi request đến API để thêm vào giỏ hàng server
-      await axios.post("http://localhost:8080/api/public/cart/add", {
+      // Send request to add product to cart in server
+      await axios.post(`${baseURL}/public/cart/add`, {
         userId: user.userId,
         productId: product.productId,
         quantity: 1,
       });
 
-      // Lấy giỏ hàng hiện tại từ localStorage
+      // Retrieve the current cart from localStorage
       let localCart = JSON.parse(localStorage.getItem("cart")) || [];
 
-      // Kiểm tra sản phẩm đã tồn tại chưa
+      // Check if the product already exists in the cart
       const existingIndex = localCart.findIndex(
         (item) => item.productId === product.productId
       );
 
       if (existingIndex !== -1) {
-        // Nếu sản phẩm đã tồn tại, tăng số lượng
+        // If product exists, increase quantity
         localCart[existingIndex].quantity += 1;
       } else {
-        // Nếu chưa, thêm sản phẩm mới
+        // If not, add the product with quantity 1
         localCart.push({ ...product, quantity: 1 });
       }
 
-      // Lưu lại vào localStorage
+      // Save updated cart to localStorage
       localStorage.setItem("cart", JSON.stringify(localCart));
 
-      alert(`Đã thêm sản phẩm ${product.productName} vào giỏ hàng!`);
+      alert(`Product ${product.productName} has been added to your cart!`);
       navigate("/cart");
     } catch (error) {
-      console.error("Lỗi khi thêm vào giỏ hàng:", error);
-      alert("Thêm vào giỏ hàng thất bại!");
+      console.error("Error adding to cart:", error);
+      alert("Failed to add to cart!");
     }
   };
 
   return (
     <div className="product-box">
       <div className="product-main flex flex-col items-center">
-        <h2 className="title">{category?.categoryName || "Danh mục"}</h2>
+        <h2 className="title">{category?.categoryName || "Category"}</h2>
         <div className="product-grid">
-          {currentProducts.map((product) => (
+          {products.map((product) => (
             <div key={product.productId} className="showcase">
               <div className="showcase-banner">
                 <img
-                  src={`http://localhost:8080/api/public/products/image/${product.image}`}
+                  src={`${baseURL}/public/products/image/${product.image}`}
                   alt={product.productName}
                   className="product-image"
                   style={{
                     maxWidth: "100%",
                     maxHeight: "100%",
-                    objectFit: "contain", // Giữ tỷ lệ hình ảnh và không phóng to
+                    objectFit: "contain",
                   }}
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = "/default-image.jpg"; // ảnh fallback nếu ảnh bị lỗi
+                    e.target.src = "/default-image.jpg"; // Fallback image
                   }}
                 />
                 <div className="showcase-actions">
@@ -143,10 +148,7 @@ function CategoryProduct() {
                   >
                     <IonIcon icon={bagAddOutline} />
                   </button>
-                  <Link
-                    to={`/product/${product.productId}`}
-                    className="btn-action"
-                  >
+                  <Link to={`/product/${product.productId}`} className="btn-action">
                     <IonIcon icon={eyeOutline} />
                   </Link>
                   <button className="btn-action">
@@ -156,7 +158,7 @@ function CategoryProduct() {
               </div>
               <div className="showcase-content">
                 <a href="#" className="showcase-category">
-                  {`Thương hiệu: ${brands[product.brandId] || "Không rõ"}`}
+                  {`Brand: ${brands[product.brandId] || "Unknown"}`}
                 </a>
                 <a href="#">
                   <h3 className="showcase-title">{product.productName}</h3>
@@ -165,7 +167,6 @@ function CategoryProduct() {
                   <p className="price">
                     {product.price.toLocaleString("vi-VN")}₫
                   </p>
-                  {/* <del>{product.priceSale.toLocaleString("vi-VN")}₫</del> */}
                 </div>
               </div>
             </div>
@@ -174,24 +175,13 @@ function CategoryProduct() {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div
-            className="pagination"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "20px",
-            }}
-          >
+          <div className="pagination" style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
             <button
               disabled={currentPage === 1}
               onClick={() => setCurrentPage((prev) => prev - 1)}
-              style={{
-                padding: "10px 15px",
-                margin: "0 5px",
-                cursor: "pointer",
-              }}
+              style={{ padding: "10px 15px", margin: "0 5px", cursor: "pointer" }}
             >
-              &laquo; Trước
+              &laquo; Previous
             </button>
             {Array.from({ length: totalPages }, (_, i) => (
               <button
@@ -201,8 +191,7 @@ function CategoryProduct() {
                   padding: "10px 15px",
                   margin: "0 5px",
                   cursor: "pointer",
-                  backgroundColor:
-                    currentPage === i + 1 ? "#007bff" : "#f0f0f0",
+                  backgroundColor: currentPage === i + 1 ? "#007bff" : "#f0f0f0",
                   color: currentPage === i + 1 ? "white" : "black",
                   border: "1px solid #ddd",
                   borderRadius: "5px",
@@ -214,13 +203,9 @@ function CategoryProduct() {
             <button
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage((prev) => prev + 1)}
-              style={{
-                padding: "10px 15px",
-                margin: "0 5px",
-                cursor: "pointer",
-              }}
+              style={{ padding: "10px 15px", margin: "0 5px", cursor: "pointer" }}
             >
-              Sau &raquo;
+              Next &raquo;
             </button>
           </div>
         )}

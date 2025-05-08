@@ -9,6 +9,7 @@ import {
   bagAddOutline,
 } from "ionicons/icons";
 import { Link } from "react-router-dom"; // Import Link từ react-router-dom
+import baseURL from "../../api/BaseUrl";
 const Search = () => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
@@ -27,7 +28,7 @@ const Search = () => {
       setError("");
 
       const response = await axios.get(
-        `http://localhost:8080/api/public/products/keyword/${keywordParam}`,
+        `${baseURL}/public/products/keyword/${keywordParam}`,
         {
           params: {
             pageNumber,
@@ -70,7 +71,7 @@ const Search = () => {
 
     try {
       // Gửi request đến API để thêm vào giỏ hàng server
-      await axios.post("http://localhost:8080/api/public/cart/add", {
+      await axios.post(`${baseURL}/public/cart/add`, {
         userId: user.userId,
         productId: product.productId,
         quantity: 1,
@@ -134,7 +135,7 @@ const Search = () => {
                     }}
                   >
                     <img
-                      src={`http://localhost:8080/api/public/products/image/${product.image}`}
+                      src={`${baseURL}/public/products/image/${product.image}`}
                       alt={product.productName}
                       className="product-image"
                       style={{

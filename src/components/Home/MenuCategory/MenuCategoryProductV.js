@@ -12,7 +12,7 @@ function MenuCategoryProductV() {
 
   useEffect(() => {
     // Gọi API lấy danh mục
-    axios.get(baseURL + 'public/categories')
+    axios.get(`${baseURL}/public/categories`)
       .then(response => {
         setCategories(response.data.content);
         setLoading(false);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import baseURL from "../../api/BaseUrl";
 const styles = {
   container: {
     padding: "16px",
@@ -83,7 +83,7 @@ const ProductItem = ({ product, onRemove }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <img
-        src={`http://localhost:8080/api/public/products/image/${product.image}`}
+        src={`${baseURL}/public/products/image/${product.image}`}
         alt={product.productName}
         className="product-image"
         style={{
@@ -117,7 +117,7 @@ const Favorites = () => {
     if (!user?.userId) return;
 
     axios
-      .get(`http://localhost:8080/api/public/favorites/user/${user.userId}`)
+      .get(`${baseURL}/public/favorites/user/${user.userId}`)
       .then((res) => setFavorites(res.data))
       .catch((err) => console.error("Lỗi khi lấy danh sách yêu thích:", err));
   };
@@ -129,7 +129,7 @@ const Favorites = () => {
   const handleRemove = async (productId) => {
     try {
       await axios.delete(
-        `http://localhost:8080/api/public/favorites/user/${user.userId}/product/${productId}`
+        `${baseURL}/public/favorites/user/${user.userId}/product/${productId}`
       );
       setFavorites((prev) => prev.filter((p) => p.productId !== productId));
     } catch (err) {

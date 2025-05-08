@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import baseURL from "../api/BaseUrl";
 export const handleAddToCart = async (product) => {
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user || !user.userId) {
@@ -9,7 +9,7 @@ export const handleAddToCart = async (product) => {
 
   try {
     // Gửi request đến API
-    await axios.post("http://localhost:8080/api/public/cart/add", {
+    await axios.post(`${baseURL}/public/cart/add`, {
       userId: user.userId,
       productId: product.productId,
       quantity: 1,

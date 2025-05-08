@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaArrowLeft } from "react-icons/fa";
 import { handleAddToCart } from "../../../services/cartService";
-
+import baseURL from "../../../api/BaseUrl";
 const ProductDetail = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
@@ -102,12 +102,12 @@ const ProductDetail = () => {
     const fetchProduct = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:8080/api/public/products/${productId}`
+          `${baseURL}/public/products/${productId}`
         );
         setProduct(data);
 
         const relatedResponse = await axios.get(
-          `http://localhost:8080/api/public/products/${productId}/related`
+          `${baseURL}/public/products/${productId}/related`
         );
         setRelatedProducts(relatedResponse.data);
       } catch (error) {
@@ -156,7 +156,7 @@ const ProductDetail = () => {
 
       <div style={styles.productDetail}>
         <img
-          src={`http://localhost:8080/api/public/products/image/${product.image}`}
+          src={`${baseURL}/public/products/image/${product.image}`}
           alt={product.productName}
           className="product-image"
           style={{
@@ -206,7 +206,7 @@ const ProductDetail = () => {
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   <img
-                    src={`http://localhost:8080/api/public/products/image/${relatedProduct.image}`}
+                    src={`${baseURL}/public/products/image/${relatedProduct.image}`}
                     alt={relatedProduct.productName}
                     style={styles.relatedProductImage}
                   />

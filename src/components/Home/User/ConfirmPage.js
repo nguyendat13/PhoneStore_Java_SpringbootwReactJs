@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../../../assets/css/confirmPage.css";
-
+import baseURL from "../../../api/BaseUrl";
 const ConfirmPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const ConfirmPage = () => {
         return;
       }
 
-      const response = await fetch(`http://localhost:8080/api/public/order/${userId}`, {
+      const response = await fetch(`${baseURL}/public/order/${userId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,7 +35,7 @@ const ConfirmPage = () => {
       alert("Đặt hàng thành công!");
 
       // Xóa payment sau khi đặt hàng
-      await fetch(`http://localhost:8080/api/public/payment-cancel/${paymentInfo.id}`, {
+      await fetch(`${baseURL}/public/payment-cancel/${paymentInfo.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +63,7 @@ const ConfirmPage = () => {
         return;
       }
 
-      const response = await fetch(`http://localhost:8080/api/public/payment-cancel/${paymentInfo.id}`, {
+      const response = await fetch(`${baseURL}/public/payment-cancel/${paymentInfo.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

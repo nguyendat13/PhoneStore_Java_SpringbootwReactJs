@@ -5,7 +5,7 @@ import { IonIcon } from "@ionic/react";
 import "../../../assets/css/DealOfDayProduct.css"; // Import file CSS
 import { bagAddOutline, star, starOutline } from "ionicons/icons";
 import { handleAddToCart } from "../../../services/cartService";
-
+import baseURL from "../../../api/BaseUrl";
 function DealOfDayProduct() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ function DealOfDayProduct() {
     const fetchSaleProduct = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/public/products/sale?pageNumber=1&pageSize=1&sortBy=price&sortOrder=desc"
+          `${baseURL}/public/products/sale?pageNumber=1&pageSize=1&sortBy=price&sortOrder=desc`
         );
         const data = response.data;
 
@@ -56,7 +56,7 @@ function DealOfDayProduct() {
               }}
             >
               <img
-                src={`http://localhost:8080/api/public/products/image/${product.image}`}
+                src={`${baseURL}/public/products/image/${product.image}`}
                 alt={product.productName}
                 className="product-image"
                 style={{

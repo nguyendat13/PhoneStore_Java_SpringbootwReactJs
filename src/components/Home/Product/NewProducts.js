@@ -10,7 +10,7 @@ import {
 } from "ionicons/icons";
 import BestSellerProduct from "./BestSellerProduct";
 import DealOfDayProduct from "./DealOfDayProduct";
-
+import baseURL from "../../../api/BaseUrl";
 // Import hàm handleAddToCart từ cartService.js
 import { handleAddToCart } from "../../../services/cartService";
 function NewProducts() {
@@ -22,7 +22,7 @@ function NewProducts() {
       try {
         // Lấy sản phẩm mới
         const productResponse = await axios.get(
-          "http://localhost:8080/api/public/products"
+         `${baseURL}/public/products`
         );
 
         if (
@@ -37,7 +37,7 @@ function NewProducts() {
 
         // Lấy thông tin thương hiệu (giả sử API thương hiệu là /api/public/brands)
         const brandResponse = await axios.get(
-          "http://localhost:8080/api/public/brands"
+          `${baseURL}/public/brands`
         );
 
         if (brandResponse.data && Array.isArray(brandResponse.data.content)) {
@@ -71,7 +71,7 @@ function NewProducts() {
 
     try {
       await axios.post(
-        `http://localhost:8080/api/public/favorites/user/${user.userId}/product/${productId}`
+        `${baseURL}/public/favorites/user/${user.userId}/product/${productId}`
       );
       alert("Đã thêm vào danh sách yêu thích!");
     } catch (error) {
@@ -93,7 +93,7 @@ function NewProducts() {
               <div key={product.productId} className="showcase">
                 <div className="showcase-banner">
                   <img
-                    src={`http://localhost:8080/api/public/products/image/${product.image}`}
+                    src={`${baseURL}/public/products/image/${product.image}`}
                     alt={product.productName}
                     className="product-image"
                     style={{

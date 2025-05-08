@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import baseURL from "../../../api/BaseUrl";
 function UpdateProfile() {
   const navigate = useNavigate();
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -61,7 +61,7 @@ function UpdateProfile() {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:8080/api/public/users/${storedUser.userId}`, {
+      const response = await fetch(`${baseURL}/public/users/${storedUser.userId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

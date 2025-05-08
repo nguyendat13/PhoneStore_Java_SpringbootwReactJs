@@ -9,7 +9,7 @@ import {
   bagAddOutline,
 } from "ionicons/icons";
 import { handleAddToCart } from "../../../services/cartService";
-
+import baseURL from "../../../api/BaseUrl";
 function BestSellerProduct() {
   const [products, setProducts] = useState([]);
   const [brands, setBrands] = useState({});
@@ -18,12 +18,12 @@ function BestSellerProduct() {
     const fetchBestSellers = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/public/products/best-sellers?pageNumber=1&pageSize=4"
+          `${baseURL}/public/products/best-sellers?pageNumber=1&pageSize=4`
         );
         if (res.data?.content) setProducts(res.data.content);
 
         const brandRes = await axios.get(
-          "http://localhost:8080/api/public/brands"
+          `${baseURL}/public/brands`
         );
         if (brandRes.data?.content) {
           const brandMap = brandRes.data.content.reduce((acc, brand) => {
@@ -59,7 +59,7 @@ function BestSellerProduct() {
             <div key={product.productId} className="showcase">
               <div className="showcase-banner">
                 <img
-                  src={`http://localhost:8080/api/public/products/image/${product.image}`}
+                  src={`${baseURL}/public/products/image/${product.image}`}
                   alt={product.productName}
                   className="product-image"
                   style={{

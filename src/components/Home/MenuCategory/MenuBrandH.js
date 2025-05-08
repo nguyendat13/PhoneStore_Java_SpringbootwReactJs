@@ -7,7 +7,7 @@ import xiaomi from '../../../assets/images/icons/xiaomi.webp';
 import realme from '../../../assets/images/icons/redmi.webp';
 import lenovo from '../../../assets/images/icons/lenovo.webp';
 import vivo from '../../../assets/images/icons/vivo.webp';
-
+import baseURL from '../../../api/BaseUrl';
 const styles = {
   category: {
     padding: '10px 0',
@@ -86,7 +86,7 @@ function MenuCategoryH() {
   useEffect(() => {
     const fetchBrands = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/public/brands');
+        const response = await axios.get(`${baseURL}/public/brands`);
         setBrands(response.data.content); // Dữ liệu trả về từ API chứa danh sách thương hiệu
         setLoading(false);
       } catch (error) {

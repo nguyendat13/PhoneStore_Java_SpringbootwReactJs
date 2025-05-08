@@ -8,8 +8,8 @@ import {
   repeatOutline,
   bagAddOutline,
 } from "ionicons/icons";
-
-const API_BASE_URL = "http://localhost:8080/api";
+import baseURL from "../../../api/BaseUrl"
+ const API_BASE_URL = baseURL;
 
 const AllProduct = () => {
   const [products, setProducts] = useState([]);
@@ -74,7 +74,7 @@ const AllProduct = () => {
     }
 
     try {
-      await axios.post("http://localhost:8080/api/public/cart/add", {
+      await axios.post(`${baseURL}/public/cart/add`, {
         userId: user.userId,
         productId: product.productId,
         quantity: 1,
@@ -181,7 +181,7 @@ const AllProduct = () => {
               <div key={product.productId} className="showcase">
                 <div className="showcase-banner">
                   <img
-                    src={`http://localhost:8080/api/public/products/image/${encodeURIComponent(
+                    src={`${baseURL}/public/products/image/${encodeURIComponent(
                       product.image || "default.png"
                     )}`}
                     alt={product.productName}

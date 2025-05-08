@@ -10,12 +10,12 @@ function ProductListByCategory() {
 
   useEffect(() => {
     axios
-      .get(`${baseURL}public/categories/${categoryId}`)
+      .get(`${baseURL}/public/categories/${categoryId}`)
       .then(response => setCategoryName(response.data.categoryName))
       .catch(error => console.error('Lỗi khi lấy thông tin danh mục:', error));
 
     axios
-      .get(`${baseURL}public/categories/${categoryId}/products`)
+      .get(`${baseURL}/public/categories/${categoryId}/products`)
       .then(response => setProducts(response.data))
       .catch(error => console.error('Lỗi khi lấy sản phẩm:', error));
   }, [categoryId]);

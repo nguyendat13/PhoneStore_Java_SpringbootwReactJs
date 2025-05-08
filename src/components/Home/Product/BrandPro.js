@@ -11,7 +11,7 @@ import {
   starOutline,
 } from "ionicons/icons";
 import { handleAddToCart } from "../../../services/cartService";
-
+import baseURL from "../../../api/BaseUrl";
 function BrandPro() {
   const [products, setProducts] = useState([]);
   const [brands, setBrands] = useState({});
@@ -28,12 +28,12 @@ function BrandPro() {
         setLoading(true);
 
         const productRes = await axios.get(
-          `http://localhost:8080/api/public/brands/${brandId}/products`
+          `${baseURL}/public/brands/${brandId}/products`
         );
         setProducts(productRes.data.content);
 
         const brandRes = await axios.get(
-          "http://localhost:8080/api/public/brands"
+          `${baseURL}/public/brands`
         );
         const brandMap = brandRes.data.content.reduce((acc, brand) => {
           acc[brand.brandId] = brand.brandName;
@@ -82,7 +82,7 @@ function BrandPro() {
                   }}
                 >
                   <img
-                    src={`http://localhost:8080/api/public/products/image/${product.image}`}
+                    src={`${baseURL}/public/products/image/${product.image}`}
                     alt={product.productName}
                     className="product-image"
                     style={{

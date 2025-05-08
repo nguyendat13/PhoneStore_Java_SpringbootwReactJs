@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { QRCodeCanvas } from "qrcode.react"; // Use QRCodeCanvas here
 import "../../assets/css/cart.css"
+import baseURL from "../../api/BaseUrl";
 const CartPage = () => {
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -23,7 +24,7 @@ const CartPage = () => {
 
       if (cartId) {
         const response = await axios.get(
-          `http://localhost:8080/api/public/cart/${cartId}`
+          `${baseURL}/public/cart/${cartId}`
         );
         setCart(response.data);
 
@@ -46,7 +47,7 @@ const CartPage = () => {
   const fetchPaymentMethods = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/public/payments/methods"
+        `${baseURL}/public/payments/methods`
       );
       setPaymentMethods(response.data);
     } catch (error) {
@@ -59,7 +60,7 @@ const CartPage = () => {
     const cartId = cart.cartId;
     try {
       await axios.put(
-        `http://localhost:8080/api/public/carts/${cartId}/products/${productId}/quantity/${newQuantity}`
+        `${baseURL}/public/carts/${cartId}/products/${productId}/quantity/${newQuantity}`
       );
       fetchCart(); // Cập nhật lại giỏ hàng
     } catch (error) {
@@ -71,7 +72,7 @@ const CartPage = () => {
     const cartId = cart.cartId;
     try {
       await axios.delete(
-        `http://localhost:8080/api/public/carts/${cartId}/product/${productId}`
+        `${baseURL}/public/carts/${cartId}/product/${productId}`
       );
       fetchCart();
     } catch (error) {
@@ -120,7 +121,7 @@ const CartPage = () => {
     try {
       // Gửi yêu cầu thanh toán
       const response = await axios.post(
-        "http://localhost:8080/api/public/checkout",
+        `${baseURL}/public/checkout`,
         paymentData
       );
       const savedPayment = response.data;
@@ -133,7 +134,7 @@ const CartPage = () => {
 
       // Gọi API để lấy danh sách thanh toán theo userId
       const paymentResponse = await axios.get(
-        `http://localhost:8080/api/public/payments/user/${user.userId}`
+        `${baseURL}/public/payments/user/${user.userId}`
       );
       const payments = paymentResponse.data;
       console.log("Danh sách thanh toán:", payments);
@@ -154,7 +155,7 @@ const CartPage = () => {
 
   const generateQRCode = (payment) => {
     // Chỉnh sửa logic tạo QR code theo yêu cầu
-    return `http://localhost:8080/api/public/payments/qr/${payment.paymentId}`;
+    return `${baseURL}/public/payments/qr/${payment.paymentId}`;
   };
 
   if (loading) return <div>Đang tải...</div>;
@@ -262,7 +263,7 @@ const CartPage = () => {
         <div style={styles.cartItem} key={item.cartItemId}>
           <img
             style={styles.image}
-            src={`http://localhost:8080/api/public/products/image/${item.productImage}`}
+            src={`${baseURL}/public/products/image/${item.productImage}`}
             alt={item.productName}
           />
           <div style={styles.info}>

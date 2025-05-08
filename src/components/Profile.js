@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from '@react-oauth/google';
 import {jwtDecode} from 'jwt-decode';  // Import jwt-decode đúng cách
-
+import baseURL from '../api/BaseUrl';
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
@@ -31,7 +31,7 @@ const Profile = () => {
         }
 
         // Gọi API để lấy thông tin người dùng
-        const response = await fetch(`http://localhost:8080/api/public/users/email/${email}`);
+        const response = await fetch(`${baseURL}/public/users/email/${email}`);
         if (!response.ok) throw new Error('Không thể lấy thông tin người dùng');
 
         const data = await response.json();

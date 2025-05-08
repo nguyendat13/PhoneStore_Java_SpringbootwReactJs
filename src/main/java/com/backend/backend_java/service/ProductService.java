@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.backend.backend_java.entity.Product;
@@ -14,7 +15,8 @@ import com.backend.backend_java.payloads.ProductResponse;
 public interface ProductService {
         ProductDTO addProduct(Long brandId, Long categoryId, Product product);
 
-        ProductResponse getAllProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder, Long selectedCategory, Long selectedBrand);
+        ProductResponse getAllProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder,
+                        Long selectedCategory, Long selectedBrand);
 
         ProductResponse searchByCategory(Long categoryId, Integer pageNumber, Integer pageSize, String sortBy,
                         String sortOrder);
@@ -43,4 +45,6 @@ public interface ProductService {
         ProductResponse getSaleProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 
         ProductResponse getBestSellingProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
+
+        Page<ProductDTO> getProductsByCategory(Long categoryId, int page, int size);
 }

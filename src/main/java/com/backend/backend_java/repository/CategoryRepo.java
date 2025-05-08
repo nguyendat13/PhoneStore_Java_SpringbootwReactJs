@@ -21,4 +21,5 @@ public interface CategoryRepo extends JpaRepository<Category, Long> {
     @Transactional
     @Query(value = "ALTER TABLE categories AUTO_INCREMENT =1", nativeQuery = true)
     void resetAutoIncrement(Long nextId);
+    
 }

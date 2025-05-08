@@ -438,4 +438,35 @@ public class ProductServiceImpl implements ProductService {
 
                 return response;
         }
+
+        @Override
+        public Page<ProductDTO> getProductsByCategory(Long categoryId, int page, int size) {
+                Pageable pageable = PageRequest.of(page, size);
+                Page<Product> products = productRepo.findByCategoryCategoryId(categoryId, pageable);
+
+                return products.map(this::convertToDTO);
+        }
+
+        private ProductDTO convertToDTO(Product product) {
+                ProductDTO dto = new ProductDTO();
+                dto.setProductId(product.getProductId());
+                dto.setProductName(product.getProductName());
+                dto.setImage(product.getImage());
+                dto.setDescription(product.getDescription());
+                dto.setQuantity(product.getQuantity());
+                dto.setPrice(product.getPrice());
+                dto.setPriceSale(product.getPriceSale());
+                dto.setDiscount(product.getDiscount());
+                dto.setColor(product.getColor());
+
+                if (product.getCategory() != null) {
+                        dto.setCategoryId(product.getCategory().getCategoryId());
+                }
+                if (product.getBrand() != null) {
+                        dto.setBrandId(product.getBrand().getBrandId());
+                }
+
+                return dto;
+        }
+
 }

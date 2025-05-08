@@ -1,14 +1,12 @@
-# Sử dụng image Java từ Docker Hub
+# Stage 1: Build JAR bằng Maven
+FROM maven:3.9.6-eclipse-temurin-17 AS build
+WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
+
+# Stage 2: Chạy JAR với JDK
 FROM openjdk:17-jdk-slim
-
-# Thêm metadata
-LABEL maintainer="your-email@example.com"
-
-# Copy JAR file vào container
-COPY target/backend-java-0.0.1-SNAPSHOT.jar /app/backend.jar
-
-# Định nghĩa cổng mà ứng dụng sẽ chạy
+WORKDIR /app
+COPY --from=build /app/target/*.jar backend.jar
 EXPOSE 8080
-
-# Chạy ứng dụng khi container khởi động
 ENTRYPOINT ["java", "-jar", "/app/backend.jar"]

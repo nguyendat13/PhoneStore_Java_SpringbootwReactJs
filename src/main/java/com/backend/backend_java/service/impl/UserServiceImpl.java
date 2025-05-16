@@ -1,10 +1,12 @@
 package com.backend.backend_java.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -15,6 +17,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +31,7 @@ import com.backend.backend_java.entity.Cart;
 import com.backend.backend_java.entity.CartItem;
 import com.backend.backend_java.entity.Favorite;
 import com.backend.backend_java.entity.Order;
+import com.backend.backend_java.entity.PasswordResetToken;
 import com.backend.backend_java.entity.Product;
 import com.backend.backend_java.entity.Role;
 import com.backend.backend_java.entity.User;
@@ -46,6 +51,7 @@ import com.backend.backend_java.repository.CartItemRepo;
 import com.backend.backend_java.repository.CartRepo;
 import com.backend.backend_java.repository.FavoriteRepo;
 import com.backend.backend_java.repository.OrderRepo;
+import com.backend.backend_java.repository.PasswordResetTokenRepository;
 import com.backend.backend_java.repository.ProductRepo;
 import com.backend.backend_java.repository.RoleRepo;
 import com.backend.backend_java.repository.UserRepo;
@@ -85,6 +91,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private AddressService addressService;
+    @Autowired
+    private PasswordResetTokenRepository tokenRepository;
+    @Autowired
+    private JavaMailSender mailSender;
 
     @Override
     @Transactional
@@ -450,4 +460,32 @@ public class UserServiceImpl implements UserService {
         return userDTO;
     }
 
+    public void sendResetPasswordEmail(String email) {
+        Optional<User> userOpt = userRepo.findByEmail(email);
+        if (userOpt.isEmpty()) {
+            throw new ResourceNotFoundException("User", "email", email);
+        }
+
+        String token = UUID.randomUUID().toString();
+        PasswordResetToken resetToken = new PasswordResetToken();
+        resetToken.setToken(token);
+        resetToken.setEmail(email);
+        resetToken.setExpiryDate(LocalDateTime.now().plusMinutes(15));
+        tokenRepository.save(resetToken);
+
+        // String resetLink = "http://localhost:3000/reset-password?token=" + token;
+        String resetLink = "http://localhost:3000/reset-password/" + token;
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("Đặt lại mật khẩu");
+        message.setText("Nhấn vào liên kết sau để đặt lại mật khẩu: \n" + resetLink);
+        mailSender.send(message);
+    }
+
+    @Override
+    public void forgotPassword(String email) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'forgotPassword'");
+    }
 }

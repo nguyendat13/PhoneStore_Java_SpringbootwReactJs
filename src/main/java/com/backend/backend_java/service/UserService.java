@@ -15,4 +15,8 @@ public interface UserService {
     UserDTO updateUser(Long userId, UserDTO userDTO);
 
     void deleteUser(Long userId);
+
+    void forgotPassword(String email);
+
+    void sendResetPasswordEmail(String email);
 }
